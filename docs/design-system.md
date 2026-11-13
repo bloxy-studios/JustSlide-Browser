@@ -24,7 +24,7 @@ frosted. Glass sets `data-material="glass"`: the frame/sidebar become a transluc
 ## Shadows (`--js-shadow-*`, derived)
 Replace every Figma stroke (owner decision): `control` (address, tiles, dialog fields), `selected`
 (selected tab, selected workspace), `card` (agent card), `popover` (menus, dialogs), `page`
-(page window), `focus` (2 px glow, replaces the dashed focus stroke), `drop` (drag target).
+(`none`: the page window sits flush in the backdrop), `focus` (2 px glow, replaces the dashed focus stroke), `drop` (drag target).
 
 ## Colour tokens (`--js-color-*`)
 Values per theme are in `tokens.generated.css`; each line names its source (`figma 55:xx`,

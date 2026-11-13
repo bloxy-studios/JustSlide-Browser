@@ -29,12 +29,14 @@ Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node
 5. **One backdrop layer, 6 px edges.** The sidebar has no fill of its own; the window backdrop
    (mint, custom colour or glass) is painted once and shows through, so sidebar and background blend.
    Frame padding and the sidebar→page gap are both 6 px (Figma 1:6 padding).
+6. **The web area sits inside the background, not floating:** the page window is a flush rounded
+   (r16) surface with no shadow and no border.
 
 ## 1. Window composition (35:13 / 55:*)
-`[6 frame padding][Sidebar column 240][6 gap][Web Page Window, r16, shadow][6 padding]` (owner decision §0.5)
+`[6 frame padding][Sidebar column 240][6 gap][Web Page Window, r16, flush][6 padding]` (owner decision §0.5)
 * The **sidebar** is the trusted WebUI (`chrome://justslide-sidebar.top-chrome`), 252 px wide
   including the padding and the gap, with a transparent background. The **Web Page Window** is genuine Chromium WebContents in
-  a native view with radius 16 and a 1 px `page-border` stroke. No page DOM in the shell and no
+  a native view with radius 16, set flush into the backdrop (no stroke, no shadow). No page DOM in the shell and no
   shell DOM over pages.
 * The window backdrop (`frame`) and the sidebar share a colour. Mint (`#acfff7`, variable mode
   50:0) is the default; custom solid colours and frosted glass replace only frame/sidebar.

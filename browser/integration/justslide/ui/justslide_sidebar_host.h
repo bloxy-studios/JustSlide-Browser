@@ -29,7 +29,7 @@ class JustSlideSidebarHost : public views::WebView {
  public:
   // Must match ui/browser-chrome/src/components/Sidebar.tsx: 6 px frame
   // padding + 240 px column + 6 px gap; rail 6 + 32 + 6. The page view sits
-  // 6 px from the window edges (top/right/bottom) with radius 16 + shadow.
+  // 6 px from the window edges (top/right/bottom), radius 16, flush (no shadow/border).
   static constexpr int kExpandedWidthDip = 252;
   static constexpr int kRailWidthDip = 44;
   static constexpr int kFramePaddingDip = 6;

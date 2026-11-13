@@ -1,5 +1,5 @@
 /* DEV-ONLY preview frame reproducing the native window composition:
-   [sidebar WebUI 252px][page window r16, shadow] with 6px frame padding; one backdrop layer. */
+   [sidebar WebUI 252px][page window r16, flush] with 6px frame padding; one backdrop layer. */
 body { background: var(--js-color-frame); }
 .frame { display: flex; height: 100vh; background: var(--js-color-frame); }
 .side { width: 252px; flex-shrink: 0; height: 100%; }
