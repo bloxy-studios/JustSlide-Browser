@@ -21,7 +21,7 @@ index 6fada0a..544e61b 100644
  	<key>CFBundleName</key>
  	<string>${CHROMIUM_SHORT_NAME}</string>
 +	<key>CrProductDirName</key>
-+	<string>JustSlide Dev</string>
++	<string>JustSlide Chromium Dev</string>
  	<key>CFBundlePackageType</key>
  	<string>APPL</string>
  	<key>CFBundleSignature</key>
@@ -41,11 +41,11 @@ index f8363d5..d3f4788 100644
 -MAC_CREATOR_CODE=Cr24
 +COMPANY_FULLNAME=Bloxy Studios
 +COMPANY_SHORTNAME=Bloxy Studios
-+PRODUCT_FULLNAME=JustSlide Dev
-+PRODUCT_SHORTNAME=JustSlide Dev
-+PRODUCT_INSTALLER_FULLNAME=JustSlide Dev Installer
-+PRODUCT_INSTALLER_SHORTNAME=JustSlide Dev Installer
++PRODUCT_FULLNAME=JustSlide Chromium Dev
++PRODUCT_SHORTNAME=JustSlide Chromium Dev
++PRODUCT_INSTALLER_FULLNAME=JustSlide Chromium Dev Installer
++PRODUCT_INSTALLER_SHORTNAME=JustSlide Chromium Dev Installer
 +COPYRIGHT=Copyright @LASTCHANGE_YEAR@ Bloxy Studios. Based on Chromium, Copyright The Chromium Authors.
-+MAC_BUNDLE_ID=app.justslide.JustSlide.dev
-+MAC_CREATOR_CODE=JsSd
++MAC_BUNDLE_ID=app.justslide.chromium.dev
++MAC_CREATOR_CODE=JsCr
  MAC_TEAM_ID=

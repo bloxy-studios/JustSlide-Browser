@@ -18,4 +18,4 @@ Hosted (`.github/workflows/ci.yml`): fast checks only. Native: self-hosted macOS
 `scripts/engine/package.sh` → unsigned `.zip` + provenance JSON (lock, patch hashes, GN args, UI manifest, host/Xcode). No signing, notarization, publishing or certificates.
 
 ## Release gates (none met yet)
-Native build + tests green on both CPUs · Developer ID signing incl. helpers + hardened runtime entitlements · notarization · sandbox/helper verification · privacy usage strings · license notices (Chromium + ADS + fonts) · ADS/font rights resolved · authenticated update channel (engine security updates ≠ UI updates) · baseline perf comparison.
+Native build + tests green on both CPUs · Developer ID signing incl. helpers + hardened runtime entitlements · notarization · sandbox/helper verification · privacy usage strings · license notices (Chromium, React, Nucleo, theSVG marks) · Nucleo licence and brand-mark use confirmed · authenticated update channel (engine security updates ≠ UI updates) · baseline perf comparison.

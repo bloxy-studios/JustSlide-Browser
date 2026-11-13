@@ -13,7 +13,7 @@ out, dest = sys.argv[1:]
 root = "$JS_ROOT"
 patches = [l.strip() for l in open(f"{root}/patches/chromium/series") if l.strip() and not l.startswith('#')]
 prov = {
-  "product": "JustSlide Dev (unsigned developer build)",
+  "product": "JustSlide Chromium Dev (unsigned developer build)",
   "lock": json.load(open(f"{root}/chromium.lock.json"))["upstream"],
   "justslide_commit": subprocess.run(["git","-C",root,"rev-parse","HEAD"],capture_output=True,text=True).stdout.strip(),
   "patches": {p: hashlib.sha256(open(f"{root}/patches/chromium/{p}","rb").read()).hexdigest() for p in patches},

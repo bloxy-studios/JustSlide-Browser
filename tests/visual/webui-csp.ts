@@ -36,7 +36,7 @@ const base = `http://127.0.0.1:${server.port}`;
 const browser = await chromium.launch({ executablePath: exe, args: ['--font-render-hinting=none'] });
 const report: Record<string, unknown> = { chrome: browser.version(), csp: CSP, runs: [] as unknown[] };
 let failed = false;
-for (const [name, mode, w, h] of [['light-240x1024', 1, 240, 1024], ['dark-240x1024', 2, 240, 1024], ['light-240x720', 1, 240, 720]] as const) {
+for (const [name, mode, w, h] of [['light-264x1024', 1, 264, 1024], ['dark-264x1024', 2, 264, 1024], ['light-264x720', 1, 264, 720]] as const) {
   const page = await browser.newPage({ viewport: { width: w, height: h }, colorScheme: mode === 2 ? 'dark' : 'light' });
   const errors: string[] = []; const violations: string[] = []; const egress: string[] = [];
   // chrome://favicon2 is served by the native WebUI data source; it cannot load
@@ -53,13 +53,14 @@ for (const [name, mode, w, h] of [['light-240x1024', 1, 240, 1024], ['dark-240x1
   violations.push(...(await page.evaluate(() => (window as any).__v ?? [])));
   const probe = await page.evaluate(() => {
     const text = document.querySelector('[aria-current="page"]') as HTMLElement | null;
-    const btn = [...document.querySelectorAll('button')].find(b => b.textContent?.includes('New tab')) as HTMLElement | undefined;
+    const btn = [...document.querySelectorAll('button')].find(b => b.textContent?.includes('New Tab')) as HTMLElement | undefined;
     return {
-      htmlAttrs: { theme: document.documentElement.getAttribute('data-theme'), colorMode: document.documentElement.getAttribute('data-color-mode') },
+      htmlAttrs: { theme: document.documentElement.getAttribute('data-theme') },
       bodyFont: getComputedStyle(document.body).fontFamily,
       tabFont: text ? getComputedStyle(text).fontFamily : null,
       newTabButtonBg: btn ? getComputedStyle(btn).backgroundColor : null,
-      dsTextVar: getComputedStyle(document.documentElement).getPropertyValue('--ds-text').trim(),
+      dsTextVar: getComputedStyle(document.documentElement).getPropertyValue('--js-color-text').trim(),
+      svgIcons: document.querySelectorAll('svg[data-icon]').length,
       sidebarBox: (document.querySelector('[data-testid="sidebar"]') as HTMLElement).getBoundingClientRect().toJSON(),
       overflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth,
       mojoCalls: (globalThis as any).__mojoCalls?.length ?? 0,
@@ -74,12 +75,14 @@ for (const [name, mode, w, h] of [['light-240x1024', 1, 240, 1024], ['dark-240x1
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('DOM.enable'); await cdp.send('CSS.enable');
   const { root } = await cdp.send('DOM.getDocument', { depth: -1 });
-  const { nodeId } = await cdp.send('DOM.querySelector', { nodeId: root.nodeId, selector: '[aria-current="page"] span' });
+  const { nodeId } = await cdp.send('DOM.querySelector', { nodeId: root.nodeId, selector: '[aria-current="page"] span:last-child' });
   const rendered = nodeId ? (await cdp.send('CSS.getPlatformFontsForNode', { nodeId })).fonts : [];
   await page.screenshot({ path: join(outDir, `webui-sidebar-${name}.png`) });
   const run = { name, errors, violations, egress, nativeOnlyRequests: nativeOnly.length, probe, intentCalls: calls, webFonts: fonts, renderedPlatformFonts: rendered };
   (report.runs as unknown[]).push(run);
-  if (errors.length || violations.length || egress.length || !probe.dsTextVar || probe.overflowX || !calls.includes('goBack')) failed = true;
+  const expectText: Record<string, string> = { mint: '#0e1b1b', dark: '#f8fafb', light: '#172a31' };
+  if (probe.dsTextVar !== expectText[String(probe.htmlAttrs.theme)]) { console.error(`theme ${probe.htmlAttrs.theme}: --js-color-text ${probe.dsTextVar}`); failed = true; }
+  if (errors.length || violations.length || egress.length || !probe.dsTextVar || probe.overflowX || probe.svgIcons < 10 || !calls.includes('goBack')) failed = true;
   await page.close();
 }
 await browser.close();

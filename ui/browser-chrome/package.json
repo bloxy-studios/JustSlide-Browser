@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "parcel serve src/preview.html --port 41730 --dist-dir .parcel-dev --no-cache",
-    "build": "bun ../../scripts/design/gen-tokens.ts --check && bun ../../scripts/ui/gen-icons.ts --check && parcel build --target webui --no-cache && bun ../../scripts/ui/finalize-webui.ts",
-    "build:preview": "parcel build --target preview --no-cache",
+    "build": "rm -rf dist/webui && bun ../../scripts/design/gen-tokens.ts --check && bun ../../scripts/ui/gen-icons.ts --check && parcel build --target webui --no-cache && bun ../../scripts/ui/finalize-webui.ts",
+    "build:preview": "rm -rf dist/preview && parcel build --target preview --no-cache",
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run",
     "build:icons": "bun ../../scripts/ui/gen-icons.ts",

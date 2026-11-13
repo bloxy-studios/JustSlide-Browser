@@ -1,0 +1,154 @@
+{
+  "chrome": "157.0.8103.51",
+  "note": "Left: Figma render. Middle: UI preview. Right: differing pixels in red.",
+  "cases": [
+    {
+      "name": "compact-mint",
+      "figmaNode": "35:13",
+      "query": "fixture=figma-compact&mode=light",
+      "viewport": [
+        1100,
+        720
+      ],
+      "figmaCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "previewCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "diffPct": 7.91,
+      "hotRowCount": 79,
+      "firstHotRows": [
+        249,
+        250,
+        298,
+        299,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319
+      ]
+    },
+    {
+      "name": "compact-light",
+      "figmaNode": "55:120",
+      "query": "fixture=figma-compact&mode=light&backdrop=eff3f5",
+      "viewport": [
+        1100,
+        720
+      ],
+      "figmaCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "previewCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "diffPct": 7.77,
+      "hotRowCount": 77,
+      "firstHotRows": [
+        249,
+        250,
+        298,
+        299,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319
+      ]
+    },
+    {
+      "name": "compact-dark",
+      "figmaNode": "55:411",
+      "query": "fixture=figma-compact&mode=dark",
+      "viewport": [
+        1100,
+        720
+      ],
+      "figmaCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "previewCrop": [
+        12,
+        12,
+        240,
+        696
+      ],
+      "diffPct": 7.73,
+      "hotRowCount": 80,
+      "firstHotRows": [
+        249,
+        250,
+        298,
+        299,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        329
+      ]
+    },
+    {
+      "name": "desktop-mint-top",
+      "figmaNode": "1:6",
+      "query": "fixture=figma-desktop&mode=light",
+      "viewport": [
+        1440,
+        1024
+      ],
+      "figmaCrop": [
+        6,
+        6,
+        240,
+        900
+      ],
+      "previewCrop": [
+        12,
+        12,
+        240,
+        900
+      ],
+      "diffPct": 8.19,
+      "hotRowCount": 119,
+      "firstHotRows": [
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        296,
+        297,
+        298,
+        299,
+        300
+      ]
+    }
+  ]
+}

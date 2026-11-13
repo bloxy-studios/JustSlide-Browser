@@ -15,7 +15,7 @@
 │ Sidebar renderer     │   │ Page         │ └───│ justslide-mcp (Rust) │◄──│ MCP client  │
 │ chrome://justslide-  │   │ renderers    │     │ stdio transport only │   │ (Cursor…)   │
 │ sidebar.top-chrome   │   │ (site-       │     └──────────────────────┘   └─────────────┘
-│ React+ADS, CSP+TT    │   │  isolated)   │
+│ React+Figma tokens  │   │  isolated)   │
 └──────────────────────┘   └──────────────┘
 ```
 * Sidebar = trusted WebUI in its own WebContents hosted by `JustSlideSidebarHost` (views::WebView) in the leading-edge region of `BrowserView`. It is not in `TabStripModel` → invisible to `chrome.tabs`, never gets content scripts.

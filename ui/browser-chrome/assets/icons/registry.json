@@ -1,13 +1,13 @@
 {
  "$comment": "Icon registry. Every icon names its source and licence. Generate src/generated/icons.ts with `bun run build:icons`.",
  "icons": {
-  "sidebar-toggle": {
-   "file": "glyphs/sidebar-right-outline-48.svg",
+  "add-favorite": {
+   "file": "glyphs/plus-outline-duo-18.svg",
    "kind": "glyph",
    "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "6:18",
+   "figmaNode": "20:77",
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "sidebar-right-outline-48"
+   "nucleoName": "plus-outline-duo-18"
   },
   "back": {
    "file": "glyphs/chevron-left-outline-24.svg",
@@ -17,61 +17,141 @@
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
    "nucleoName": "chevron-right-outline-24 (mirrored in Figma)"
   },
-  "forward": {
-   "file": "glyphs/chevron-right-outline-24.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "7:31",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "chevron-right-outline-24"
+  "brand-aws": {
+   "file": "brands/thesvg/aws-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'aws' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:14",
+   "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
+   "title": "AWS"
   },
-  "reload": {
-   "file": "glyphs/refresh-outline-24.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "7:41",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "refresh-outline-24"
+  "brand-chatgpt": {
+   "file": "brands/thesvg/openai-light.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'openai' variant 'light' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:6 / 19:9",
+   "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
+   "title": "OpenAI"
   },
-  "add-favorite": {
-   "file": "glyphs/plus-outline-duo-18.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "20:77",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "plus-outline-duo-18"
+  "brand-claude": {
+   "file": "brands/thesvg/claude-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'claude' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:8",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Claude"
   },
-  "pin": {
-   "file": "glyphs/pin-tack-fill-48.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "7:89",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "pin-tack-fill-48"
+  "brand-claude-code": {
+   "file": "brands/thesvg/claude-code-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'claude-code' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "19:5 / 35:314",
+   "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
+   "title": "Claude Code"
   },
-  "new-tab": {
-   "file": "glyphs/plus-fill-24.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "12:145",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "plus-fill-24"
+  "brand-codex": {
+   "file": "brands/thesvg/codex-openai-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'codex-openai' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "19:7",
+   "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
+   "title": "Codex (OpenAI)"
   },
-  "workspace-personal": {
-   "file": "glyphs/user-laptop-outline-duo-18.svg",
-   "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "20:11",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "user-laptop-outline-duo-18"
+  "brand-convex": {
+   "file": "brands/thesvg/convex-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'convex' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:40",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Convex"
   },
-  "new-workspace": {
-   "file": "glyphs/plus-outline-18.svg",
+  "brand-discord": {
+   "file": "brands/thesvg/discord-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'discord' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:30",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Discord"
+  },
+  "brand-github": {
+   "file": "brands/thesvg/github-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'github' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:17",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "GitHub"
+  },
+  "brand-gmail": {
+   "file": "brands/thesvg/gmail-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'gmail' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:10 (Figma uses a 2026 Gmail mark)",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Gmail"
+  },
+  "brand-netflix": {
+   "file": "brands/thesvg/netflix-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'netflix' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:32",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Netflix"
+  },
+  "brand-notion": {
+   "file": "brands/thesvg/notion-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'notion' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:27",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Notion"
+  },
+  "brand-slack": {
+   "file": "brands/thesvg/slack-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'slack' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:19",
+   "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
+   "title": "Slack"
+  },
+  "brand-supabase": {
+   "file": "brands/thesvg/supabase-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'supabase' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:36",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "Supabase"
+  },
+  "brand-youtube": {
+   "file": "brands/thesvg/youtube-default.svg",
+   "kind": "brand",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'youtube' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:3",
+   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
+   "title": "YouTube"
+  },
+  "chevron-down": {
+   "file": "glyphs/chevron-down-indicator.svg",
    "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "18:2",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "plus-outline-18"
+   "source": "Glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "30:119",
+   "license": "Figma layer, provenance unconfirmed (not named as a Nucleo icon); see docs/icons-and-assets.md",
+   "nucleoName": "Pinned expanded indicator"
+  },
+  "chevron-right": {
+   "file": "glyphs/chevron-right-indicator.svg",
+   "kind": "glyph",
+   "source": "Glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "55:506",
+   "license": "Figma layer, provenance unconfirmed (not named as a Nucleo icon); see docs/icons-and-assets.md",
+   "nucleoName": "Pinned collapsed indicator"
+  },
+  "close": {
+   "file": "glyphs/xmark-tab-close.svg",
+   "kind": "glyph",
+   "source": "Glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "I30:103;30:87",
+   "license": "Figma layer, provenance unconfirmed (not named as a Nucleo icon); see docs/icons-and-assets.md",
+   "nucleoName": "Close icon (tab component)"
   },
   "downloads": {
    "file": "glyphs/receive-square2.svg",
@@ -81,37 +161,53 @@
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
    "nucleoName": "receive-square2"
   },
-  "close": {
-   "file": "glyphs/xmark-tab-close.svg",
+  "forward": {
+   "file": "glyphs/chevron-right-outline-24.svg",
    "kind": "glyph",
    "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "I30:103;30:87",
+   "figmaNode": "7:31",
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "Close icon (tab component)"
+   "nucleoName": "chevron-right-outline-24"
+  },
+  "new-tab": {
+   "file": "glyphs/plus-fill-24.svg",
+   "kind": "glyph",
+   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "12:145",
+   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
+   "nucleoName": "plus-fill-24"
+  },
+  "new-workspace": {
+   "file": "glyphs/plus-outline-18.svg",
+   "kind": "glyph",
+   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "18:2",
+   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
+   "nucleoName": "plus-outline-18"
   },
   "pause": {
    "file": "glyphs/media-pause.svg",
    "kind": "glyph",
-   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "source": "Glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
    "figmaNode": "35:320",
-   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
+   "license": "Figma layer, provenance unconfirmed (not named as a Nucleo icon); see docs/icons-and-assets.md",
    "nucleoName": "Pause icon"
   },
-  "chevron-down": {
-   "file": "glyphs/chevron-down-indicator.svg",
+  "pin": {
+   "file": "glyphs/pin-tack-fill-48.svg",
    "kind": "glyph",
    "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "30:119",
+   "figmaNode": "7:89",
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "Pinned expanded indicator"
+   "nucleoName": "pin-tack-fill-48"
   },
-  "chevron-right": {
-   "file": "glyphs/chevron-right-indicator.svg",
+  "reload": {
+   "file": "glyphs/refresh-outline-24.svg",
    "kind": "glyph",
    "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
-   "figmaNode": "55:506",
+   "figmaNode": "7:41",
    "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
-   "nucleoName": "Pinned collapsed indicator"
+   "nucleoName": "refresh-outline-24"
   },
   "resume": {
    "file": "glyphs/justslide-resume-placeholder.svg",
@@ -120,133 +216,21 @@
    "license": "JustSlide (placeholder)",
    "placeholder": true
   },
-  "brand-youtube": {
-   "file": "brands/youtube.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:3",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "youtube"
+  "sidebar-toggle": {
+   "file": "glyphs/sidebar-right-outline-48.svg",
+   "kind": "glyph",
+   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "6:18",
+   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
+   "nucleoName": "sidebar-right-outline-48"
   },
-  "brand-chatgpt": {
-   "file": "brands/openai-chatgpt-16.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "19:9",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "openai (chatgpt)"
-  },
-  "brand-chatgpt-18": {
-   "file": "brands/openai-chatgpt.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:6",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "openai (chatgpt)"
-  },
-  "brand-claude": {
-   "file": "brands/claude.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:8",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "claude"
-  },
-  "brand-gmail": {
-   "file": "brands/gmail-2026.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:10",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "gmail"
-  },
-  "brand-aws": {
-   "file": "brands/aws.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:14",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "aws"
-  },
-  "brand-github": {
-   "file": "brands/github.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:17",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "github"
-  },
-  "brand-slack": {
-   "file": "brands/slack.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:19",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "slack"
-  },
-  "brand-notion": {
-   "file": "brands/notion.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:27",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "notion"
-  },
-  "brand-discord": {
-   "file": "brands/discord.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:30",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "discord"
-  },
-  "brand-netflix": {
-   "file": "brands/netflix.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:32",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "netflix"
-  },
-  "brand-supabase": {
-   "file": "brands/supabase.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:36",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "supabase"
-  },
-  "brand-convex": {
-   "file": "brands/convex.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "8:40",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "convex"
-  },
-  "brand-codex": {
-   "file": "brands/codex-openai.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "19:7",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "codex (openai)"
-  },
-  "brand-claude-code": {
-   "file": "brands/claude-code.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "19:5",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "claude-code"
-  },
-  "agent-claude-code": {
-   "file": "brands/claude-code-color.svg",
-   "kind": "brand",
-   "source": "Brand mark as placed by the designer in Figma (layer names match theSVG slugs); exported through Composio Figma",
-   "figmaNode": "35:314",
-   "license": "theSVG library; mark is the trademark of its owner (docs/icons-and-assets.md)",
-   "thesvgSlug": "claude-code (colour, activity card)"
+  "workspace-personal": {
+   "file": "glyphs/user-laptop-outline-duo-18.svg",
+   "kind": "glyph",
+   "source": "Nucleo glyph as placed by the designer in Figma file nw47hqMLTtmBMksJ4BnJKb; exported as SVG through the Composio MCP Figma toolkit (FIGMA_RENDER_IMAGES_OF_FILE_NODES)",
+   "figmaNode": "20:11",
+   "license": "Nucleo commercial licence (docs/icons-and-assets.md)",
+   "nucleoName": "user-laptop-outline-duo-18"
   }
  }
 }

@@ -1,0 +1,134 @@
+{
+  "package": "@thesvg/icons",
+  "version": "4.0.9",
+  "integrity": "sha512-xnFDlcF1uWX+F81VmBSE6d5R/l11SQw5DNUAaPirox2AM2vcl7RZoTjN6eKgHWv3vIVnNZjSXyb+dKk2qHDGtg==",
+  "libraryLicense": "MIT",
+  "icons": {
+    "brand-youtube": {
+      "slug": "youtube",
+      "variant": "default",
+      "file": "youtube-default.svg",
+      "title": "YouTube",
+      "hex": "FF0000",
+      "license": "CC0-1.0",
+      "url": "https://www.youtube.com"
+    },
+    "brand-chatgpt": {
+      "slug": "openai",
+      "variant": "light",
+      "file": "openai-light.svg",
+      "title": "OpenAI",
+      "hex": "000000",
+      "license": "MIT",
+      "url": "https://openai.com/"
+    },
+    "brand-claude": {
+      "slug": "claude",
+      "variant": "default",
+      "file": "claude-default.svg",
+      "title": "Claude",
+      "hex": "D97757",
+      "license": "CC0-1.0",
+      "url": "https://claude.ai"
+    },
+    "brand-claude-code": {
+      "slug": "claude-code",
+      "variant": "default",
+      "file": "claude-code-default.svg",
+      "title": "Claude Code",
+      "hex": "D97757",
+      "license": "MIT",
+      "url": "https://code.claude.com"
+    },
+    "brand-gmail": {
+      "slug": "gmail",
+      "variant": "default",
+      "file": "gmail-default.svg",
+      "title": "Gmail",
+      "hex": "EA4335",
+      "license": "CC0-1.0",
+      "url": "https://www.gmail.com"
+    },
+    "brand-aws": {
+      "slug": "aws",
+      "variant": "default",
+      "file": "aws-default.svg",
+      "title": "AWS",
+      "hex": "222F3E",
+      "license": "MIT",
+      "url": "https://aws.amazon.com"
+    },
+    "brand-github": {
+      "slug": "github",
+      "variant": "default",
+      "file": "github-default.svg",
+      "title": "GitHub",
+      "hex": "181717",
+      "license": "CC0-1.0",
+      "url": "https://github.com/"
+    },
+    "brand-slack": {
+      "slug": "slack",
+      "variant": "default",
+      "file": "slack-default.svg",
+      "title": "Slack",
+      "hex": "000000",
+      "license": "MIT",
+      "url": "https://www.slack.com"
+    },
+    "brand-notion": {
+      "slug": "notion",
+      "variant": "default",
+      "file": "notion-default.svg",
+      "title": "Notion",
+      "hex": "fff",
+      "license": "CC0-1.0",
+      "url": "https://notion.so/"
+    },
+    "brand-discord": {
+      "slug": "discord",
+      "variant": "default",
+      "file": "discord-default.svg",
+      "title": "Discord",
+      "hex": "5865F2",
+      "license": "CC0-1.0",
+      "url": "https://discord.com/"
+    },
+    "brand-netflix": {
+      "slug": "netflix",
+      "variant": "default",
+      "file": "netflix-default.svg",
+      "title": "Netflix",
+      "hex": "E50914",
+      "license": "CC0-1.0",
+      "url": "https://www.netflix.com"
+    },
+    "brand-supabase": {
+      "slug": "supabase",
+      "variant": "default",
+      "file": "supabase-default.svg",
+      "title": "Supabase",
+      "hex": "3FCF8E",
+      "license": "CC0-1.0",
+      "url": "https://supabase.com/"
+    },
+    "brand-convex": {
+      "slug": "convex",
+      "variant": "default",
+      "file": "convex-default.svg",
+      "title": "Convex",
+      "hex": "EE342F",
+      "license": "CC0-1.0",
+      "url": "https://www.convex.dev/"
+    },
+    "brand-codex": {
+      "slug": "codex-openai",
+      "variant": "default",
+      "file": "codex-openai-default.svg",
+      "title": "Codex (OpenAI)",
+      "hex": "fff",
+      "license": "MIT",
+      "url": "https://openai.com/codex"
+    }
+  }
+}

@@ -1,7 +1,1 @@
-{
-  "mcpServers": {
-    "atlassian-design-system": {
-      "url": "https://mcp.atlassian.com/v1/ads/public/mcp"
-    }
-  }
-}
+{ "mcpServers": {} }

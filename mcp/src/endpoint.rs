@@ -1,6 +1,6 @@
 //! Discovery of the running JustSlide instance and the pairing secret.
 //!
-//! Trust model (see docs/mcp-and-plugins.md):
+//! Trust model (see docs/mcp-and-agents.md):
 //! * The browser writes `<user-data-dir>/JustSlideAutomation/endpoint.json`
 //!   (dir 0700, file 0600) naming its socket and instance id.
 //! * The bridge refuses discovery files, directories and sockets that are not
@@ -19,7 +19,7 @@ use std::path::{Path, PathBuf};
 
 pub const AUTOMATION_DIR: &str = "JustSlideAutomation";
 pub const ENDPOINT_FILE: &str = "endpoint.json";
-pub const KEYCHAIN_SERVICE: &str = "app.justslide.JustSlide.dev.pairing";
+pub const KEYCHAIN_SERVICE: &str = "app.justslide.chromium.dev.pairing";
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -39,13 +39,13 @@ pub struct Endpoint {
 }
 
 /// Development default user-data directory. Matches the browser's
-/// CrProductDirName ("JustSlide Dev") on macOS; distinct from Chrome,
+/// CrProductDirName ("JustSlide Chromium Dev") on macOS; distinct from Chrome,
 /// Chromium and the separate `Slide` application.
 pub fn default_user_data_dir() -> Result<PathBuf> {
     let home = std::env::var_os("HOME").ok_or_else(|| anyhow!("HOME is not set"))?;
     let home = PathBuf::from(home);
     if cfg!(target_os = "macos") {
-        Ok(home.join("Library/Application Support/JustSlide Dev"))
+        Ok(home.join("Library/Application Support/JustSlide Chromium Dev"))
     } else {
         let base = std::env::var_os("XDG_CONFIG_HOME").map(PathBuf::from).unwrap_or_else(|| home.join(".config"));
         Ok(base.join("justslide-dev"))

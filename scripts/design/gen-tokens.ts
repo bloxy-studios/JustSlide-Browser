@@ -40,7 +40,9 @@ for (const [k, v] of Object.entries(tokens.type as Record<string, any>)) {
   if (v.letterSpacing) css += `  --js-type-${k}-tracking: ${px(v.letterSpacing)};\n`;
 }
 css += '}\n';
-for (const theme of themes) {
+// Light is the :root fallback and must come FIRST: [data-theme] selectors have the
+// same specificity as :root, so later rules win.
+for (const theme of ['light', ...themes.filter(t => t !== 'light')]) {
   const sel = theme === 'light' ? ':root, [data-theme="light"]' : `[data-theme="${theme}"]`;
   css += `\n${sel} {\n  color-scheme: ${theme === 'dark' ? 'dark' : 'light'};\n`;
   for (const [name, t] of Object.entries(tokens.colors as Record<string, Tok>)) {

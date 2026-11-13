@@ -5,7 +5,7 @@ import { hasIcon } from '../design-system/Icon';
 // workspace dock (20:17). Ordinary sites use their real favicon instead.
 const HOST_BRANDS: Array<[RegExp, string]> = [
   [/(^|\.)youtube\.com$/, 'brand-youtube'],
-  [/(^|\.)(chatgpt\.com|chat\.openai\.com)$/, 'brand-chatgpt-18'],
+  [/(^|\.)(chatgpt\.com|chat\.openai\.com)$/, 'brand-chatgpt'],
   [/(^|\.)claude\.ai$/, 'brand-claude'],
   [/^mail\.google\.com$/, 'brand-gmail'],
   [/(^|\.)aws\.amazon\.com$/, 'brand-aws'],

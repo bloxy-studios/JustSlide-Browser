@@ -1,8 +1,8 @@
 # branding/
 
 Product identity for development builds is set by `patches/chromium/0001-*`:
-`PRODUCT_FULLNAME=JustSlide Dev`, `MAC_BUNDLE_ID=app.justslide.JustSlide.dev`,
-`CrProductDirName=JustSlide Dev` (isolated `~/Library/Application Support/JustSlide Dev`).
+`PRODUCT_FULLNAME=JustSlide Chromium Dev`, `MAC_BUNDLE_ID=app.justslide.chromium.dev`,
+`CrProductDirName=JustSlide Chromium Dev` (isolated `~/Library/Application Support/JustSlide Chromium Dev`).
 
 Missing (must come from the approved Slide design source, not generated):
 * App icon set (`.icns`/`Assets.car`) — until provided, the build uses Chromium's

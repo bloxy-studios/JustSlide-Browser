@@ -5,4 +5,4 @@
 * **Never** auto-advance the lock, force patches or clean a dirty checkout.
 * **Footprint budget**: keep upstream-touching lines small (v1: 35). Prefer `src/justslide/` additions.
 * **Regression suite**: JustSlide browser_tests, grant unit tests, MCP protocol tests, WebUI CSP/TT check, patch verification.
-* **Owners**: integration owner (patch series), security reviewer (Mojo/automation), UI owner (ADS upgrades + glyph/remote-host audits).
+* **Owners**: integration owner (patch series), security reviewer (Mojo/automation), UI owner (Figma token/icon regeneration, icon licences, WebUI bundle audit).

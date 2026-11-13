@@ -34,7 +34,7 @@ export function AgentActivity({ agents, workspaces, tabs }: { agents: AgentInfo[
         const paused = a.state === 'paused';
         return (
           <div key={a.grantId} className={s.agentCard} data-state={a.pending.length ? 'pending' : a.state}>
-            <span className={s.agentIcon}>{icon ? <Icon name={icon === 'brand-claude-code' ? 'agent-claude-code' : icon} size={16} /> : <span className={s.wsLetter} aria-hidden>{a.clientName.slice(0, 1)}</span>}</span>
+            <span className={s.agentIcon}>{icon ? <Icon name={icon} size={16} /> : <span className={s.wsLetter} aria-hidden>{a.clientName.slice(0, 1)}</span>}</span>
             <button type="button" className={s.agentText} onClick={() => setOpen(a.grantId)} aria-label={`${a.clientName}, ${stateText(a)}. Show activity details`}>
               <span className={s.agentState}>{a.clientName} · {stateText(a)}</span>
               <span className={s.agentScope}>{n} {n === 1 ? 'tab' : 'tabs'} in {a.workspaceIds.length === 1 ? 'its workspace' : `${a.workspaceIds.length} workspaces`}</span>

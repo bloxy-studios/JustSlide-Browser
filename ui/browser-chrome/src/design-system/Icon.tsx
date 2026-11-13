@@ -16,12 +16,15 @@ function render(node: SvgNode, key: number): ReactElement {
  */
 export function Icon({ name, size, label, className }: { name: IconName; size?: number; label?: string; className?: string }) {
   const def = ICONS[name];
-  const w = size ?? def.width;
-  const h = size ? Math.round((size * def.height) / def.width * 100) / 100 : def.height;
+  // `size` is a square box (Figma frames icons in 12/14/16/18 boxes); keep the
+  // mark's aspect ratio and fit its longer side, e.g. Netflix 10×18 in 18.
+  const k = size ? size / Math.max(def.width, def.height) : 1;
+  const w = Math.round(def.width * k * 100) / 100;
+  const h = Math.round(def.height * k * 100) / 100;
   return createElement(
     'svg',
     {
-      viewBox: def.viewBox, width: w, height: h, fill: 'none', className, focusable: 'false',
+      ...def.root, viewBox: def.viewBox, width: w, height: h, className, focusable: 'false',
       'data-icon': name,
       ...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true }),
     },

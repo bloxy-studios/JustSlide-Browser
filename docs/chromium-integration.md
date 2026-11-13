@@ -1,10 +1,28 @@
 # Chromium integration
 
 ## Pin
-`chromium.lock.json`: **157.0.8103.51**, commit `653674df293788cf4932c40d914e9e15b41a2d31` (Mac Stable, fully rolled out 2026-11-09). Mac SDK official 27.0, deployment target 13.0 (`build/config/mac/mac_sdk.gni`).
+`chromium.lock.json`: **157.0.8103.51**, commit `653674df293788cf4932c40d914e9e15b41a2d31` (Mac Stable, fully rolled out 2026-11-09). Deployment target 13.0; `mac_sdk_min` 15. Official builds use SDK 27.0, but the pin explicitly supports **universal Xcode 26.6 + SDK 26.5 on Intel hosts** ("Xcode 27+ is ARM-only", `build/config/mac/mac_sdk.gni`). Non-official builds with system Xcode use whatever SDK ≥ 15 Xcode provides. The owner's Mac (Intel, Xcode 26.6) qualifies.
 
 ## Checkout layout
-Product repo stays small. The engine lives **outside** it: `$JUSTSLIDE_ENGINE_ROOT` (default `~/justslide-engine/{depot_tools,chromium/src}`). `apply-patches.sh` rsyncs product sources into `src/justslide/` (added to `src/.git/info/exclude`) and applies `patches/chromium/series` (ADR 0001). No submodule, no nested repo, no upstream objects in this repo.
+Product repo stays small. The engine lives in **`<repo>/.engine/`** (git-ignored, never tracked; override with `JUSTSLIDE_ENGINE_ROOT`): `depot_tools/`, `chromium/{.gclient,src}`, `logs/`, `evidence/`, `state.json`. It sits inside the project folder so that SimBridge (which only launches apps inside an approved project) can run and screenshot the built `.app`. `apply-patches.sh` rsyncs product sources into `src/justslide/` (added to `src/.git/info/exclude`) and applies `patches/chromium/series` (ADR 0001). No submodule, no upstream objects in git. **`git clean -fdx` would delete the checkout; don't.**
+
+## Engine pipeline (`scripts/engine/pipeline.py`, `bun run engine:step`)
+A resumable state machine, because remote build jobs on the Mac are capped at 60 minutes and have no shell. Each run resumes at the first unfinished step, works until its budget (default 52 min) is spent, stops ninja/gclient with SIGINT so they resume cleanly, and prints a status report. Re-run until `bun run engine:status` shows every step `done`.
+
+| Step | Does |
+|---|---|
+| `doctor` | host, Xcode, SDK, RAM, disk (≥45 GB free before sync), writes `evidence/doctor.json` |
+| `depot_tools` | shallow clone + bootstrap |
+| `src_checkout` | writes `.gclient` (unmanaged `src`), `git fetch --depth=1` of **only** `refs/tags/<pin>`, verifies the commit |
+| `gclient_sync` | `gclient sync --nohooks --no-history --shallow -D --revision src@<commit>`; removes interrupted `_bad_scm` leftovers |
+| `runhooks` | toolchains (clang, rust, node, …) |
+| `gn_baseline` / `build_baseline` | `out/JustSlide`, unpatched; refuses a patched tree |
+| `verify_baseline` | `--version`, headless `--dump-dom` + `--screenshot` of a local fixture; `evidence/baseline.json` |
+| `ui_install`, `patch`, `stage_ui` | `bun install --frozen-lockfile`; patch series; production WebUI → `src/justslide/resources/webui_dist` |
+| `gn_justslide` / `build_justslide` | same out dir, incremental rebuild (re-syncs product sources each run, so pushed fixes are picked up) |
+| `verify_justslide` | as baseline + bundle id must be `app.justslide.*` |
+
+GN args (lean for ~70 GB free, Intel): `is_debug=false is_component_build=true symbol_level=0 blink_symbol_level=0 v8_symbol_level=0 dcheck_always_on=true proprietary_codecs=false ffmpeg_branding="Chromium" enable_widevine=false use_official_google_api_keys=false chrome_pgo_phase=0`. `-j` = min(cores, RAM/1.5 GB). `bun run engine:errors` prints the first compile errors of the last build.
 
 ## Source map
 | Repo | Checkout | GN |
@@ -20,7 +38,7 @@ Product repo stays small. The engine lives **outside** it: `$JUSTSLIDE_ENGINE_RO
 ## Patch series (v1)
 | Patch | Touches | Why |
 |---|---|---|
-| 0001 branding + profile dir | `chrome/app/theme/chromium/BRANDING`, `chrome/app/app-Info.plist` | Bundle id `app.justslide.JustSlide.dev`, product name, `CrProductDirName=JustSlide Dev` |
+| 0001 branding + profile dir | `chrome/app/theme/chromium/BRANDING`, `chrome/app/app-Info.plist` | Bundle id `app.justslide.chromium.dev`, product name, `CrProductDirName=JustSlide Chromium Dev` |
 | 0002 build + registration | `chrome/browser/BUILD.gn`, `ui/webui/BUILD.gn`, `chrome_web_ui_configs.cc`, `chrome_browser_interface_binders_webui_parts_desktop.cc`, `chrome/chrome_paks.gni`, `chrome/test/BUILD.gn`, `profiles/BUILD.gn`, `chrome_browser_main_extra_parts_profiles.cc` | Register WebUI config, Mojo broker (`ForWebUI<JustSlideSidebarUI>`), pak, keyed service, session persistence, tests |
 | 0003 sidebar host hook | `ui/views/frame/BUILD.gn`, `browser_view.cc` | Attach `JustSlideSidebarHost` after `VerticalTabStripRegionView` creation |
 Verified: `python3 scripts/engine/verify_patches_remote.py` → all apply to pristine pinned blobs; reverse-check proves re-application is a no-op (evidence: `evidence/patch-verify.txt`).
@@ -37,4 +55,4 @@ Upstream `TabStripService.CreateTabAt` (components/browser_apis/tab_strip) **alw
 5. `--load-extension` availability in unbranded 157 builds (else use developer-mode “Load unpacked” in the fixture test).
 
 ## Baseline-first rule
-Build `baseline` from an unpatched checkout and record its result before applying the series; `gn-gen.sh baseline` refuses a patched tree.
+Build the baseline from an unpatched checkout and record its evidence before applying the series; `gn_baseline`/`build_baseline` refuse a patched tree. The JustSlide build then reuses the same out dir (disk budget), so the baseline binary is overwritten after its evidence (version, sha256, screenshot) is recorded.

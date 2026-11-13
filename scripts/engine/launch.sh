@@ -2,7 +2,7 @@
 # Launch a built JustSlide/Chromium with an isolated, disposable profile.
 #   launch.sh dev [x64|arm64] [--persistent] [-- extra chromium args]
 # Default profile: a fresh temp dir. --persistent uses the dev product dir
-# (~/Library/Application Support/JustSlide Dev). Never Chrome's or Slide's.
+# (~/Library/Application Support/JustSlide Chromium Dev). Never Chrome's or Slide's.
 source "$(dirname "$0")/../lib.sh"
 cfg="${1:?usage: launch.sh baseline|dev|release [cpu] [--persistent] [-- args]}"; shift
 cpu="$(host_cpu)"; [[ "${1:-}" == x64 || "${1:-}" == arm64 ]] && { cpu="$1"; shift; }
