@@ -3,9 +3,9 @@
   "note": "Left: Figma render. Middle: UI preview. Right: differing pixels in red.",
   "cases": [
     {
-      "name": "compact-mint",
+      "name": "compact-mint-top",
       "figmaNode": "35:13",
-      "query": "fixture=figma-compact&mode=light",
+      "query": "fixture=figma-compact",
       "viewport": [
         1100,
         720
@@ -14,16 +14,16 @@
         12,
         12,
         240,
-        696
+        690
       ],
       "previewCrop": [
-        12,
-        12,
+        6,
+        6,
         240,
-        696
+        690
       ],
-      "diffPct": 8.32,
-      "hotRowCount": 82,
+      "diffPct": 13.38,
+      "hotRowCount": 137,
       "firstHotRows": [
         249,
         250,
@@ -40,9 +40,9 @@
       ]
     },
     {
-      "name": "desktop-mint-top",
+      "name": "desktop-mint",
       "figmaNode": "1:6",
-      "query": "fixture=figma-desktop&mode=light",
+      "query": "fixture=figma-desktop",
       "viewport": [
         1440,
         1024
@@ -51,16 +51,16 @@
         6,
         6,
         240,
-        900
+        1012
       ],
       "previewCrop": [
-        12,
-        12,
+        6,
+        6,
         240,
-        900
+        1012
       ],
-      "diffPct": 8.11,
-      "hotRowCount": 119,
+      "diffPct": 7.53,
+      "hotRowCount": 121,
       "firstHotRows": [
         260,
         261,

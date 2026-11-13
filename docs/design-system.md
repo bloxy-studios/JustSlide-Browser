@@ -48,7 +48,7 @@ variable-font weights of SF Pro on macOS.
 | tooltip | 12/18, 510 | Slide / Tooltip |
 
 ## Sizes and radii
-From `design/tokens.json` (`--js-size-*`, `--js-radius-*`): sidebar 240, frame padding/gap 12,
+From `design/tokens.json` (`--js-size-*`, `--js-radius-*`): sidebar 240, frame padding/gap 6 (owner decision), collapsed rail 44,
 section gap 8, nav row 40, targets 32 / 24, icons 16 / 12 / 14, favorites 43×34 (icon 18, gap 4),
 rows 32, pinned trigger 28, list gap 4, agent card 56, footer 64, activity dot 7.
 Radii: control 8, small 6, card 10, page window 16, favicon 3.

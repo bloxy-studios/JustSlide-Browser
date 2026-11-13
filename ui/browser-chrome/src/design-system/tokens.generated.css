@@ -4,8 +4,8 @@
 
 :root {
   --js-font: -apple-system, BlinkMacSystemFont, "SF Pro", system-ui, sans-serif;
-  --js-size-frame-padding: 12px;
-  --js-size-frame-gap: 12px;
+  --js-size-frame-padding: 6px;
+  --js-size-frame-gap: 6px;
   --js-size-sidebar-width: 240px;
   --js-size-sidebar-gap: 8px;
   --js-size-nav-height: 40px;
@@ -29,7 +29,7 @@
   --js-size-activity-dot: 7px;
   --js-size-tooltip-height: 32px;
   --js-size-tooltip-width: 224px;
-  --js-size-collapsed-rail: 48px;
+  --js-size-collapsed-rail: 44px;
   --js-radius-control: 8px;
   --js-radius-small: 6px;
   --js-radius-card: 10px;

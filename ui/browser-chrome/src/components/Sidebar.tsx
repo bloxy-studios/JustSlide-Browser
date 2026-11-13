@@ -10,10 +10,10 @@ import { PinnedSection, TabArea } from './TabSections';
 import { WorkspaceFooter } from './WorkspaceFooter';
 import s from './sidebar.module.css';
 
-/** Native host width of the sidebar WebUI view: 12 px frame padding + 240 px column + 12 px gap (Figma 35:13). */
-export const SIDEBAR_VIEW_WIDTH_PX = 264;
-/** Collapsed rail width. Figma does not define a collapsed sidebar yet (docs/design-system.md). */
-export const RAIL_WIDTH_PX = 56;
+/** Native host width of the sidebar WebUI view: 6 px frame padding + 240 px column + 6 px gap. */
+export const SIDEBAR_VIEW_WIDTH_PX = 252;
+/** Collapsed rail width (6 + 32 + 6). Figma does not define a collapsed sidebar yet. */
+export const RAIL_WIDTH_PX = 44;
 
 function CollapsedRail({ snap }: { snap: ShellSnapshot }) {
   const b = useBridge();

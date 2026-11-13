@@ -3,7 +3,7 @@
   "csp": "child-src 'none'; object-src 'none'; script-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types; connect-src 'none';",
   "runs": [
     {
-      "name": "light-264x1024",
+      "name": "mint-252x1024",
       "errors": [],
       "violations": [],
       "egress": [],
@@ -20,10 +20,10 @@
         "sidebarBox": {
           "x": 0,
           "y": 0,
-          "width": 264,
+          "width": 252,
           "height": 1024,
           "top": 0,
-          "right": 264,
+          "right": 252,
           "bottom": 1024,
           "left": 0
         },
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "name": "dark-264x1024",
+      "name": "mint-colormode-dark-252x1024",
       "errors": [],
       "violations": [],
       "egress": [],
@@ -62,10 +62,10 @@
         "sidebarBox": {
           "x": 0,
           "y": 0,
-          "width": 264,
+          "width": 252,
           "height": 1024,
           "top": 0,
-          "right": 264,
+          "right": 252,
           "bottom": 1024,
           "left": 0
         },
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "name": "light-264x720",
+      "name": "mint-252x720",
       "errors": [],
       "violations": [],
       "egress": [],
@@ -104,10 +104,10 @@
         "sidebarBox": {
           "x": 0,
           "y": 0,
-          "width": 264,
+          "width": 252,
           "height": 720,
           "top": 0,
-          "right": 264,
+          "right": 252,
           "bottom": 720,
           "left": 0
         },

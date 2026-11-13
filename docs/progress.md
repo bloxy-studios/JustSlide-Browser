@@ -44,7 +44,7 @@ customisable backdrop incl. frosted **glass** (`glass`, `glass:#hex`; WebUI + pr
 native vibrancy pending, see chromium-integration Open Q6); **no preset favorites**: drag a tab
 or link onto the row to add (`AddFavoriteFromTab`, `AddFavoriteFromUrl` with drop index; http/https
 only, sizes bounded in C++), drag tiles to reorder (MoveFavorite now accepts any delta); Gmail 2026
-mark. UI tests 33/33; Figma comparison now mint frames only.
+mark. Sidebar + window background are one colour layer (sidebar transparent; native host 252 dip, rail 44), frame padding and gap 6 px. UI tests 33/33; Figma comparison now mint frames only.
 
 ### Verified (with what)
 | Check | Result | Where |

@@ -22,10 +22,11 @@ if (!exe || !existsSync(exe)) { console.error('Set CHROME to a Chromium/Chrome f
 // [name, figma node, preview query, viewport w, h, color scheme, sidebar crop in figma, crop in preview]
 type Crop = [number, number, number, number];
 const cases: Array<[string, string, string, number, number, 'light' | 'dark', Crop, Crop]> = [
-  ['compact-mint', '35-13', 'fixture=figma-compact&mode=light', 1100, 720, 'light', [12, 12, 240, 696], [12, 12, 240, 696]],
+  // 35:13 uses 12 px padding; JustSlide now uses 6 (owner decision): compare the top 690 px.
+  ['compact-mint-top', '35-13', 'fixture=figma-compact', 1100, 720, 'light', [12, 12, 240, 690], [6, 6, 240, 690]],
   // Light/dark theme frames (55:120, 55:411) are no longer targets: owner chose mint only (2026-11-13).
-  // 1:6 uses 6 px frame padding (JustSlide uses 12): compare the top 900 px of the column only.
-  ['desktop-mint-top', '1-6', 'fixture=figma-desktop&mode=light', 1440, 1024, 'light', [6, 6, 240, 900], [12, 12, 240, 900]],
+  // 1:6 uses 6 px frame padding like JustSlide: full sidebar column.
+  ['desktop-mint', '1-6', 'fixture=figma-desktop', 1440, 1024, 'light', [6, 6, 240, 1012], [6, 6, 240, 1012]],
 ];
 
 const types: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png' };

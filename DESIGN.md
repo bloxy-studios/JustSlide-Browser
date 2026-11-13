@@ -26,18 +26,21 @@ Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node
 3. **No preset favorites.** The Figma tiles are sample content. People drag a tab (or a link)
    onto the favorites row to add it, and drag tiles to reorder. The + tile adds the current page.
 4. **Gmail uses the 2026 mark** (theSVG `gmail-2026`), matching Gmail's current favicon.
+5. **One backdrop layer, 6 px edges.** The sidebar has no fill of its own; the window backdrop
+   (mint, custom colour or glass) is painted once and shows through, so sidebar and background blend.
+   Frame padding and the sidebar→page gap are both 6 px (Figma 1:6 padding).
 
 ## 1. Window composition (35:13 / 55:*)
-`[12 frame padding][Sidebar column 240][12 gap][Web Page Window, r16, 1px border][12 padding]`
-* The **sidebar** is the trusted WebUI (`chrome://justslide-sidebar.top-chrome`), 264 px wide
-  including the padding and the gap. The **Web Page Window** is genuine Chromium WebContents in
+`[6 frame padding][Sidebar column 240][6 gap][Web Page Window, r16, shadow][6 padding]` (owner decision §0.5)
+* The **sidebar** is the trusted WebUI (`chrome://justslide-sidebar.top-chrome`), 252 px wide
+  including the padding and the gap, with a transparent background. The **Web Page Window** is genuine Chromium WebContents in
   a native view with radius 16 and a 1 px `page-border` stroke. No page DOM in the shell and no
   shell DOM over pages.
 * The window backdrop (`frame`) and the sidebar share a colour. Mint (`#acfff7`, variable mode
   50:0) is the default; custom solid colours and frosted glass replace only frame/sidebar.
   With glass, the window uses native macOS vibrancy and the sidebar document is translucent;
   control surfaces stay mostly opaque for legibility.
-* Frame 1:6 uses 6 px frame padding; the newer 1100×720 frames use 12 px. **JustSlide uses 12.**
+* Frame 1:6 uses 6 px frame padding; the newer 1100×720 frames use 12 px. **JustSlide uses 6** (owner).
 
 ## 2. Sidebar order (Figma 1:9; enforced by `sidebar.test.tsx`)
 1. **Navigation Controls** (6:17), 40 high: toggle, then Back · Forward · Reload (Stop while loading).

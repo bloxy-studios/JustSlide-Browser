@@ -1,11 +1,11 @@
 /* DEV-ONLY preview frame reproducing the native window composition:
-   [sidebar WebUI 264px][page window r16, 1px border] with 12px frame padding. */
+   [sidebar WebUI 252px][page window r16, shadow] with 6px frame padding; one backdrop layer. */
 body { background: var(--js-color-frame); }
 .frame { display: flex; height: 100vh; background: var(--js-color-frame); }
-.side { width: 264px; flex-shrink: 0; height: 100%; }
-.side[data-collapsed] { width: 56px; }
+.side { width: 252px; flex-shrink: 0; height: 100%; }
+.side[data-collapsed] { width: 44px; }
 .page {
-  flex: 1; margin: 12px 12px 12px 0; border-radius: var(--js-radius-page); background: var(--js-color-page);
+  flex: 1; margin: 6px 6px 6px 0; border-radius: var(--js-radius-page); background: var(--js-color-page);
   box-shadow: var(--js-shadow-page); display: flex; align-items: flex-end; justify-content: flex-end; padding: 16px;
 }
 .note { font: var(--js-type-caption); color: var(--js-color-text-muted); opacity: 0.6; max-width: 360px; text-align: right; }

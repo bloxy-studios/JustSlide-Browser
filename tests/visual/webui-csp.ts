@@ -36,7 +36,7 @@ const base = `http://127.0.0.1:${server.port}`;
 const browser = await chromium.launch({ executablePath: exe, args: ['--font-render-hinting=none'] });
 const report: Record<string, unknown> = { chrome: browser.version(), csp: CSP, runs: [] as unknown[] };
 let failed = false;
-for (const [name, mode, w, h] of [['light-264x1024', 1, 264, 1024], ['dark-264x1024', 2, 264, 1024], ['light-264x720', 1, 264, 720]] as const) {
+for (const [name, mode, w, h] of [['mint-252x1024', 1, 252, 1024], ['mint-colormode-dark-252x1024', 2, 252, 1024], ['mint-252x720', 1, 252, 720]] as const) {
   const page = await browser.newPage({ viewport: { width: w, height: h }, colorScheme: mode === 2 ? 'dark' : 'light' });
   const errors: string[] = []; const violations: string[] = []; const egress: string[] = [];
   // chrome://favicon2 is served by the native WebUI data source; it cannot load

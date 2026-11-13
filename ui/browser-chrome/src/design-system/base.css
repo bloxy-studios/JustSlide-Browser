@@ -4,7 +4,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
 body {
-  font: var(--js-type-tab); color: var(--js-color-text); background: var(--js-color-sidebar);
+  font: var(--js-type-tab); color: var(--js-color-text); background: var(--js-color-frame); /* the single backdrop layer */
   -webkit-font-smoothing: antialiased; overflow: hidden; user-select: none;
 }
 button, input { font: inherit; color: inherit; }

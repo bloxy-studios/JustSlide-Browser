@@ -1,11 +1,13 @@
 /* JustSlide sidebar — measurements from Figma file nw47hqMLTtmBMksJ4BnJKb.
    Node ids in comments; see docs/design-system.md for the full mapping. */
 
-/* 35:13 frame padding 12 + 1:9 "Sidebar" column 240, vertical auto-layout gap 8. */
+/* Frame padding 6 (Figma 1:6; owner decision) + 1:9 "Sidebar" column 240, gap 8.
+   No background of its own: the sidebar and the window backdrop are ONE colour
+   layer (painted once by the document/native frame), so they blend seamlessly. */
 .root {
   height: 100%; padding: var(--js-size-frame-padding); padding-right: var(--js-size-frame-gap);
   display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap);
-  background: var(--js-color-sidebar); color: var(--js-color-text); position: relative; min-width: 0;
+  background: transparent; color: var(--js-color-text); position: relative; min-width: 0;
 }
 .root > * { width: var(--js-size-sidebar-width); flex-shrink: 0; }
 
@@ -97,7 +99,7 @@
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.errorDot { position: absolute; right: -2px; bottom: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--js-color-danger); box-shadow: 0 0 0 1.5px var(--js-color-sidebar); }
+.errorDot { position: absolute; right: -2px; bottom: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--js-color-danger); box-shadow: 0 0 0 1.5px var(--js-color-frame); }
 
 /* 35:313 Background agent activity: 240×56, r10, padding 8, gap 8, 1px stroke. */
 .agents { display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap); }
@@ -138,8 +140,8 @@
 /* 35:322 Background activity indicator: 7×7 at (+24,+2), 1.5px ring in the sidebar colour. */
 .activityDot {
   position: absolute; left: 24px; top: 2px; width: var(--js-size-activity-dot); height: var(--js-size-activity-dot); border-radius: 50%;
-  background: var(--js-color-activity); box-shadow: 0 0 0 1.5px var(--js-color-sidebar); pointer-events: none;
+  background: var(--js-color-activity); box-shadow: 0 0 0 1.5px var(--js-color-frame); pointer-events: none;
 }
 
 /* Collapsed rail — not designed in Figma yet; uses the 32 px targets. */
-.rail { height: 100%; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: var(--js-color-sidebar); }
+.rail { height: 100%; padding: var(--js-size-frame-padding); display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; }
