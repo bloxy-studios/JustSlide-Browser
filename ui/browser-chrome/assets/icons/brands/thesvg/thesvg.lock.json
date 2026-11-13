@@ -14,13 +14,13 @@
       "url": "https://www.youtube.com"
     },
     "brand-chatgpt": {
-      "slug": "openai",
-      "variant": "light",
-      "file": "openai-light.svg",
-      "title": "OpenAI",
-      "hex": "000000",
+      "slug": "openai-chatgpt",
+      "variant": "default",
+      "file": "openai-chatgpt-default.svg",
+      "title": "OpenAI (ChatGPT)",
+      "hex": "000",
       "license": "MIT",
-      "url": "https://openai.com/"
+      "url": "https://openai.com"
     },
     "brand-claude": {
       "slug": "claude",

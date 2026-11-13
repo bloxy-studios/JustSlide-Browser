@@ -16,7 +16,7 @@ const VERSION = '4.0.9';
 // designer placed in Figma (contact sheet in docs/icons-and-assets.md).
 export const BRANDS: Record<string, [string, string]> = {
   'brand-youtube': ['youtube', 'default'],
-  'brand-chatgpt': ['openai', 'light'],
+  'brand-chatgpt': ['openai-chatgpt', 'default'],
   'brand-claude': ['claude', 'default'],
   'brand-claude-code': ['claude-code', 'default'],
   'brand-gmail': ['gmail', 'default'],

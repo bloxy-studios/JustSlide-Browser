@@ -27,7 +27,7 @@ names), exported as SVG through the Composio Figma toolkit and recoloured to `cu
 Replace it with a licensed Nucleo icon (e.g. a 14 px media-play from the same family).
 
 ### Licence (https://nucleoapp.com/license, read 2026-11-13)
-Standard License: unlimited personal and commercial projects. **"You can include up to 100 Nucleo
+Standard License: unlimited personal and commercial projects. Public source must **include the Nucleo copyright notice** (see `NOTICE`). **"You can include up to 100 Nucleo
 icons in publicly accessible source files, including open-source projects."** No redistribution
 beyond that, no icon libraries or packs, and no letting users browse Nucleo icons without an
 Extended License. This repository is public and commits **10** Nucleo glyphs; `gen-icons.ts`
@@ -45,9 +45,9 @@ match the marks placed in Figma (contact sheet compared on 2026-11-13).
 | Registry name | theSVG slug / variant | Entry licence | Used for |
 |---|---|---|---|
 | brand-youtube | youtube / default | CC0-1.0 | favorite |
-| brand-chatgpt | openai / light | MIT | favorite + ChatGPT workspace |
+| brand-chatgpt | openai-chatgpt / default (same slug as the Figma layer) | MIT | favorite + ChatGPT workspace |
 | brand-claude | claude / default | CC0-1.0 | favorite |
-| brand-gmail | gmail / default | CC0-1.0 | favorite (Figma shows the newer 2026 Gmail mark; theSVG 4.0.9 has the classic one) |
+| brand-gmail | gmail / default | CC0-1.0 | favorite (Figma uses theSVG `gmail-2026`, whose entry licence is "Trademark"; the CC0 classic mark ships until the owner chooses) |
 | brand-aws | aws / default | MIT | favorite |
 | brand-github | github / default | CC0-1.0 | favorite |
 | brand-slack | slack / default | MIT | favorite |
@@ -66,6 +66,8 @@ mark stays its owner's trademark (theSVG LEGAL/TRADEMARK notes, nominative use).
 brand's guidelines before any public release.
 Ordinary websites use their **real favicon** from Chromium (`chrome://favicon2`); only the
 curated shortcuts that appear in Figma map to brand marks (`src/lib/brands.ts`).
+
+Attribution for MIT-licensed theSVG entries and the theSVG library is in `NOTICE`. Avoid entries with `brand-use` or `Trademark` licences (e.g. `codex`, `gmail-2026`) unless the owner approves.
 
 ## Mascot and app icon
 The blue peeking mascot does not appear in any inspected Figma frame, and no source artwork is in

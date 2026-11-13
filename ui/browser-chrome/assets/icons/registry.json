@@ -26,9 +26,9 @@
    "title": "AWS"
   },
   "brand-chatgpt": {
-   "file": "brands/thesvg/openai-light.svg",
+   "file": "brands/thesvg/openai-chatgpt-default.svg",
    "kind": "brand",
-   "source": "theSVG @thesvg/icons@4.0.9 slug 'openai' variant 'light' (scripts/ui/vendor-thesvg.ts)",
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'openai-chatgpt' variant 'default' (scripts/ui/vendor-thesvg.ts)",
    "figmaNode": "8:6 / 19:9",
    "license": "theSVG entry licence MIT; library MIT; mark is a trademark of its owner",
    "title": "OpenAI"
