@@ -6,7 +6,10 @@ body { background: var(--js-color-frame); }
 .side[data-collapsed] { width: 56px; }
 .page {
   flex: 1; margin: 12px 12px 12px 0; border-radius: var(--js-radius-page); background: var(--js-color-page);
-  box-shadow: inset 0 0 0 1px var(--js-color-page-border); display: flex; align-items: flex-end; justify-content: flex-end; padding: 16px;
+  box-shadow: var(--js-shadow-page); display: flex; align-items: flex-end; justify-content: flex-end; padding: 16px;
 }
 .note { font: var(--js-type-caption); color: var(--js-color-text-muted); opacity: 0.6; max-width: 360px; text-align: right; }
 .frame[data-fixture] .note { visibility: hidden; }
+/* Preview-only stand-in for macOS vibrancy: a sample desktop behind a blurred, tinted frame. */
+html[data-material='glass'] body { background: linear-gradient(135deg, #f6b38d 0%, #d38bd6 35%, #7aa7f0 70%, #8fe3c8 100%); }
+html[data-material='glass'] .frame { backdrop-filter: blur(40px) saturate(1.6); }

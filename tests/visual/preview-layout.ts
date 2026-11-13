@@ -12,11 +12,13 @@ mkdirSync(outDir, { recursive: true });
 const types: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' };
 const server = Bun.serve({ port: 0, hostname: '127.0.0.1', fetch(req) { const p = new URL(req.url).pathname.slice(1) || 'preview.html'; const f = join(dist, p); return existsSync(f) ? new Response(readFileSync(f), { headers: { 'content-type': types[extname(f)] ?? 'application/octet-stream' } }) : new Response('', { status: 404 }); } });
 const base = `http://127.0.0.1:${server.port}`;
-const browser = await chromium.launch({ executablePath: process.env.CHROME! });
+const browser = await chromium.launch({ executablePath: process.env.CHROME!, args: ['--force-device-scale-factor=1'] });
 const shots: Array<[string, string, number, number, 'light' | 'dark']> = [
-  ['preview-1440x1024-light', 'preview.html?mode=light', 1440, 1024, 'light'],
-  ['preview-1100x720-dark', 'preview.html?mode=dark', 1100, 720, 'dark'],
-  ['preview-1100x720-backdrop', 'preview.html?mode=light&backdrop=b8f0d8', 1100, 720, 'light'],
+  ['preview-1440x1024-figma-desktop', 'preview.html?fixture=figma-desktop', 1440, 1024, 'light'],
+  ['preview-1100x720-figma-compact', 'preview.html?fixture=figma-compact', 1100, 720, 'light'],
+  ['preview-1100x720-empty-favorites', 'preview.html', 1100, 720, 'light'],
+  ['preview-1100x720-glass', 'preview.html?fixture=figma-compact&backdrop=glass', 1100, 720, 'light'],
+  ['preview-1100x720-custom-backdrop', 'preview.html?fixture=figma-compact&backdrop=f6e7ff', 1100, 720, 'light'],
 ];
 let errors = 0;
 for (const [name, path, w, h, scheme] of shots) {

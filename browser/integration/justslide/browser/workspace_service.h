@@ -65,8 +65,11 @@ class WorkspaceService : public KeyedService {
   bool Rename(const std::string& id, const std::string& name);
 
   std::vector<Favorite> GetFavorites() const;
-  std::optional<Favorite> AddFavorite(const GURL& url, const std::u16string& title);
+  // `index` = insertion position (drag-and-drop target); appended when absent or out of range.
+  std::optional<Favorite> AddFavorite(const GURL& url, const std::u16string& title,
+                                      std::optional<size_t> index = std::nullopt);
   bool RemoveFavorite(const std::string& id);
+  // Moves by `delta` positions (clamped to the list), e.g. from a drag reorder.
   bool MoveFavorite(const std::string& id, int delta);
   std::optional<Favorite> FindFavorite(const std::string& id) const;
 

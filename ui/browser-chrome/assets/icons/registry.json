@@ -82,12 +82,13 @@
    "title": "GitHub"
   },
   "brand-gmail": {
-   "file": "brands/thesvg/gmail-default.svg",
+   "file": "brands/thesvg/gmail-2026-default.svg",
    "kind": "brand",
-   "source": "theSVG @thesvg/icons@4.0.9 slug 'gmail' variant 'default' (scripts/ui/vendor-thesvg.ts)",
-   "figmaNode": "8:10 (Figma uses a 2026 Gmail mark)",
-   "license": "theSVG entry licence CC0-1.0; library MIT; mark is a trademark of its owner",
-   "title": "Gmail"
+   "source": "theSVG @thesvg/icons@4.0.9 slug 'gmail-2026' variant 'default' (scripts/ui/vendor-thesvg.ts)",
+   "figmaNode": "8:10",
+   "license": "theSVG entry licence Trademark; library MIT; mark is a trademark of its owner",
+   "title": "Gmail",
+   "ownerApproval": "2026-11-13: owner chose the 2026 Gmail mark (entry licence \"Trademark\") because Gmail uses it as its favicon"
   },
   "brand-netflix": {
    "file": "brands/thesvg/netflix-default.svg",

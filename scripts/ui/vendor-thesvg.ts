@@ -19,7 +19,7 @@ export const BRANDS: Record<string, [string, string]> = {
   'brand-chatgpt': ['openai-chatgpt', 'default'],
   'brand-claude': ['claude', 'default'],
   'brand-claude-code': ['claude-code', 'default'],
-  'brand-gmail': ['gmail', 'default'],
+  'brand-gmail': ['gmail-2026', 'default'],
   'brand-aws': ['aws', 'default'],
   'brand-github': ['github', 'default'],
   'brand-slack': ['slack', 'default'],

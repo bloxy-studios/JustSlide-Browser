@@ -5,7 +5,7 @@ import { BridgeProvider } from '../bridge/context';
 import { PreviewBridge, previewSeed } from '../bridge/preview';
 import { SidebarApp } from '../app/SidebarApp';
 import { figmaCompactSeed, figmaDesktopSeed } from '../fixtures/figma';
-import { resolveTheme } from '../app/theme';
+import { applyTheme, parseBackdrop } from '../app/theme';
 
 function setup(seed = previewSeed()) {
   const bridge = new PreviewBridge(seed);
@@ -39,7 +39,7 @@ describe('Sidebar (Figma 1:9 structure)', () => {
     expect(screen.getByRole('button', { name: 'Switch to ChatGPT workspace' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Open Claude website' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Switch to Claude Code workspace' })).toBeTruthy();
-    // 12 curated favorites + the add tile, as in Figma 7:87
+    // Figma 7:87 fixture: 12 favorites + the add tile
     expect(within(screen.getByRole('list', { name: 'Favorites' })).getAllByRole('button')).toHaveLength(13);
   });
 
@@ -206,12 +206,76 @@ describe('Sidebar (Figma 1:9 structure)', () => {
   });
 });
 
-describe('theme resolution (Figma variable modes)', () => {
-  it('maps color mode + backdrop to mint / light / dark', () => {
-    expect(resolveTheme('light', '', false)).toBe('mint');
-    expect(resolveTheme('system', '#ACFFF7', false)).toBe('mint');
-    expect(resolveTheme('light', '#eff3f5', false)).toBe('light');
-    expect(resolveTheme('system', '', true)).toBe('dark');
-    expect(resolveTheme('dark', '#acfff7', false)).toBe('dark');
+describe('appearance: mint + customisable backdrop (owner decision 2026-11-13)', () => {
+  it('parses solid and glass backdrops', () => {
+    expect(parseBackdrop('')).toEqual({ material: 'solid', color: '#acfff7' });
+    expect(parseBackdrop('#B8F0D8')).toEqual({ material: 'solid', color: '#b8f0d8' });
+    expect(parseBackdrop('glass')).toEqual({ material: 'glass', color: '#acfff7' });
+    expect(parseBackdrop('glass:#eff3f5')).toEqual({ material: 'glass', color: '#eff3f5' });
+    expect(parseBackdrop('javascript:alert(1)')).toEqual({ material: 'solid', color: '#acfff7' });
+  });
+  it('always uses the mint theme; glass makes the frame translucent', () => {
+    const el = document.createElement('html');
+    applyTheme('dark', 'glass', el);
+    expect(el.dataset.theme).toBe('mint');
+    expect(el.dataset.material).toBe('glass');
+    expect(el.style.getPropertyValue('--js-color-sidebar')).toContain('rgba(172, 255, 247');
+    applyTheme('system', '', el);
+    expect(el.dataset.material).toBe('solid');
+    expect(el.style.getPropertyValue('--js-color-sidebar')).toBe('');
+  });
+});
+
+function dt(data: Record<string, string>) {
+  return { types: Object.keys(data), getData: (k: string) => data[k] ?? '', setData() {}, dropEffect: 'none', effectAllowed: 'all' };
+}
+
+describe('favorites by drag and drop (owner decision 2026-11-13)', () => {
+  it('starts empty with a hint and the add tile', () => {
+    setup();
+    expect(screen.getByTestId('favorites-hint').textContent).toBe('Drag a tab here to add it');
+    expect(within(screen.getByRole('list', { name: 'Favorites' })).getAllByRole('button')).toHaveLength(1);
+  });
+  it('dropping a tab adds it as a favorite', () => {
+    const { bridge } = setup();
+    const grid = screen.getByRole('list', { name: 'Favorites' });
+    const data = dt({ 'application/x-justslide-tab': 'tab_preview02', 'text/uri-list': 'https://github.com/bloxy-studios/JustSlide-Browser' });
+    fireEvent.dragOver(grid, { dataTransfer: data });
+    expect(grid.getAttribute('data-drop')).toBe('tab');
+    fireEvent.drop(grid, { dataTransfer: data });
+    expect(bridge.log.at(-1)).toEqual(['addFavoriteFromTab', ['tab_preview02', 0]]);
+    expect(screen.queryByTestId('favorites-hint')).toBeNull();
+    expect(screen.getByRole('button', { name: /^Open .* website$/ })).toBeTruthy();
+  });
+  it('tab rows are draggable and carry their id and URL', () => {
+    setup(figmaDesktopSeed());
+    const row = screen.getByRole('button', { name: 'Phosphor Icons' }).closest('li')!;
+    const set: Record<string, string> = {};
+    fireEvent.dragStart(row, { dataTransfer: { setData: (k: string, v: string) => { set[k] = v; }, effectAllowed: '' } });
+    expect(set['application/x-justslide-tab']).toBe('tab_phosph001');
+    expect(set['text/uri-list']).toBe('https://phosphoricons.com/');
+  });
+  it('dropping a link from a page adds it (http/https only)', () => {
+    const { bridge } = setup();
+    const grid = screen.getByRole('list', { name: 'Favorites' });
+    fireEvent.drop(grid, { dataTransfer: dt({ 'text/uri-list': 'javascript:alert(1)' }) });
+    expect(bridge.log.some(([n]) => n === 'addFavoriteFromUrl')).toBe(false);
+    fireEvent.drop(grid, { dataTransfer: dt({ 'text/uri-list': '# comment\nhttps://example.com/x' }) });
+    expect(bridge.log.at(-1)).toEqual(['addFavoriteFromUrl', ['https://example.com/x', '', 0]]);
+  });
+  it('dragging a favorite onto another position reorders it', () => {
+    const { bridge } = setup(figmaDesktopSeed());
+    const grid = screen.getByRole('list', { name: 'Favorites' });
+    // jsdom has no layout: drop index falls back to the end of the list.
+    fireEvent.drop(grid, { dataTransfer: dt({ 'application/x-justslide-favorite': 'fav_youtube' }) });
+    expect(bridge.log.at(-1)).toEqual(['moveFavorite', ['fav_youtube', 11]]);
+    expect(bridge.getSnapshot().favorites.at(-1)?.id).toBe('fav_youtube');
+  });
+  it('keyboard alternative: tab menu "Add to favorites"', async () => {
+    const { user, bridge } = setup(figmaDesktopSeed());
+    const tab = screen.getByRole('button', { name: 'Phosphor Icons' });
+    tab.focus();
+    await user.keyboard('{Shift>}{F10}{/Shift}{ArrowDown}{Enter}');
+    expect(bridge.log.at(-1)).toEqual(['addFavoriteFromTab', ['tab_phosph001', -1]]);
   });
 });

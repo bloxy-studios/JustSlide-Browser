@@ -17,6 +17,16 @@ Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node
 `design/tokens.json` → `ui/browser-chrome/src/design-system/tokens.generated.css`,
 `ui/browser-chrome/assets/icons/` (SVG exported from the design's own icon layers).
 
+## 0. Owner decisions (2026-11-13) — these override the Figma file
+1. **Mint only.** No dark (55:411) or light (55:120) theme. The backdrop is the user's choice:
+   mint (default), any solid colour, or **frosted glass** (see-through, blurred desktop, optional tint).
+2. **Shadows instead of strokes/borders.** Selected tab, selected workspace, agent card, menus,
+   dialogs and the page window use soft shadows (`--js-shadow-*`). Keyboard focus is a soft glow
+   rather than Figma's dashed stroke. The pinned/tabs separator line is kept for now.
+3. **No preset favorites.** The Figma tiles are sample content. People drag a tab (or a link)
+   onto the favorites row to add it, and drag tiles to reorder. The + tile adds the current page.
+4. **Gmail uses the 2026 mark** (theSVG `gmail-2026`), matching Gmail's current favicon.
+
 ## 1. Window composition (35:13 / 55:*)
 `[12 frame padding][Sidebar column 240][12 gap][Web Page Window, r16, 1px border][12 padding]`
 * The **sidebar** is the trusted WebUI (`chrome://justslide-sidebar.top-chrome`), 264 px wide
@@ -24,8 +34,9 @@ Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node
   a native view with radius 16 and a 1 px `page-border` stroke. No page DOM in the shell and no
   shell DOM over pages.
 * The window backdrop (`frame`) and the sidebar share a colour. Mint (`#acfff7`, variable mode
-  50:0) is the default appearance; Light (50:1), Dark (55:1) and custom backdrops are supported.
-  A custom backdrop tints only frame/sidebar; control surfaces keep their tokens.
+  50:0) is the default; custom solid colours and frosted glass replace only frame/sidebar.
+  With glass, the window uses native macOS vibrancy and the sidebar document is translucent;
+  control surfaces stay mostly opaque for legibility.
 * Frame 1:6 uses 6 px frame padding; the newer 1100×720 frames use 12 px. **JustSlide uses 12.**
 
 ## 2. Sidebar order (Figma 1:9; enforced by `sidebar.test.tsx`)
@@ -53,7 +64,7 @@ evidence that a service is connected or an agent is running.
 | `Slide / Tab` set 30:100 (Default, Hover, Selected, Keyboard focus) | `TabRow` | 32 px, favicon 16, close target 24 r6 shown on hover/selected |
 | `Slide / Tooltip` 30:122 | `TooltipLayer` / `useTooltip` | 224×32 r8, dark fill; below favorites, above the dock |
 | Navigation targets 23:3…23:6 | `IconButton` | 32×32, icon 16 |
-| Favorite tile 7:47… / Add 20:19 | `FavoritesGrid` | brand marks for curated sites, favicons otherwise |
+| Favorite tile 7:47… / Add 20:19 | `FavoritesGrid` | empty by default; drag tab/link to add, drag to reorder; brand marks for curated sites, favicons otherwise |
 | Pinned trigger 7:88 | `PinnedSection` | state persisted in sidebar storage |
 | Agent card 35:313 | `AgentActivity` | details dialog: pending requests, pause, revoke |
 | Workspace switcher 20:17 + dot 35:322 | `WorkspaceFooter` | 7 px activity dot with 1.5 px ring |

@@ -10,9 +10,9 @@
 .iconButton:active:not(:disabled) { background: var(--js-color-tab-selected); }
 .iconButton:disabled { opacity: 0.35; }
 .iconButton:focus-visible, .focusable:focus-visible {
-  outline: 1px dashed var(--js-color-focus-ring); outline-offset: -1px;           /* 30:89 dashes 4/4 */
+  outline: none; box-shadow: var(--js-shadow-focus);                                 /* glow replaces 30:89 dashed stroke */
 }
-/* Workspace switcher buttons (25:9 … 25:12): 32×32 r8; selected = fill + 1px stroke. */
+/* Workspace switcher buttons (25:9 … 25:12): 32×32 r8; selected = fill + shadow. */
 .workspace { background: var(--js-color-workspace-idle); }
-.workspace[data-selected='true'] { background: var(--js-color-workspace-selected); box-shadow: inset 0 0 0 1px var(--js-color-border-strong); }
+.workspace[data-selected='true'] { background: var(--js-color-workspace-selected); box-shadow: var(--js-shadow-selected); }
 .workspace:hover:not([data-selected='true']) { background: var(--js-color-tab-hover); }

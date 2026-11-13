@@ -93,6 +93,10 @@ export interface ShellIntents {
   createWorkspace(name: string): void;
   renameWorkspace(workspaceId: string, name: string): void;
   addFavoriteForActiveTab(): void;
+  /** Drag a sidebar tab onto Favorites; `index` = drop position (-1 = end). */
+  addFavoriteFromTab(tabId: string, index: number): void;
+  /** Drop a link/URL (from a page or another app) onto Favorites. Browser accepts http/https only. */
+  addFavoriteFromUrl(url: string, title: string, index: number): void;
   removeFavorite(favoriteId: string): void;
   moveFavorite(favoriteId: string, delta: number): void;
   openFavorite(favoriteId: string): void;
@@ -116,7 +120,7 @@ export interface ShellBridge extends ShellIntents {
 export const INTENT_NAMES: ReadonlyArray<keyof ShellIntents> = [
   'navigateFromInput', 'goBack', 'goForward', 'reload', 'stopLoading', 'toggleSidebar', 'selectTab', 'createTab',
   'closeTab', 'reopenClosedTab', 'setTabPinned', 'moveTab', 'selectWorkspace', 'createWorkspace',
-  'renameWorkspace', 'addFavoriteForActiveTab', 'removeFavorite', 'moveFavorite', 'openFavorite',
+  'renameWorkspace', 'addFavoriteForActiveTab', 'addFavoriteFromTab', 'addFavoriteFromUrl', 'removeFavorite', 'moveFavorite', 'openFavorite',
   'resolvePendingRequest', 'setAgentPaused', 'revokeAgent', 'setColorMode', 'setBackdropColor',
   'showPairingDialog', 'showDownloads',
 ];

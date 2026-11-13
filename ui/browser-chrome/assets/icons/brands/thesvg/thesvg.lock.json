@@ -41,12 +41,12 @@
       "url": "https://code.claude.com"
     },
     "brand-gmail": {
-      "slug": "gmail",
+      "slug": "gmail-2026",
       "variant": "default",
-      "file": "gmail-default.svg",
-      "title": "Gmail",
-      "hex": "EA4335",
-      "license": "CC0-1.0",
+      "file": "gmail-2026-default.svg",
+      "title": "Gmail (2026)",
+      "hex": "FC413D",
+      "license": "Trademark",
       "url": "https://www.gmail.com"
     },
     "brand-aws": {

@@ -10,7 +10,8 @@
   (17F113), 69.1 GB free. RAM and core count are recorded by the pipeline's `doctor` step on first run.
   The pin explicitly supports Xcode 26.6/SDK 26.5 on Intel hosts.
 * **Mac projects:** `JustSlide-Browser` cloned to `~/SimBridge/Projects/JustSlide-Browser`
-  (SimBridge project `myPw4sreOoasxHnsEcmwJw`), **awaiting owner approve + trust**. The existing
+  (SimBridge project `myPw4sreOoasxHnsEcmwJw`), approved + trusted 2026-11-13 14:36 UTC; first
+  `engine:step` job started 14:42 UTC. The existing
   `~/Developer/JustSlide` project is the separate WebKit build and is not touched.
 * **Figma:** Composio MCP, account `figma_pop-chasse`, file `nw47hqMLTtmBMksJ4BnJKb` (see `docs/figma-integration.md`).
 
@@ -37,10 +38,18 @@
    60-minute job limit (`docs/chromium-integration.md`). Budget stop and resume tested locally; doctor fails
    correctly on Linux.
 
+### Owner design decisions applied (2026-11-13, later the same day)
+Mint only (dark/light themes removed); shadows replace all strokes/borders (focus = glow);
+customisable backdrop incl. frosted **glass** (`glass`, `glass:#hex`; WebUI + pref validation done,
+native vibrancy pending, see chromium-integration Open Q6); **no preset favorites**: drag a tab
+or link onto the row to add (`AddFavoriteFromTab`, `AddFavoriteFromUrl` with drop index; http/https
+only, sizes bounded in C++), drag tiles to reorder (MoveFavorite now accepts any delta); Gmail 2026
+mark. UI tests 33/33; Figma comparison now mint frames only.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|
-| UI tests (jsdom) | **26/26 pass** | `bun run test:ui` |
+| UI tests (jsdom) | **33/33 pass** | `bun run test:ui` |
 | Typecheck | pass | `bun run typecheck` |
 | WebUI production build + audit (no inline script, eval, preview code, TT policy, remote hosts; no HTML sinks in product source) | pass, 4 files, ~293 KB | `bun run build:ui` |
 | Sidebar under Chromium 157 WebUI CSP (`trusted-types;` with zero policies, `connect-src 'none'`) | 0 errors, 0 violations, 0 egress, correct mint/dark token values | `docs/evidence/visual/webui-csp-report.json` |

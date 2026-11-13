@@ -14,20 +14,24 @@ Figma icon layers ─► assets/icons/{glyphs,brands}/*.svg + registry.json ─�
 ```
 `bun run build:ui` fails if either generated file is stale (`--check`).
 
-## Themes
-`data-theme` on `<html>`: `mint` (Figma mode 50:0, default), `light` (50:1), `dark` (55:1).
-`resolveTheme(colorMode, backdrop)`: dark when the colour mode (or the system) is dark; otherwise
-mint for the mint backdrop or an unset one, light for anything else. A custom backdrop overrides
-only `--js-color-frame` / `--js-color-sidebar`.
+## Appearance
+One token theme, **mint** (Figma mode 50:0), on `:root`. Owner decision 2026-11-13: no dark or light
+theme. `applyTheme(colorMode, backdrop)` ignores `colorMode` (kept in the protocol for
+compatibility) and parses the backdrop: `""` = mint, `#rrggbb` = solid, `glass` / `glass:#rrggbb` =
+frosted. Glass sets `data-material="glass"`: the frame/sidebar become a translucent tint
+(`--js-glass-tint-alpha` 0.42) over native vibrancy, and surfaces become 82 % white.
+
+## Shadows (`--js-shadow-*`, derived)
+Replace every Figma stroke (owner decision): `control` (address, tiles, dialog fields), `selected`
+(selected tab, selected workspace), `card` (agent card), `popover` (menus, dialogs), `page`
+(page window), `focus` (2 px glow, replaces the dashed focus stroke), `drop` (drag target).
 
 ## Colour tokens (`--js-color-*`)
 Values per theme are in `tokens.generated.css`; each line names its source (`figma 55:xx`,
 `figma literal`, or `derived`). Derived values, which are not in Figma, are:
 | Token | Why derived |
 |---|---|
-| `tab-hover`, `focus-ring`, `close-glyph` (dark) | Figma defines these only on light/mint component variants |
 | `danger` (all) | crashed/failed tab and insecure-origin markers are not designed |
-| `tooltip`, `tooltip-text` (light, dark) | bound only in mint frames; the mint values are reused |
 
 ## Typography (`--js-type-*`)
 SF Pro via `-apple-system, BlinkMacSystemFont, "SF Pro", system-ui`. Weights 510 and 590 are
@@ -60,14 +64,15 @@ Radii: control 8, small 6, card 10, page window 16, favicon 3.
 | Sidebar parts | `components/*` | see `DESIGN.md` §3 |
 
 ### Not in Figma (derived, flagged for design review)
-* **Menu** (tab/favorite/workspace context menus): address-bar surface, strong border, 28 px rows.
+* **Menu** (tab/favorite/workspace context menus): address-bar surface, popover shadow, 28 px rows.
+* **Favorites empty state + drag and drop**: + tile, then "Drag a tab here to add it". Drop targets glow (`--js-shadow-drop`). Keyboard alternatives: + tile, the tab menu's "Add to favorites", and Move left/right.
 * **Dialog** (new/rename workspace, agent details): agent-card surface, 224 px wide.
 * **Collapsed rail** (56 px): the collapsed sidebar is not designed.
 * **Loading spinner, crash/error dot, "Not secure" label**; audio indicator not drawn yet.
 * **Resume glyph**: JustSlide placeholder until a licensed Nucleo play icon is added.
 
 ## Accessibility
-Every icon-only control has an accessible name (tested). Favorites and workspace buttons have
+Every icon-only control has an accessible name (tested). Dragging always has a keyboard alternative. Favorites and workspace buttons have
 distinct names. Keyboard: Tab order follows the visual order; Shift+F10 / ContextMenu opens
 menus; Alt+↑/↓ reorders tabs; Delete closes the focused tab; Escape reverts the address field.
 `prefers-reduced-motion` disables animation.

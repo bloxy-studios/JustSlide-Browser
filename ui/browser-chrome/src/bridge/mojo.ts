@@ -81,6 +81,8 @@ export async function connectMojoBridge(moduleUrl = './justslide_shell.mojom-web
     createWorkspace: call('createWorkspace'),
     renameWorkspace: call('renameWorkspace'),
     addFavoriteForActiveTab: call('addFavoriteForActiveTab'),
+    addFavoriteFromTab: call('addFavoriteFromTab'),
+    addFavoriteFromUrl: call('addFavoriteFromUrl'),
     removeFavorite: call('removeFavorite'),
     moveFavorite: call('moveFavorite'),
     openFavorite: call('openFavorite'),

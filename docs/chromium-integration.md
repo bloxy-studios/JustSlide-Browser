@@ -52,6 +52,7 @@ Upstream `TabStripService.CreateTabAt` (components/browser_apis/tab_strip) **alw
 2. `JustSlideSidebarUI::SetOwningWindow` timing vs `CreatePageHandler` (WebUI created on first navigation commit) — may need `WebUIControllerFactory` hook or passing the window via `WebContentsUserData` before `LoadInitialURL`.
 3. `//justslide/resources` mojo grdp wiring: the generated `.mojom-webui.ts` must be compiled with `ts_library` before GRIT; target names to confirm on first gn gen.
 4. Agent profile window creation without activation (`Browser::CreateParams` + `ShowInactive`).
+6. **Frosted glass backdrop** (owner decision 2026-11-13): when the backdrop pref is `glass`/`glass:#hex`, the browser window needs native vibrancy (an `NSVisualEffectView` behind the frame, or Chromium's macOS window background-material support if available at the pin) and the sidebar WebUI's `WebContents` must use a transparent base background (`SetPageBaseBackgroundColor(SK_ColorTRANSPARENT)`) so the translucent tint shows. The page window keeps an opaque surface and a shadow (no 1 px stroke). Not implemented natively yet; the WebUI side and pref validation are done.
 5. `--load-extension` availability in unbranded 157 builds (else use developer-mode “Load unpacked” in the fixture test).
 
 ## Baseline-first rule

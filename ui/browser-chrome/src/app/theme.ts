@@ -2,23 +2,40 @@ import type { ColorMode } from '../bridge/types';
 
 /** Mint backdrop from Figma variable mode 50:0 (frame 1:6). Default appearance. */
 export const MINT_BACKDROP = '#acfff7';
-export type Theme = 'mint' | 'light' | 'dark';
 
-export function resolveTheme(mode: ColorMode, backdrop: string, prefersDark: boolean): Theme {
-  const dark = mode === 'dark' || (mode === 'system' && prefersDark);
-  if (dark) return 'dark';
-  const bd = (backdrop || MINT_BACKDROP).toLowerCase();
-  return bd === MINT_BACKDROP ? 'mint' : 'light';
+/**
+ * Appearance = the single mint token theme + a user backdrop (owner decision
+ * 2026-11-13: no dark mode; the background is customisable, including glass).
+ *   ""              → mint
+ *   "#rrggbb"       → solid custom backdrop
+ *   "glass"         → frosted see-through, mint tint
+ *   "glass:#rrggbb" → frosted see-through, custom tint
+ * `colorMode` is kept in the protocol for compatibility and ignored here.
+ */
+export type Backdrop = { material: 'solid' | 'glass'; color: string };
+
+export function parseBackdrop(value: string): Backdrop {
+  const v = (value || '').trim().toLowerCase();
+  if (v === 'glass') return { material: 'glass', color: MINT_BACKDROP };
+  const g = /^glass:(#[0-9a-f]{6})$/.exec(v);
+  if (g) return { material: 'glass', color: g[1] };
+  if (/^#[0-9a-f]{6}$/.test(v)) return { material: 'solid', color: v };
+  return { material: 'solid', color: MINT_BACKDROP };
 }
 
-/** Applies theme tokens; a custom backdrop tints only the frame/sidebar so controls stay readable. */
-export function applyTheme(mode: ColorMode, backdrop: string, el: HTMLElement = document.documentElement) {
-  const mq = typeof matchMedia === 'function' ? matchMedia('(prefers-color-scheme: dark)') : null;
-  const theme = resolveTheme(mode, backdrop, !!mq?.matches);
-  el.dataset.theme = theme;
-  const custom = backdrop && backdrop.toLowerCase() !== MINT_BACKDROP && /^#[0-9a-f]{6}$/i.test(backdrop) && theme !== 'dark';
+function rgba(hex: string, a: string) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+}
+
+export function applyTheme(_mode: ColorMode, backdrop: string, el: HTMLElement = document.documentElement): Backdrop {
+  const b = parseBackdrop(backdrop);
+  el.dataset.theme = 'mint';
+  el.dataset.material = b.material;
+  const custom = b.material === 'glass' || b.color !== MINT_BACKDROP;
+  const fill = b.material === 'glass' ? rgba(b.color, 'var(--js-glass-tint-alpha)') : b.color;
   for (const v of ['--js-color-frame', '--js-color-sidebar']) {
-    if (custom) el.style.setProperty(v, backdrop); else el.style.removeProperty(v);
+    if (custom) el.style.setProperty(v, fill); else el.style.removeProperty(v);
   }
-  return theme;
+  return b;
 }

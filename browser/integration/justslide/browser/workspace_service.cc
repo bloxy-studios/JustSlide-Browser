@@ -1,6 +1,9 @@
 // Copyright 2026 Bloxy Studios.
 #include "justslide/browser/workspace_service.h"
 
+#include <algorithm>
+#include <optional>
+
 #include "base/strings/utf_string_conversions.h"
 #include "components/bookmarks/browser/bookmark_model.h"
 #include "components/bookmarks/browser/bookmark_node.h"
@@ -141,12 +144,14 @@ std::optional<Favorite> WorkspaceService::FindFavorite(const std::string& id) co
   return std::nullopt;
 }
 
-std::optional<Favorite> WorkspaceService::AddFavorite(const GURL& url, const std::u16string& title) {
+std::optional<Favorite> WorkspaceService::AddFavorite(const GURL& url, const std::u16string& title,
+                                                     std::optional<size_t> index) {
   if (!url.is_valid() || !url.SchemeIsHTTPOrHTTPS()) return std::nullopt;
   for (auto& f : GetFavorites()) if (f.url == url) return f;  // idempotent
   const auto* folder = FavoritesFolder(true);
   if (!folder || folder->children().size() >= kMaxFavorites) return std::nullopt;
-  bookmarks_->AddURL(folder, folder->children().size(), title.substr(0, 256), url);
+  const size_t at = std::min(index.value_or(folder->children().size()), folder->children().size());
+  bookmarks_->AddURL(folder, at, title.substr(0, 256), url);
   for (auto& o : observers_) o.OnFavoritesChanged();
   for (auto& f : GetFavorites()) if (f.url == url) return f;
   return std::nullopt;
@@ -166,13 +171,15 @@ bool WorkspaceService::RemoveFavorite(const std::string& id) {
 
 bool WorkspaceService::MoveFavorite(const std::string& id, int delta) {
   const auto* folder = FavoritesFolder(false);
-  if (!folder || (delta != -1 && delta != 1)) return false;
+  if (!folder || delta == 0) return false;
   const auto& kids = folder->children();
   for (size_t i = 0; i < kids.size(); ++i) {
     if ("fav_" + kids[i]->uuid().AsLowercaseString().substr(0, 12) != id) continue;
-    if ((delta < 0 && i == 0) || (delta > 0 && i + 1 >= kids.size())) return false;
+    const int last = static_cast<int>(kids.size()) - 1;
+    const int to = std::clamp(static_cast<int>(i) + delta, 0, last);
+    if (to == static_cast<int>(i)) return false;
     // BookmarkModel::Move index is the position before removal.
-    bookmarks_->Move(kids[i].get(), folder, delta > 0 ? i + 2 : i - 1);
+    bookmarks_->Move(kids[i].get(), folder, to > static_cast<int>(i) ? static_cast<size_t>(to) + 1 : static_cast<size_t>(to));
     for (auto& o : observers_) o.OnFavoritesChanged();
     return true;
   }

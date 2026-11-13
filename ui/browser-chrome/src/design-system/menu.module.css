@@ -1,8 +1,8 @@
 .menu {
   position: absolute; z-index: 30; min-width: 168px; max-width: 224px; box-sizing: border-box; padding: 4px;
   background: var(--js-color-address); color: var(--js-color-text);
-  border: 1px solid var(--js-color-border-strong); border-radius: var(--js-radius-control);
-  box-shadow: 0 6px 18px rgba(11, 26, 35, 0.16); outline: none;
+  border: 0; border-radius: var(--js-radius-control);
+  box-shadow: var(--js-shadow-popover); outline: none;
 }
 .item {
   font: var(--js-type-tab); height: 28px; display: flex; align-items: center; padding: 0 8px;

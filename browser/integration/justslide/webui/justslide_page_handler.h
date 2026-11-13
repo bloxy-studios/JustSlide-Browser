@@ -51,6 +51,8 @@ class JustSlidePageHandler : public mojom::PageHandler,
   void CreateWorkspace(const std::string& name) override;
   void RenameWorkspace(const std::string& workspace_id, const std::string& name) override;
   void AddFavoriteForActiveTab() override;
+  void AddFavoriteFromTab(const std::string& tab_id, int32_t index) override;
+  void AddFavoriteFromUrl(const std::string& url, const std::string& title, int32_t index) override;
   void RemoveFavorite(const std::string& favorite_id) override;
   void MoveFavorite(const std::string& favorite_id, int32_t delta) override;
   void OpenFavorite(const std::string& favorite_id) override;

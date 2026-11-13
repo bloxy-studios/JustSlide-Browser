@@ -1,7 +1,7 @@
 // DEV-ONLY UI preview with simulated browser state. No web pages are rendered;
 // not part of the WebUI bundle and not evidence that the browser works.
 //   ?fixture=figma-desktop | figma-compact   reproduce Figma frames 1:6 / 35:13
-//   ?mode=light|dark  ?backdrop=rrggbb
+//   ?backdrop=rrggbb | glass | glass:rrggbb   (mint theme only; owner decision 2026-11-13)
 import { createRoot } from 'react-dom/client';
 import { BridgeProvider, useSnapshot } from './bridge/context';
 import { PreviewBridge, previewSeed } from './bridge/preview';
@@ -14,7 +14,8 @@ const seed = fixture === 'figma-desktop' ? figmaDesktopSeed() : fixture === 'fig
 const bridge = new PreviewBridge(seed);
 const mode = params.get('mode');
 if (mode === 'dark' || mode === 'light') bridge.setColorMode(mode);
-if (params.get('backdrop')) bridge.setBackdropColor('#' + params.get('backdrop'));
+const bd = params.get('backdrop');
+if (bd) bridge.setBackdropColor(bd.startsWith('glass') ? bd.replace(/:(?!#)/, ':#') : '#' + bd);
 (globalThis as any).__justslidePreview = bridge;
 
 function Frame() {

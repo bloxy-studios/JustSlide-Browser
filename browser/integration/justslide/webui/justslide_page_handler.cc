@@ -1,6 +1,10 @@
 // Copyright 2026 Bloxy Studios.
 #include "justslide/webui/justslide_page_handler.h"
 
+#include <algorithm>
+#include <optional>
+#include <string_view>
+
 #include "base/strings/utf_string_conversions.h"
 #include "chrome/app/chrome_command_ids.h"
 #include "chrome/browser/autocomplete/autocomplete_classifier_factory.h"
@@ -198,6 +202,21 @@ void JustSlidePageHandler::RenameWorkspace(const std::string& id, const std::str
 void JustSlidePageHandler::AddFavoriteForActiveTab() {
   if (auto* wc = model_->GetActiveWebContents()) workspaces_->AddFavorite(wc->GetLastCommittedURL(), wc->GetTitle());
 }
+void JustSlidePageHandler::AddFavoriteFromTab(const std::string& tab_id, int32_t index) {
+  int i = IndexOfTab(tab_id);
+  if (i == TabStripModel::kNoTab) return;
+  content::WebContents* wc = model_->GetWebContentsAt(i);
+  workspaces_->AddFavorite(wc->GetLastCommittedURL(), wc->GetTitle(),
+                           index < 0 ? std::nullopt : std::optional<size_t>(index));
+}
+void JustSlidePageHandler::AddFavoriteFromUrl(const std::string& url, const std::string& title, int32_t index) {
+  // Dropped data comes from web content: treat as untrusted. Only http/https,
+  // bounded sizes; never navigates, only stores a favorite the user dropped.
+  GURL u(url);
+  if (url.size() > 2048 || !u.is_valid() || !u.SchemeIsHTTPOrHTTPS()) return;
+  workspaces_->AddFavorite(u, base::UTF8ToUTF16(title.substr(0, 256)),
+                           index < 0 ? std::nullopt : std::optional<size_t>(index));
+}
 void JustSlidePageHandler::RemoveFavorite(const std::string& id) { workspaces_->RemoveFavorite(id); }
 void JustSlidePageHandler::MoveFavorite(const std::string& id, int32_t delta) { workspaces_->MoveFavorite(id, delta); }
 void JustSlidePageHandler::OpenFavorite(const std::string& id) {
@@ -218,8 +237,11 @@ void JustSlidePageHandler::SetColorMode(mojom::ColorMode mode) {
   ScheduleSnapshot();
 }
 void JustSlidePageHandler::SetBackdropColor(const std::string& hex) {
-  const bool ok = hex.empty() || (hex.size() == 7 && hex[0] == '#' &&
-                  std::all_of(hex.begin() + 1, hex.end(), [](char c) { return base::IsHexDigit(c); }));
+  auto is_hex = [](std::string_view h) {
+    return h.size() == 7 && h[0] == '#' && std::all_of(h.begin() + 1, h.end(), [](char c) { return base::IsHexDigit(c); });
+  };
+  const std::string_view v(hex);
+  const bool ok = v.empty() || is_hex(v) || v == "glass" || (v.starts_with("glass:") && is_hex(v.substr(6)));
   if (!ok) { receiver_.ReportBadMessage("invalid backdrop color"); return; }
   window_->GetProfile()->GetPrefs()->SetString(kPrefBackdropColor, hex);
   ScheduleSnapshot();

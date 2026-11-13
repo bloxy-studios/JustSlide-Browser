@@ -22,7 +22,8 @@
   padding: 0 8px; font: var(--js-type-address); color: var(--js-color-text); border-radius: inherit; user-select: text;
 }
 .addressInput::placeholder { color: var(--js-color-text-muted); opacity: var(--js-opacity-scope); }
-.address:focus-within { box-shadow: inset 0 0 0 1px var(--js-color-border-strong); }
+.address { box-shadow: var(--js-shadow-control); }
+.address:focus-within { box-shadow: var(--js-shadow-control), var(--js-shadow-focus); }
 .securityWarn { flex-shrink: 0; margin-left: 8px; font: var(--js-type-count); color: var(--js-color-danger); }
 .securityWarn + .addressInput { padding-left: 6px; }
 
@@ -33,12 +34,16 @@
   appearance: none; border: 0; padding: 0; position: relative;
   width: var(--js-size-favorite-width); height: var(--js-size-favorite-height); border-radius: var(--js-radius-control);
   background: var(--js-color-favorite); display: flex; align-items: center; justify-content: center; color: var(--js-color-icon);
+  box-shadow: var(--js-shadow-control);
 }
 .favorite:hover { filter: brightness(0.97); }
-.favorite:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: 1px; }
-.favoriteAdd { background: var(--js-color-favorite-add); }
-.dashed { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.dashed rect { fill: none; stroke: var(--js-color-border-dashed); stroke-width: 1; stroke-dasharray: 2 4; }
+.favorite:focus-visible { outline: none; box-shadow: var(--js-shadow-control), var(--js-shadow-focus); }
+.favoriteAdd { background: var(--js-color-favorite-add); box-shadow: none; color: var(--js-color-text-muted); }
+/* Drag-and-drop (owner decision: favorites are added by dragging tabs/links). */
+.favorites[data-drop] .favoriteAdd, .favDropBefore .favorite { box-shadow: var(--js-shadow-drop); }
+.favDragging { opacity: 0.4; }
+.favHint { flex: 1; min-width: 0; height: var(--js-size-favorite-height); display: flex; align-items: center; padding: 0 6px; font: var(--js-type-count); color: var(--js-color-text-muted); opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.favorites[data-drop] .favHint { opacity: 1; color: var(--js-color-text); }
 
 /* 25:4 Pinned Section: gap 4. 7:88 trigger 28 high, r8, padding 5/8, gap 8. */
 .pinned { display: flex; flex-direction: column; gap: var(--js-size-list-gap); }
@@ -47,7 +52,7 @@
   padding: 5px 8px; display: flex; align-items: center; gap: 8px; border-radius: var(--js-radius-control); color: var(--js-color-icon);
 }
 .pinnedTrigger:hover { background: var(--js-color-tab-hover); }
-.pinnedTrigger:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: -1px; }
+.pinnedTrigger:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
 .sectionTitle { flex: 1; min-width: 0; text-align: left; font: var(--js-type-section); color: var(--js-color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .count { font: var(--js-type-count); color: var(--js-color-text-muted); opacity: var(--js-opacity-count); }
 
@@ -68,18 +73,20 @@
 }
 .newTab svg { color: var(--js-color-icon); }
 .newTab:hover { background: var(--js-color-tab-hover); }
-.newTab:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: -1px; }
+.newTab:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
 
 /* 30:100 Slide / Tab: 240×32 r8, padding 4/8, gap 8, favicon 16, close target 24 r6 (icon 12). */
 .tab { position: relative; display: flex; align-items: center; height: var(--js-size-row-height); flex-shrink: 0; border-radius: var(--js-radius-control); padding-right: 4px; }
 .tab:hover { background: var(--js-color-tab-hover); }                                   /* 30:67 Hover */
-.tab[data-selected] { background: var(--js-color-tab-selected); box-shadow: inset 0 0 0 1px var(--js-color-border-strong); } /* 30:78 / 35:168 */
+.tab[data-selected] { background: var(--js-color-tab-selected); box-shadow: var(--js-shadow-selected); } /* 30:78 / 35:168 — shadow replaces the 1px stroke */
 .tabMain {
   appearance: none; border: 0; background: transparent; flex: 1; min-width: 0; height: 100%;
   padding: 4px 0 4px 8px; display: flex; align-items: center; gap: 8px; text-align: left; border-radius: var(--js-radius-control); color: var(--js-color-text);
 }
 .tabMain:focus-visible { outline: none; }
-.tab:has(.tabMain:focus-visible) { background: var(--js-color-tab-hover); outline: 1px dashed var(--js-color-focus-ring); outline-offset: -1px; } /* 30:89 */
+.tab:has(.tabMain:focus-visible) { background: var(--js-color-tab-hover); box-shadow: var(--js-shadow-focus); } /* 30:89, glow instead of dashed stroke */
+.tab[data-selected]:has(.tabMain:focus-visible) { box-shadow: var(--js-shadow-selected), var(--js-shadow-focus); }
+.tab[draggable='true'] { cursor: default; }
 .favicon { position: relative; width: var(--js-size-favicon); height: var(--js-size-favicon); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .tabTitle { flex: 1; min-width: 0; font: var(--js-type-tab); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tab[data-selected] .tabTitle { font: var(--js-type-tab-selected); }
@@ -96,16 +103,16 @@
 .agents { display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap); }
 .agentCard {
   height: var(--js-size-agent-card-height); padding: 8px; display: flex; align-items: center; gap: 8px;
-  border-radius: var(--js-radius-card); background: var(--js-color-agent-card); box-shadow: inset 0 0 0 1px var(--js-color-border-strong);
+  border-radius: var(--js-radius-card); background: var(--js-color-agent-card); box-shadow: var(--js-shadow-card);
 }
 .agentIcon { width: 16px; height: 16px; flex-shrink: 0; display: inline-flex; margin-left: 1px; }
 .agentText { appearance: none; border: 0; background: transparent; padding: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; text-align: left; color: var(--js-color-text); border-radius: var(--js-radius-small); }
-.agentText:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: 2px; }
+.agentText:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
 .agentState { font: var(--js-type-agent-title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .agentScope { font: var(--js-type-caption); color: var(--js-color-text-muted); opacity: var(--js-opacity-scope); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .agentControl { background: var(--js-color-agent-control); }
 .agentCard[data-state='pending'] .agentState { color: var(--js-color-text); }
-.request { display: flex; flex-direction: column; gap: 4px; padding: 8px; border-radius: var(--js-radius-control); box-shadow: inset 0 0 0 1px var(--js-color-separator); }
+.request { display: flex; flex-direction: column; gap: 4px; padding: 8px; border-radius: var(--js-radius-control); box-shadow: var(--js-shadow-control); }
 .requestActions { display: flex; justify-content: flex-end; gap: 8px; }
 
 /* 12:290 Workspace footer: 64 high, padding-top 8, gap 8. */
@@ -124,8 +131,9 @@
   display: inline-flex; align-items: center; justify-content: center; background: var(--js-color-workspace-idle); color: var(--js-color-icon);
 }
 .wsButton:hover:not([data-selected]) { background: var(--js-color-tab-hover); }
-.wsButton[data-selected] { background: var(--js-color-workspace-selected); box-shadow: inset 0 0 0 1px var(--js-color-border-strong); }
-.wsButton:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: 1px; }
+.wsButton[data-selected] { background: var(--js-color-workspace-selected); box-shadow: var(--js-shadow-selected); }
+.wsButton:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
+.wsButton[data-selected]:focus-visible { box-shadow: var(--js-shadow-selected), var(--js-shadow-focus); }
 .wsLetter { font: 590 11px/1 var(--js-font); color: var(--js-color-text); }
 /* 35:322 Background activity indicator: 7×7 at (+24,+2), 1.5px ring in the sidebar colour. */
 .activityDot {

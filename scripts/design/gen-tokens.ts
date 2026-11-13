@@ -39,11 +39,13 @@ for (const [k, v] of Object.entries(tokens.type as Record<string, any>)) {
   css += `  --js-type-${k}: ${v.weight} ${px(v.size)}/${px(v.lineHeight)} var(--js-font);\n`;
   if (v.letterSpacing) css += `  --js-type-${k}-tracking: ${px(v.letterSpacing)};\n`;
 }
+for (const [k, v] of Object.entries((tokens.shadow ?? {}) as Record<string, string>)) if (!k.startsWith('$')) css += `  --js-shadow-${k}: ${v}; /* derived */\n`;
+if (tokens.glass) css += `  --js-glass-tint-alpha: ${tokens.glass.tintAlpha};\n  --js-glass-surface-alpha: ${tokens.glass.surfaceAlpha};\n`;
 css += '}\n';
-// Light is the :root fallback and must come FIRST: [data-theme] selectors have the
-// same specificity as :root, so later rules win.
-for (const theme of ['light', ...themes.filter(t => t !== 'light')]) {
-  const sel = theme === 'light' ? ':root, [data-theme="light"]' : `[data-theme="${theme}"]`;
+// The first theme is the :root fallback and must come FIRST: [data-theme]
+// selectors have the same specificity as :root, so later rules win.
+for (const [i, theme] of themes.entries()) {
+  const sel = i === 0 ? `:root, [data-theme="${theme}"]` : `[data-theme="${theme}"]`;
   css += `\n${sel} {\n  color-scheme: ${theme === 'dark' ? 'dark' : 'light'};\n`;
   for (const [name, t] of Object.entries(tokens.colors as Record<string, Tok>)) {
     const { value, source } = colorFor(name, t, theme);

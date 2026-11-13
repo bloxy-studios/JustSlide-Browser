@@ -9,15 +9,8 @@ import { applyTheme } from './theme';
  */
 export function SidebarApp() {
   const snap = useSnapshot();
-  useEffect(() => {
-    if (!snap) return;
-    applyTheme(snap.colorMode, snap.backdropColor);
-    if (snap.colorMode !== 'system' || typeof matchMedia !== 'function') return;
-    const mq = matchMedia('(prefers-color-scheme: dark)');
-    const h = () => applyTheme(snap.colorMode, snap.backdropColor);
-    mq.addEventListener('change', h);
-    return () => mq.removeEventListener('change', h);
-  }, [snap?.colorMode, snap?.backdropColor]);
+  // Mint is the only theme; the backdrop (solid or glass) comes from the browser pref.
+  useEffect(() => { if (snap) applyTheme(snap.colorMode, snap.backdropColor); }, [snap?.backdropColor]);
   if (!snap) return <div role="status" style={{ padding: 12, font: 'var(--js-type-address)' }}>Connecting to browser…</div>;
   return <Sidebar snap={snap} />;
 }

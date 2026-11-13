@@ -22,13 +22,12 @@
         240,
         696
       ],
-      "diffPct": 7.86,
-      "hotRowCount": 79,
+      "diffPct": 8.32,
+      "hotRowCount": 82,
       "firstHotRows": [
         249,
         250,
         298,
-        299,
         312,
         313,
         314,
@@ -36,80 +35,7 @@
         316,
         317,
         318,
-        319
-      ]
-    },
-    {
-      "name": "compact-light",
-      "figmaNode": "55:120",
-      "query": "fixture=figma-compact&mode=light&backdrop=eff3f5",
-      "viewport": [
-        1100,
-        720
-      ],
-      "figmaCrop": [
-        12,
-        12,
-        240,
-        696
-      ],
-      "previewCrop": [
-        12,
-        12,
-        240,
-        696
-      ],
-      "diffPct": 7.72,
-      "hotRowCount": 77,
-      "firstHotRows": [
-        249,
-        250,
-        298,
-        299,
-        312,
-        313,
-        314,
-        315,
-        316,
-        317,
-        318,
-        319
-      ]
-    },
-    {
-      "name": "compact-dark",
-      "figmaNode": "55:411",
-      "query": "fixture=figma-compact&mode=dark",
-      "viewport": [
-        1100,
-        720
-      ],
-      "figmaCrop": [
-        12,
-        12,
-        240,
-        696
-      ],
-      "previewCrop": [
-        12,
-        12,
-        240,
-        696
-      ],
-      "diffPct": 7.67,
-      "hotRowCount": 80,
-      "firstHotRows": [
-        249,
-        250,
-        298,
-        299,
-        312,
-        313,
-        314,
-        315,
-        316,
-        317,
-        318,
+        319,
         329
       ]
     },
@@ -133,7 +59,7 @@
         240,
         900
       ],
-      "diffPct": 8.2,
+      "diffPct": 8.11,
       "hotRowCount": 119,
       "firstHotRows": [
         260,

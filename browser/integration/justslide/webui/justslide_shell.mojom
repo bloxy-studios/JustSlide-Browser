@@ -118,6 +118,9 @@ interface PageHandler {
   RenameWorkspace(string workspace_id, string name);
 
   AddFavoriteForActiveTab();
+  // Drag-and-drop: a sidebar tab, or a link/URL dropped from a page (http/https only).
+  AddFavoriteFromTab(string tab_id, int32 index);
+  AddFavoriteFromUrl(string url, string title, int32 index);
   RemoveFavorite(string favorite_id);
   MoveFavorite(string favorite_id, int32 delta);
   OpenFavorite(string favorite_id);
@@ -129,6 +132,7 @@ interface PageHandler {
   RevokeAgent(string grant_id);
 
   SetColorMode(ColorMode mode);
+  // "#rrggbb", "" (default mint), "glass" or "glass:#rrggbb" (frosted, tinted).
   SetBackdropColor(string css_hex);
 
   // Opens the native pairing dialog (token shown once, stored in Keychain).

@@ -1,6 +1,7 @@
 // PREVIEW EVIDENCE: compares the UI preview (Figma fixtures, simulated state)
 // against Figma renders exported through Composio (design/figma/renders/*.b64).
-// It compares the SIDEBAR COLUMN only; the page area is a placeholder here and
+// It compares the SIDEBAR COLUMN only. Strokes in Figma are intentionally shadows here
+// (owner decision 2026-11-13), so selected rows/cards differ at their edges; the page area is a placeholder here and
 // real WebContents in JustSlide. This is not proof of native fidelity; the
 // native comparison uses screenshots of the compiled app (docs/progress.md).
 //
@@ -22,8 +23,7 @@ if (!exe || !existsSync(exe)) { console.error('Set CHROME to a Chromium/Chrome f
 type Crop = [number, number, number, number];
 const cases: Array<[string, string, string, number, number, 'light' | 'dark', Crop, Crop]> = [
   ['compact-mint', '35-13', 'fixture=figma-compact&mode=light', 1100, 720, 'light', [12, 12, 240, 696], [12, 12, 240, 696]],
-  ['compact-light', '55-120', 'fixture=figma-compact&mode=light&backdrop=eff3f5', 1100, 720, 'light', [12, 12, 240, 696], [12, 12, 240, 696]],
-  ['compact-dark', '55-411', 'fixture=figma-compact&mode=dark', 1100, 720, 'dark', [12, 12, 240, 696], [12, 12, 240, 696]],
+  // Light/dark theme frames (55:120, 55:411) are no longer targets: owner chose mint only (2026-11-13).
   // 1:6 uses 6 px frame padding (JustSlide uses 12): compare the top 900 px of the column only.
   ['desktop-mint-top', '1-6', 'fixture=figma-desktop&mode=light', 1440, 1024, 'light', [6, 6, 240, 900], [12, 12, 240, 900]],
 ];

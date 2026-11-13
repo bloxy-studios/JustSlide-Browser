@@ -32,12 +32,7 @@ export function previewSeed(): ShellSnapshot {
       { id: 'ws_agent0001', name: 'Research agent', icon: 'agent', profileKind: 'agent-isolated', agentOwned: true },
     ],
     tabs,
-    favorites: [
-      { id: 'fav_chatgpt01', url: 'https://chatgpt.com/', title: 'ChatGPT' },
-      { id: 'fav_claude001', url: 'https://claude.ai/', title: 'Claude' },
-      { id: 'fav_github001', url: 'https://github.com/', title: 'GitHub' },
-      { id: 'fav_figma0001', url: 'https://www.figma.com/', title: 'Figma' },
-    ],
+    favorites: [], // users add favorites by dragging tabs or links onto the grid
     agents: [
       { grantId: 'grant_preview1', clientName: 'Cursor (local MCP)', workspaceIds: ['ws_agent0001'], state: 'active', lastAction: 'Opened example.com/research in the background', pending: [
         { id: 'req_preview01', grantId: 'grant_preview1', workspaceId: 'ws_agent0001', kind: 'download', summary: 'Download report.pdf from example.com', origin: 'https://example.com' },
@@ -110,13 +105,22 @@ export class PreviewBridge implements ShellBridge {
   createWorkspace(name: string) { this.update('createWorkspace', [name], s => { s.workspaces.push({ id: nid('ws'), name, icon: 'generic', profileKind: 'personal', agentOwned: false }); return s; }); }
   renameWorkspace(id: string, name: string) { this.update('renameWorkspace', [id, name], s => { s.workspaces = s.workspaces.map(w => w.id === id ? { ...w, name } : w); return s; }); }
   addFavoriteForActiveTab() { this.update('addFavoriteForActiveTab', [], s => { const t = s.tabs.find(x => x.id === s.activeTabId); if (t && !s.favorites.some(f => f.url === t.url)) s.favorites.push({ id: nid('fav'), url: t.url, title: t.title }); return s; }); }
+  private insertFavorite(s: ShellSnapshot, url: string, title: string, index: number) {
+    if (!/^https?:\/\//i.test(url) || s.favorites.some(f => f.url === url)) return s;
+    const fav = { id: nid('fav'), url, title: title.slice(0, 256) };
+    const at = index < 0 || index > s.favorites.length ? s.favorites.length : index;
+    s.favorites.splice(at, 0, fav);
+    return s;
+  }
+  addFavoriteFromTab(tabId: string, index: number) { this.update('addFavoriteFromTab', [tabId, index], s => { const t = s.tabs.find(x => x.id === tabId); return t ? this.insertFavorite(s, t.url, t.title, index) : s; }); }
+  addFavoriteFromUrl(url: string, title: string, index: number) { this.update('addFavoriteFromUrl', [url, title, index], s => this.insertFavorite(s, url, title, index)); }
   removeFavorite(id: string) { this.update('removeFavorite', [id], s => { s.favorites = s.favorites.filter(f => f.id !== id); return s; }); }
-  moveFavorite(id: string, delta: number) { this.update('moveFavorite', [id, delta], s => { const i = s.favorites.findIndex(f => f.id === id); const j = i + delta; if (i < 0 || j < 0 || j >= s.favorites.length) return s; const [f] = s.favorites.splice(i, 1); s.favorites.splice(j, 0, f); return s; }); }
+  moveFavorite(id: string, delta: number) { this.update('moveFavorite', [id, delta], s => { const i = s.favorites.findIndex(f => f.id === id); const j = Math.max(0, Math.min(s.favorites.length - 1, i + delta)); if (i < 0 || j === i) return s; const [f] = s.favorites.splice(i, 1); s.favorites.splice(j, 0, f); return s; }); }
   openFavorite(id: string) { const f = this.snap.favorites.find(x => x.id === id); if (f) this.navigateFromInput(f.url); }
   resolvePendingRequest(id: string, approve: boolean) { this.update('resolvePendingRequest', [id, approve], s => { s.agents = s.agents.map(a => ({ ...a, pending: a.pending.filter(p => p.id !== id) })); return s; }); }
   setAgentPaused(grantId: string, paused: boolean) { this.update('setAgentPaused', [grantId, paused], s => { s.agents = s.agents.map(a => a.grantId === grantId && a.state !== 'revoked' ? { ...a, state: paused ? 'paused' : 'active' } : a); return s; }); }
   revokeAgent(grantId: string) { this.update('revokeAgent', [grantId], s => { s.agents = s.agents.map(a => a.grantId === grantId ? { ...a, state: 'revoked', pending: [] } : a); return s; }); }
   setColorMode(mode: ColorMode) { this.update('setColorMode', [mode], s => ({ ...s, colorMode: mode })); }
-  setBackdropColor(hex: string) { this.update('setBackdropColor', [hex], s => ({ ...s, backdropColor: /^#[0-9a-f]{6}$/i.test(hex) || hex === '' ? hex : s.backdropColor })); }
+  setBackdropColor(hex: string) { this.update('setBackdropColor', [hex], s => ({ ...s, backdropColor: /^(#[0-9a-f]{6}|glass|glass:#[0-9a-f]{6})?$/i.test(hex) ? hex : s.backdropColor })); }
   showPairingDialog() { this.log.push(['showPairingDialog', []]); }
 }

@@ -11,3 +11,18 @@ button, input { font: inherit; color: inherit; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Frosted glass backdrop. The window behind the page is native macOS vibrancy
+   (NSVisualEffectView, see docs/chromium-integration.md); this document only
+   becomes translucent so it shows through. Surfaces stay mostly opaque. */
+html[data-material='glass'], html[data-material='glass'] body { background: transparent; }
+[data-material='glass'] {
+  --js-color-address: rgba(255, 255, 255, var(--js-glass-surface-alpha));
+  --js-color-favorite: rgba(255, 255, 255, var(--js-glass-surface-alpha));
+  --js-color-favorite-add: rgba(255, 255, 255, 0.55);
+  --js-color-tab-selected: rgba(255, 255, 255, var(--js-glass-surface-alpha));
+  --js-color-workspace-selected: rgba(255, 255, 255, var(--js-glass-surface-alpha));
+  --js-color-agent-card: rgba(255, 255, 255, var(--js-glass-surface-alpha));
+  --js-color-agent-control: rgba(255, 255, 255, 0.9);
+  --js-color-tab-hover: rgba(255, 255, 255, 0.45);
+}

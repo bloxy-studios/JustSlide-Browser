@@ -47,7 +47,7 @@ match the marks placed in Figma (contact sheet compared on 2026-11-13).
 | brand-youtube | youtube / default | CC0-1.0 | favorite |
 | brand-chatgpt | openai-chatgpt / default (same slug as the Figma layer) | MIT | favorite + ChatGPT workspace |
 | brand-claude | claude / default | CC0-1.0 | favorite |
-| brand-gmail | gmail / default | CC0-1.0 | favorite (Figma uses theSVG `gmail-2026`, whose entry licence is "Trademark"; the CC0 classic mark ships until the owner chooses) |
+| brand-gmail | gmail-2026 / default | Trademark | favorite. Owner chose the 2026 mark (2026-11-13) because Gmail uses it as its favicon; follow Google's brand guidelines |
 | brand-aws | aws / default | MIT | favorite |
 | brand-github | github / default | CC0-1.0 | favorite |
 | brand-slack | slack / default | MIT | favorite |
@@ -67,7 +67,7 @@ brand's guidelines before any public release.
 Ordinary websites use their **real favicon** from Chromium (`chrome://favicon2`); only the
 curated shortcuts that appear in Figma map to brand marks (`src/lib/brands.ts`).
 
-Attribution for MIT-licensed theSVG entries and the theSVG library is in `NOTICE`. Avoid entries with `brand-use` or `Trademark` licences (e.g. `codex`, `gmail-2026`) unless the owner approves.
+Attribution for MIT-licensed theSVG entries and the theSVG library is in `NOTICE`. Avoid entries with `brand-use` or `Trademark` licences unless the owner approves (approved: `gmail-2026`).
 
 ## Mascot and app icon
 The blue peeking mascot does not appear in any inspected Figma frame, and no source artwork is in
