@@ -56,7 +56,7 @@ DEPOT = Path(os.environ.get("JUSTSLIDE_DEPOT_TOOLS", ENGINE_ROOT / "depot_tools"
 STATE_FILE = ENGINE_ROOT / "state.json"
 LOG_DIR = ENGINE_ROOT / "logs"
 EVID = ENGINE_ROOT / "evidence"
-OUT_NAME = os.environ.get("JUSTSLIDE_OUT", "JustSlide")
+OUT_NAME = os.environ.get("JUSTSLIDE_OUT", "JustSlide" + ("-arm64" if os.environ.get("JUSTSLIDE_TARGET_CPU") == "arm64" else ""))
 OUT = CR_SRC / "out" / OUT_NAME
 MIN_FREE_GB_BEFORE_SYNC = 45
 
@@ -122,8 +122,11 @@ def build_jobs() -> int:
     h = host_info()
     ncpu = h.get("ncpu") or 2
     ram = h.get("ram_gb") or 8
-    # ~1.5 GB per clang job for a symbol-less release component build.
-    return max(2, min(ncpu, int(ram / 1.5)))
+    if os.environ.get("JUSTSLIDE_JOBS"):
+        return max(1, int(os.environ["JUSTSLIDE_JOBS"]))
+    # ~2 GB per clang job for a symbol-less release component build, keeping
+    # ~2 GB for macOS itself (8 GB Mac => -j3).
+    return max(2, min(ncpu, int((ram - 2) / 2)))
 
 
 def env_with_depot() -> dict:
@@ -225,7 +228,14 @@ def sha256(p: Path) -> str:
 
 def gn_args(extra: dict | None = None) -> str:
     h = host_info()
-    cpu = "arm64" if (h["machine"] == "arm64" or h.get("rosetta")) else "x64"
+    host_cpu = "arm64" if (h["machine"] == "arm64" or h.get("rosetta")) else "x64"
+    # JUSTSLIDE_TARGET_CPU=arm64 cross-compiles an Apple Silicon build on an
+    # Intel Mac (supported by Chromium's mac toolchain); it cannot be launched
+    # or tested on the Intel host. A universal .app is assembled later from an
+    # x64 and an arm64 out dir with chrome/installer/mac/universalizer.py.
+    cpu = os.environ.get("JUSTSLIDE_TARGET_CPU", host_cpu)
+    if cpu not in ("x64", "arm64"):
+        raise StepFailed(f"JUSTSLIDE_TARGET_CPU must be x64 or arm64, not {cpu}")
     args = {
         "target_cpu": f'"{cpu}"',
         # Lean development build sized for a 16 GB RAM / ~70 GB free Mac:
@@ -242,6 +252,8 @@ def gn_args(extra: dict | None = None) -> str:
         "use_official_google_api_keys": "false",
         "chrome_pgo_phase": "0",
         "use_remoteexec": "false",
+        # Low-RAM hosts: one link at a time (chrome links need several GB).
+        "concurrent_links": "1" if (h.get("ram_gb") or 8) < 16 else "2",
     }
     args.update(extra or {})
     return "".join(f"{k} = {v}\n" for k, v in args.items())
@@ -442,6 +454,9 @@ def headless_checks(tag: str) -> dict:
     shutil.rmtree(prof, ignore_errors=True)
     (EVID / f"{tag}.json").write_text(json.dumps(res, indent=2))
     print(json.dumps(res, indent=2))
+    if os.environ.get("JUSTSLIDE_TARGET_CPU", "") == "arm64" and platform.machine() != "arm64":
+        res["note"] = "cross-compiled arm64 build: not runnable on this Intel host"
+        return res
     if not (res["dump_dom_ok"] and res["screenshot_bytes"] > 1000 and PIN_TAG in res["version_output"]):
         raise StepFailed(f"{tag} verification failed (see {EVID / (tag + '.json')})")
     return res

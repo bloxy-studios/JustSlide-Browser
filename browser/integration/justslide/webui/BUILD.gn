@@ -11,6 +11,8 @@ mojom("mojo_bindings") {
 
 source_set("webui") {
   sources = [
+    "justslide_context_menu.cc",
+    "justslide_context_menu.h",
     "justslide_page_handler.cc",
     "justslide_page_handler.h",
     "justslide_sidebar_ui.cc",
@@ -32,6 +34,10 @@ source_set("webui") {
     "//justslide/browser",
     "//justslide/common",
     "//justslide/resources",
+    "//ui/base",
+    "//ui/gfx/geometry",
+    "//ui/menus",
+    "//ui/views",
     "//ui/webui",
   ]
 }

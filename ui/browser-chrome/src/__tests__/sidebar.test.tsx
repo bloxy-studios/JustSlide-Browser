@@ -120,7 +120,7 @@ describe('Sidebar (Figma 1:9 structure)', () => {
     tab.focus();
     await user.keyboard('{Shift>}{F10}{/Shift}');
     const menu = screen.getByRole('menu', { name: 'Phosphor Icons tab' });
-    expect(within(menu).getByRole('menuitem', { name: 'Pin tab' })).toBeTruthy();
+    expect(within(menu).getByRole('menuitem', { name: 'Pin Tab' })).toBeTruthy();
     await user.keyboard('{Enter}');
     expect(bridge.log.at(-1)).toEqual(['setTabPinned', ['tab_phosph001', true]]);
     expect(screen.queryByRole('menu')).toBeNull();
@@ -140,7 +140,7 @@ describe('Sidebar (Figma 1:9 structure)', () => {
   it('pending agent requests need an explicit human decision in trusted UI', async () => {
     const { user, bridge } = setup();
     await user.click(screen.getByRole('button', { name: /Needs approval\. Show activity details/ }));
-    await user.click(screen.getByRole('button', { name: 'Allow once' }));
+    await user.click(screen.getByRole('button', { name: 'Allow Once' }));
     expect(bridge.log.at(-1)).toEqual(['resolvePendingRequest', ['req_preview01', true]]);
   });
 
@@ -150,7 +150,7 @@ describe('Sidebar (Figma 1:9 structure)', () => {
     expect(bridge.getSnapshot().agents[0].state).toBe('paused');
     expect(screen.getByRole('button', { name: 'Resume Claude Code' })).toBeTruthy();
     await user.click(screen.getByRole('button', { name: /Show activity details/ }));
-    await user.click(screen.getByRole('button', { name: 'Revoke access' }));
+    await user.click(screen.getByRole('button', { name: 'Revoke Access' }));
     expect(screen.queryByRole('region', { name: 'Agent activity' })).toBeNull();
   });
 
@@ -178,13 +178,48 @@ describe('Sidebar (Figma 1:9 structure)', () => {
     expect(bridge.log.at(-1)).toEqual(['showDownloads', []]);
   });
 
-  it('hover labels appear for keyboard focus (Figma 30:122)', async () => {
+  it('hover labels are native help tags (title), with shortcuts on toolbar buttons', () => {
     setup(figmaDesktopSeed());
-    const btn = screen.getByRole('button', { name: 'Open Notion website' });
-    btn.matches = ((sel: string) => sel === ':focus-visible') as any;
-    fireEvent.focus(btn);
-    await act(async () => { await new Promise(r => setTimeout(r, 5)); });
-    expect(screen.getByTestId('tooltip').textContent).toBe('Open Notion website');
+    expect(screen.getByRole('button', { name: 'Open Notion website' }).getAttribute('title')).toBe('Notion');
+    expect(screen.getByRole('button', { name: 'Switch to Codex workspace' }).getAttribute('title')).toBe('Codex');
+    expect(screen.getByRole('button', { name: 'Reload' }).getAttribute('title')).toMatch(/^Reload \(/);
+    expect(screen.queryByTestId('tooltip')).toBeNull();
+  });
+
+  it('arrow keys move between tab rows like a macOS list', async () => {
+    const { user } = setup(figmaDesktopSeed());
+    screen.getByRole('button', { name: 'Icons - Lucide' }).focus();
+    await user.keyboard('{ArrowDown}');
+    expect(document.activeElement?.closest('[data-tab-id]')?.getAttribute('data-tab-id')).toBe('tab_phosph001');
+    await user.keyboard('{ArrowUp}{ArrowUp}');
+    expect(document.activeElement?.closest('[data-tab-id]')?.getAttribute('data-tab-id')).toBe('tab_figma0001');
+  });
+
+  it('suppresses the web context menu on chrome surfaces', () => {
+    setup(figmaDesktopSeed());
+    const ev = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+    screen.getByTestId('current-workspace').dispatchEvent(ev);
+    expect(ev.defaultPrevented).toBe(true);
+  });
+
+  it('context menus request the native menu with the item identity', async () => {
+    const { user, bridge } = setup(figmaDesktopSeed());
+    fireEvent.contextMenu(screen.getByRole('button', { name: 'Phosphor Icons' }), { clientX: 40, clientY: 300 });
+    expect(bridge.log.at(-1)).toEqual(['showContextMenu', ['tab', 'tab_phosph001', 40, 300, false]]);
+    await user.keyboard('{Escape}');
+  });
+
+  it('native rename request from the browser opens the rename dialog', () => {
+    const { bridge } = setup(figmaDesktopSeed());
+    act(() => bridge.startRenameWorkspace('ws_codex00001'));
+    expect((screen.getByRole('textbox', { name: 'Workspace name' }) as HTMLInputElement).value).toBe('Codex');
+  });
+
+  it('inactive window mutes selection (data-window)', () => {
+    const { bridge } = setup(figmaDesktopSeed());
+    expect(document.documentElement.dataset.window).toBe('active');
+    act(() => bridge.setWindowActive(false));
+    expect(document.documentElement.dataset.window).toBe('inactive');
   });
 
   it('collapsing keeps an accessible way back (rail)', async () => {
@@ -233,7 +268,7 @@ function dt(data: Record<string, string>) {
 describe('favorites by drag and drop (owner decision 2026-11-13)', () => {
   it('starts empty with a hint and the add tile', () => {
     setup();
-    expect(screen.getByTestId('favorites-hint').textContent).toBe('Drag a tab here to add it');
+    expect(screen.getByTestId('favorites-hint').textContent).toBe('Drag tabs here to add favorites');
     expect(within(screen.getByRole('list', { name: 'Favorites' })).getAllByRole('button')).toHaveLength(1);
   });
   it('dropping a tab adds it as a favorite', () => {

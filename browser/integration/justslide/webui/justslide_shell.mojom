@@ -19,6 +19,7 @@ enum ColorMode { kSystem, kLight, kDark };
 enum WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric, kCodex };
 enum ProfileKind { kPersonal, kAgentIsolated };
 enum AgentState { kActive, kPaused, kRevoked };
+enum ContextMenuKind { kTab, kFavorite, kWorkspace };
 
 struct TabInfo {
   // Durable JustSlide tab id ("tab_..."), never a tab index or process id.
@@ -86,6 +87,9 @@ struct ShellSnapshot {
   ColorMode color_mode;
   // "" or "#rrggbb"; validated in the browser.
   string backdrop_color;
+  // Window is the key window (macOS) / foreground window. Inactive windows
+  // render selection in the muted, platform-standard way.
+  bool window_active;
 };
 
 interface PageHandlerFactory {
@@ -139,9 +143,14 @@ interface PageHandler {
   ShowPairingDialog();
   // Opens chrome://downloads (Chromium download manager UI) in the window.
   ShowDownloads();
+  // Native context menu (NSMenu on macOS) for a sidebar item. `x`,`y` are in
+  // sidebar CSS px. Items and enabled state come from browser state.
+  ShowContextMenu(ContextMenuKind kind, string id, int32 x, int32 y, bool from_keyboard);
 };
 
 interface Page {
   SnapshotChanged(ShellSnapshot snapshot);
   FocusAddressField();
+  // Sent from the native workspace menu: open the rename UI for `workspace_id`.
+  StartRenameWorkspace(string workspace_id);
 };

@@ -6,6 +6,7 @@ import { TabRow } from './TabRow';
 import s from './sidebar.module.css';
 
 const PINNED_KEY = 'justslide.pinnedOpen';
+const MAC = typeof navigator !== 'undefined' && /mac/i.test(navigator.platform || '');
 
 /** Figma 25:4 "Pinned Section": trigger collapses/expands persistent workspace tabs. */
 export function PinnedSection({ tabs }: { tabs: TabInfo[] }) {
@@ -16,10 +17,10 @@ export function PinnedSection({ tabs }: { tabs: TabInfo[] }) {
   return (
     <section className={s.pinned} aria-label="Pinned tabs">
       <button type="button" className={s.pinnedTrigger} aria-expanded={open} aria-controls="pinned-tabs" onClick={() => setOpen(!open)}>
-        <Icon name="pin" size={12} />
+        <Icon name="pin" size={11} />
         <span className={s.sectionTitle}>Pinned</span>
         <span className={s.count} aria-label={`${tabs.length} pinned`}>{tabs.length}</span>
-        <Icon name={open ? 'chevron-down' : 'chevron-right'} size={14} />
+        <span className={s.chevron} data-open={open || undefined} aria-hidden><Icon name="chevron-right" size={12} /></span>
       </button>
       {open && (
         <ul id="pinned-tabs" className={s.tabList}>
@@ -35,7 +36,7 @@ export function TabArea({ tabs }: { tabs: TabInfo[] }) {
   const b = useBridge();
   return (
     <div className={s.tabArea}>
-      <button type="button" className={s.newTab} onClick={() => b.createTab()}>
+      <button type="button" className={s.newTab} title={MAC ? 'New Tab (⌘T)' : 'New Tab (Ctrl+T)'} onClick={() => b.createTab()}>
         <Icon name="new-tab" size={12} />
         <span>New Tab</span>
       </button>

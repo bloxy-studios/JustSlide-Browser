@@ -13,3 +13,17 @@ body { background: var(--js-color-frame); }
 /* Preview-only stand-in for macOS vibrancy: a sample desktop behind a blurred, tinted frame. */
 html[data-material='glass'] body { background: linear-gradient(135deg, #f6b38d 0%, #d38bd6 35%, #7aa7f0 70%, #8fe3c8 100%); }
 html[data-material='glass'] .frame { backdrop-filter: blur(40px) saturate(1.6); }
+/* Preview-only mock window controls, drawn where the native host places the
+   real ones (macOS: 12 px lights centred on the 44 px title bar row, y = 22;
+   Windows: caption buttons at the top-right of the page area). */
+.frame { position: relative; }
+.trafficLights, .winControls { display: none; position: absolute; pointer-events: none; z-index: 5; }
+html[data-platform-override='mac'] .trafficLights {
+  display: block; left: 13px; top: 16px; width: 12px; height: 12px; border-radius: 50%;
+  background: #ff5f57; box-shadow: 20px 0 0 #febc2e, 40px 0 0 #28c840, inset 0 0 0 0.5px rgba(0,0,0,.12);
+}
+html[data-platform-override='mac'][data-window='inactive'] .trafficLights { background: #d1d4d4; box-shadow: 20px 0 0 #d1d4d4, 40px 0 0 #d1d4d4; }
+html[data-platform-override='win'] .winControls {
+  display: block; right: 6px; top: 6px; width: 138px; height: 32px; border-top-right-radius: 16px;
+  background: linear-gradient(90deg, transparent 0 0) ; box-shadow: inset -46px 0 0 rgba(0,0,0,0.0);
+}

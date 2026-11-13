@@ -1,0 +1,108 @@
+{
+  "chrome": "157.0.8103.51",
+  "runs": [
+    {
+      "name": "figma-compact",
+      "summary": {
+        "texts": 22,
+        "controls": 48,
+        "lowContrast": 0,
+        "under11px": 0,
+        "targetsUnder24": 0,
+        "pointerCursor": 0,
+        "overflowX": false,
+        "fontSizes": {
+          "11": 8,
+          "13": 14
+        },
+        "fontWeights": {
+          "400": 17,
+          "500": 3,
+          "600": 2
+        },
+        "family": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif"
+      },
+      "lowContrast": [],
+      "small": [],
+      "tinyTargets": [],
+      "pointer": []
+    },
+    {
+      "name": "figma-desktop",
+      "summary": {
+        "texts": 20,
+        "controls": 56,
+        "lowContrast": 0,
+        "under11px": 0,
+        "targetsUnder24": 0,
+        "pointerCursor": 0,
+        "overflowX": false,
+        "fontSizes": {
+          "11": 4,
+          "13": 16
+        },
+        "fontWeights": {
+          "400": 18,
+          "600": 2
+        },
+        "family": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif"
+      },
+      "lowContrast": [],
+      "small": [],
+      "tinyTargets": [],
+      "pointer": []
+    },
+    {
+      "name": "default",
+      "summary": {
+        "texts": 16,
+        "controls": 23,
+        "lowContrast": 0,
+        "under11px": 0,
+        "targetsUnder24": 0,
+        "pointerCursor": 0,
+        "overflowX": false,
+        "fontSizes": {
+          "11": 9,
+          "13": 7
+        },
+        "fontWeights": {
+          "400": 11,
+          "500": 3,
+          "600": 2
+        },
+        "family": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif"
+      },
+      "lowContrast": [],
+      "small": [],
+      "tinyTargets": [],
+      "pointer": []
+    },
+    {
+      "name": "glass",
+      "summary": {
+        "texts": 22,
+        "controls": 48,
+        "lowContrast": 0,
+        "under11px": 0,
+        "targetsUnder24": 0,
+        "pointerCursor": 0,
+        "overflowX": false,
+        "fontSizes": {
+          "11": 8,
+          "13": 14
+        },
+        "fontWeights": {
+          "400": 17,
+          "500": 3,
+          "600": 2
+        },
+        "family": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif"
+      },
+      "lowContrast": [],
+      "small": [],
+      "tinyTargets": [],
+      "pointer": []
+    }
+  ]
+}

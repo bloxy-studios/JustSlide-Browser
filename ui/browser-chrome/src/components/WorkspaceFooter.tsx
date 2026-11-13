@@ -16,9 +16,9 @@ export const WORKSPACE_ICONS: Partial<Record<WorkspaceIcon, IconName>> = {
 
 function WorkspaceButton({ ws, selected, busy }: { ws: WorkspaceInfo; selected: boolean; busy: boolean }) {
   const b = useBridge();
-  const menu = useMenu();
+  const menu = useMenu({ kind: 'workspace', id: ws.id });
   const label = `Switch to ${ws.name} workspace${busy ? ', agent working' : ''}`;
-  const tip = useTooltip(`Switch to ${ws.name} workspace`, 'above');
+  const tip = useTooltip(ws.name);
   const icon = WORKSPACE_ICONS[ws.icon];
   return (
     <span className={s.wsItem}>
@@ -31,7 +31,7 @@ function WorkspaceButton({ ws, selected, busy }: { ws: WorkspaceInfo; selected: 
         {icon ? <Icon name={icon} size={16} /> : <span className={s.wsLetter} aria-hidden>{ws.name.slice(0, 1).toUpperCase()}</span>}
       </button>
       {busy && <span className={s.activityDot} aria-hidden data-testid={`activity-${ws.id}`} />}
-      {menu.render(`${ws.name} workspace`, [{ label: 'Rename workspace…', onSelect: () => window.dispatchEvent(new CustomEvent('js-rename-ws', { detail: ws })) }])}
+      {menu.render(`${ws.name} workspace`, [{ label: 'Rename Workspace…', onSelect: () => window.dispatchEvent(new CustomEvent('js-rename-ws', { detail: ws })) }])}
     </span>
   );
 }
@@ -51,9 +51,9 @@ export function WorkspaceFooter({ workspaces, selectedId, agents }: { workspaces
     setDialog(null); setName('');
   };
   return (
-    <nav className={s.footer} aria-label="Workspaces">
+    <nav className={s.footer} aria-labelledby="ws-heading">
       <div className={s.wsHeading}>
-        <span className={s.overline} aria-hidden>Workspaces</span>
+        <span className={s.overline} id="ws-heading">Workspaces</span>
         <span className={s.currentWs} data-testid="current-workspace">{selected?.name ?? ''}</span>
       </div>
       <div className={s.wsControls}>
@@ -63,7 +63,7 @@ export function WorkspaceFooter({ workspaces, selectedId, agents }: { workspaces
         </div>
         <IconButton icon="new-workspace" label="Create a new workspace" tooltip={false} {...newTip} onClick={() => { setName(''); setDialog({ mode: 'create' }); }} />
       </div>
-      <RenameListener onRename={(ws) => { setName(ws.name); setDialog({ mode: 'rename', ws }); }} />
+      <RenameListener workspaces={workspaces} onRename={(ws) => { setName(ws.name); setDialog({ mode: 'rename', ws }); }} />
       {dialog && (
         <Dialog
           title={dialog.mode === 'create' ? 'New workspace' : 'Rename workspace'} onClose={() => setDialog(null)}
@@ -72,18 +72,21 @@ export function WorkspaceFooter({ workspaces, selectedId, agents }: { workspaces
           <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
             <TextInput aria-label="Workspace name" autoFocus maxLength={64} value={name} onChange={(e) => setName(e.target.value)} />
           </form>
-          <span>Workspaces organise tabs. They share this profile's cookies and permissions.</span>
+          <span>Workspaces organize tabs. They share this profile's cookies and permissions.</span>
         </Dialog>
       )}
     </nav>
   );
 }
 
-function RenameListener({ onRename }: { onRename: (ws: WorkspaceInfo) => void }) {
+/** Rename requests come from the preview menu (window event) or the native menu (bridge). */
+function RenameListener({ workspaces, onRename }: { workspaces: WorkspaceInfo[]; onRename: (ws: WorkspaceInfo) => void }) {
+  const b = useBridge();
   useEffect(() => {
     const h = (e: Event) => onRename((e as CustomEvent).detail as WorkspaceInfo);
     window.addEventListener('js-rename-ws', h);
-    return () => window.removeEventListener('js-rename-ws', h);
-  }, [onRename]);
+    const off = b.onRenameWorkspace((id) => { const ws = workspaces.find(w => w.id === id); if (ws) onRename(ws); });
+    return () => { window.removeEventListener('js-rename-ws', h); off(); };
+  }, [onRename, b, workspaces]);
   return null;
 }

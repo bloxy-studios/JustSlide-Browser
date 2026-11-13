@@ -29,6 +29,10 @@ Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node
 5. **One backdrop layer, 6 px edges.** The sidebar has no fill of its own; the window backdrop
    (mint, custom colour or glass) is painted once and shows through, so sidebar and background blend.
    Frame padding and the sidebar→page gap are both 6 px (Figma 1:6 padding).
+7. **Native Mac feel, Apple HIG first** (Windows kept viable). Full rationale and measurements in
+   `docs/ux-audit.md`: macOS text styles (13/11, weights 400/500/600, title-case headers),
+   alpha-based labels, 28 px rows, native help tags, native context menus (NSMenu), system accent
+   focus ring, no row hover, inactive-window state, traffic-light slot in a 44 px title bar.
 6. **The web area sits inside the background, not floating:** the page window is a flush rounded
    (r16) surface with no shadow and no border.
 

@@ -10,7 +10,7 @@ import { PinnedSection, TabArea } from './TabSections';
 import { WorkspaceFooter } from './WorkspaceFooter';
 import s from './sidebar.module.css';
 
-/** Native host width of the sidebar WebUI view: 6 px frame padding + 240 px column + 6 px gap. */
+/** Native host width of the sidebar WebUI view: 6 px frame padding + 240 px column + 6 px gap (matches JustSlideSidebarHost). */
 export const SIDEBAR_VIEW_WIDTH_PX = 252;
 /** Collapsed rail width (6 + 32 + 6). Figma does not define a collapsed sidebar yet. */
 export const RAIL_WIDTH_PX = 44;
@@ -19,11 +19,11 @@ function CollapsedRail({ snap }: { snap: ShellSnapshot }) {
   const b = useBridge();
   return (
     <nav className={s.rail} aria-label="Browser controls" data-testid="sidebar-rail">
-      <IconButton icon="sidebar-toggle" label="Show sidebar" tooltip={false} onClick={() => b.toggleSidebar()} />
-      <IconButton icon="back" label="Back" tooltip={false} disabled={!snap.canGoBack} onClick={() => b.goBack()} />
-      <IconButton icon="forward" label="Forward" tooltip={false} disabled={!snap.canGoForward} onClick={() => b.goForward()} />
-      <IconButton icon="reload" label="Reload" tooltip={false} onClick={() => b.reload()} />
-      <IconButton icon="new-tab" iconSize={12} label="New tab" tooltip={false} onClick={() => b.createTab()} />
+      <IconButton icon="sidebar-toggle" label="Show sidebar" tooltip="Show Sidebar" onClick={() => b.toggleSidebar()} />
+      <IconButton icon="back" label="Back" disabled={!snap.canGoBack} onClick={() => b.goBack()} />
+      <IconButton icon="forward" label="Forward" disabled={!snap.canGoForward} onClick={() => b.goForward()} />
+      <IconButton icon="reload" label="Reload" onClick={() => b.reload()} />
+      <IconButton icon="new-tab" iconSize={12} label="New tab" tooltip="New Tab" onClick={() => b.createTab()} />
     </nav>
   );
 }
@@ -35,7 +35,10 @@ export function Sidebar({ snap }: { snap: ShellSnapshot }) {
   const pinned = tabs.filter(t => t.pinned);
   return (
     <TooltipLayer>
-      <div className={s.root} data-testid="sidebar" data-menu-host>
+      {/* No web context menu anywhere in browser chrome (only native menus);
+          text fields keep the system Cut/Copy/Paste menu. */}
+      <div className={s.root} data-testid="sidebar" data-menu-host
+        onContextMenu={(e) => { if (!(e.target as HTMLElement).closest('input, textarea')) e.preventDefault(); }}>
         <NavControls snap={snap} />
         <AddressBar snap={snap} />
         <FavoritesGrid favorites={snap.favorites} />

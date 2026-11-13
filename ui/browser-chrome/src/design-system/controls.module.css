@@ -1,18 +1,14 @@
-/* Shared interactive primitives. Measurements from Figma nodes noted inline. */
+/* Icon-only toolbar buttons (macOS 26 toolbar items): borderless glyph, a soft
+   hover bezel, a darker pressed bezel, the system focus ring. */
 .iconButton {
   appearance: none; border: 0; margin: 0; padding: 0; background: transparent; color: var(--js-color-icon);
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-  border-radius: var(--js-radius-control); cursor: default; position: relative;
+  border-radius: var(--js-radius-control); position: relative;
 }
-.target { width: var(--js-size-target); height: var(--js-size-target); }            /* 23:3, 23:4 … 32×32 */
-.small { width: var(--js-size-target-small); height: var(--js-size-target-small); border-radius: var(--js-radius-small); } /* close target 24×24 r6 */
+.target { width: var(--js-size-target); height: var(--js-size-target); }
+.small { width: var(--js-size-target-small); height: var(--js-size-target-small); border-radius: var(--js-radius-small); }
 .iconButton:hover:not(:disabled) { background: var(--js-color-tab-hover); }
-.iconButton:active:not(:disabled) { background: var(--js-color-tab-selected); }
-.iconButton:disabled { opacity: 0.35; }
-.iconButton:focus-visible, .focusable:focus-visible {
-  outline: none; box-shadow: var(--js-shadow-focus);                                 /* glow replaces 30:89 dashed stroke */
-}
-/* Workspace switcher buttons (25:9 … 25:12): 32×32 r8; selected = fill + shadow. */
-.workspace { background: var(--js-color-workspace-idle); }
+.iconButton:active:not(:disabled) { background: var(--js-color-pressed); }
+.iconButton:disabled { opacity: 0.3; }
+.workspace { background: transparent; }
 .workspace[data-selected='true'] { background: var(--js-color-workspace-selected); box-shadow: var(--js-shadow-selected); }
-.workspace:hover:not([data-selected='true']) { background: var(--js-color-tab-hover); }

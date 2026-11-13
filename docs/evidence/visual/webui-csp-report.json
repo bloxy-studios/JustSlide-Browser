@@ -12,8 +12,8 @@
         "htmlAttrs": {
           "theme": "mint"
         },
-        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
-        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
+        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
+        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
         "newTabButtonBg": "rgba(0, 0, 0, 0)",
         "dsTextVar": "#0e1b1b",
         "svgIcons": 19,
@@ -54,8 +54,8 @@
         "htmlAttrs": {
           "theme": "mint"
         },
-        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
-        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
+        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
+        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
         "newTabButtonBg": "rgba(0, 0, 0, 0)",
         "dsTextVar": "#0e1b1b",
         "svgIcons": 19,
@@ -96,8 +96,8 @@
         "htmlAttrs": {
           "theme": "mint"
         },
-        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
-        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro\", system-ui, sans-serif",
+        "bodyFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
+        "tabFont": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, \"Segoe UI Variable Text\", \"Segoe UI\", sans-serif",
         "newTabButtonBg": "rgba(0, 0, 0, 0)",
         "dsTextVar": "#0e1b1b",
         "svgIcons": 19,

@@ -46,7 +46,7 @@ export function AgentActivity({ agents, workspaces, tabs }: { agents: AgentInfo[
       })}
       {detail && (
         <Dialog title={detail.clientName} onClose={() => setOpen(null)}
-          actions={<><Button onClick={() => { b.revokeAgent(detail.grantId); setOpen(null); }}>Revoke access</Button><Button primary onClick={() => setOpen(null)}>Done</Button></>}>
+          actions={<><Button onClick={() => { b.revokeAgent(detail.grantId); setOpen(null); }}>Revoke Access</Button><Button primary onClick={() => setOpen(null)}>Done</Button></>}>
           <span>{stateText(detail)} in {detail.workspaceIds.map(wsName).join(', ')}.</span>
           <span>Last action: {detail.lastAction || 'none yet'}</span>
           {detail.pending.map(p => (
@@ -56,7 +56,7 @@ export function AgentActivity({ agents, workspaces, tabs }: { agents: AgentInfo[
               <span>Allowing applies to this request only. Web pages cannot approve requests.</span>
               <span className={s.requestActions}>
                 <Button onClick={() => b.resolvePendingRequest(p.id, false)}>Deny</Button>
-                <Button primary onClick={() => b.resolvePendingRequest(p.id, true)}>Allow once</Button>
+                <Button primary onClick={() => b.resolvePendingRequest(p.id, true)}>Allow Once</Button>
               </span>
             </div>
           ))}

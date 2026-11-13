@@ -1,21 +1,26 @@
+/* Alert/sheet styling following macOS 26 alerts: centred title, informative
+   text, full-width buttons; default button in the system accent colour,
+   Return = default, Escape = Cancel. */
 .dialog {
-  width: 224px; box-sizing: border-box; padding: 12px; margin: 72px auto auto;
-  border: 0; border-radius: var(--js-radius-card); box-shadow: var(--js-shadow-popover);
-  background: var(--js-color-agent-card); color: var(--js-color-text);
+  width: 228px; padding: 16px 14px 14px; margin: 56px auto auto; text-align: center;
+  border: 0; border-radius: var(--js-radius-dialog); box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.16), var(--js-shadow-popover);
+  background: rgba(250, 252, 252, 0.97); color: var(--js-color-text);
 }
-.dialog::backdrop { background: rgba(11, 26, 35, 0.24); }
-.title { margin: 0 0 8px; font: var(--js-type-agent-title); }
-.body { font: var(--js-type-address); color: var(--js-color-text); display: flex; flex-direction: column; gap: 8px; }
-.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.dialog::backdrop { background: rgba(14, 27, 27, 0.12); }
+.title { margin: 0 0 6px; font: var(--js-type-dialog-title); letter-spacing: var(--js-type-dialog-title-tracking); }
+.body { font: var(--js-type-dialog-body); letter-spacing: var(--js-type-dialog-body-tracking); color: var(--js-color-text-muted); display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.actions { display: flex; flex-direction: row; gap: 8px; margin-top: 14px; }
 .button {
-  appearance: none; font: var(--js-type-section); height: 28px; padding: 0 10px; border-radius: var(--js-radius-small);
-  border: 0; box-shadow: var(--js-shadow-control); background: var(--js-color-address); color: var(--js-color-text);
+  appearance: none; flex: 1; font: var(--js-type-button); letter-spacing: var(--js-type-button-tracking); height: 28px; padding: 0 10px;
+  border-radius: var(--js-radius-control); border: 0; background: rgba(14, 27, 27, 0.07); color: var(--js-color-text);
 }
-.button[data-primary] { background: var(--js-color-text); color: var(--js-color-agent-card); }
+.button:active { background: rgba(14, 27, 27, 0.14); }
+.button[data-primary] { background: var(--js-color-accent); color: var(--js-color-accent-text); }
+.button[data-primary]:active { filter: brightness(0.92); }
 .button:disabled { opacity: 0.4; }
-.button:focus-visible, .input:focus-visible { outline: none; box-shadow: var(--js-shadow-control), var(--js-shadow-focus); }
 .input {
-  font: var(--js-type-address); height: 32px; box-sizing: border-box; padding: 0 8px; width: 100%;
-  border-radius: var(--js-radius-control); border: 0; box-shadow: var(--js-shadow-control);
-  background: var(--js-color-address); color: var(--js-color-text);
+  font: var(--js-type-address); letter-spacing: var(--js-type-address-tracking); height: 26px; padding: 0 8px; width: 100%;
+  border-radius: 6px; border: 0; box-shadow: inset 0 0 0 0.5px rgba(14, 27, 27, 0.25), var(--js-shadow-control);
+  background: #fff; color: var(--js-color-text); user-select: text;
 }
+.input:focus-visible { outline: 3px solid var(--js-color-focus-ring); outline-offset: 0; }

@@ -2,11 +2,17 @@
 #ifndef JUSTSLIDE_WEBUI_JUSTSLIDE_PAGE_HANDLER_H_
 #define JUSTSLIDE_WEBUI_JUSTSLIDE_PAGE_HANDLER_H_
 
+#include <memory>
+#include <vector>
+
+#include "base/callback_list.h"
 #include "base/memory/raw_ptr.h"
+#include "base/memory/weak_ptr.h"
 #include "base/scoped_observation.h"
 #include "base/timer/timer.h"
 #include "chrome/browser/ui/tabs/tab_strip_model_observer.h"
 #include "justslide/browser/workspace_service.h"
+#include "justslide/webui/justslide_context_menu.h"
 #include "justslide/webui/justslide_shell.mojom.h"
 #include "mojo/public/cpp/bindings/receiver.h"
 #include "mojo/public/cpp/bindings/remote.h"
@@ -63,6 +69,8 @@ class JustSlidePageHandler : public mojom::PageHandler,
   void SetBackdropColor(const std::string& css_hex) override;
   void ShowPairingDialog() override;
   void ShowDownloads() override;
+  void ShowContextMenu(mojom::ContextMenuKind kind, const std::string& id, int32_t x, int32_t y,
+                       bool from_keyboard) override;
 
   // TabStripModelObserver:
   void OnTabStripModelChanged(TabStripModel* model, const TabStripModelChange& change,
@@ -78,6 +86,7 @@ class JustSlidePageHandler : public mojom::PageHandler,
   int IndexOfTab(const std::string& tab_id) const;
   void ScheduleSnapshot();
   void PushSnapshot();
+  void OnContextCommand(mojom::ContextMenuKind kind, const std::string& id, int command);
 
   mojo::Receiver<mojom::PageHandler> receiver_;
   mojo::Remote<mojom::Page> page_;
@@ -89,6 +98,10 @@ class JustSlidePageHandler : public mojom::PageHandler,
   // Coalesce bursts (e.g. 30 agent tabs) into one snapshot per frame-ish.
   base::OneShotTimer debounce_;
   base::ScopedObservation<WorkspaceService, WorkspaceService::Observer> ws_obs_{this};
+  raw_ptr<content::WebContents> sidebar_contents_;
+  std::vector<base::CallbackListSubscription> window_activation_subs_;
+  std::unique_ptr<SidebarContextMenu> context_menu_;
+  base::WeakPtrFactory<JustSlidePageHandler> weak_factory_{this};
 };
 
 }  // namespace justslide

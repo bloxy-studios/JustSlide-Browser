@@ -28,7 +28,7 @@ export function AddressBar({ snap }: { snap: ShellSnapshot }) {
     >
       {warn && !editing && <span className={s.securityWarn}>{warn}</span>}
       <input
-        ref={ref} name="address" aria-label="Address and search bar" placeholder="Search or enter address"
+        ref={ref} name="address" aria-label="Address and search bar" placeholder="Search or enter website name"
         autoComplete="off" spellCheck={false} className={s.addressInput}
         aria-description={warn}
         value={editing ? text : displayHost(snap.displayUrl)}

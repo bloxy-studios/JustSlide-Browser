@@ -1,36 +1,48 @@
-/* JustSlide sidebar — measurements from Figma file nw47hqMLTtmBMksJ4BnJKb.
-   Node ids in comments; see docs/design-system.md for the full mapping. */
+/* JustSlide sidebar — Figma layout (nw47hqMLTtmBMksJ4BnJKb) refined to Apple HIG
+   macOS conventions (docs/ux-audit.md). Owner decisions: one backdrop layer,
+   6 px window edges, mint only, shadows instead of strokes, no preset favorites.
 
-/* Frame padding 6 (Figma 1:6; owner decision) + 1:9 "Sidebar" column 240, gap 8.
-   No background of its own: the sidebar and the window backdrop are ONE colour
-   layer (painted once by the document/native frame), so they blend seamlessly. */
+   Vertical rhythm (8 pt grid, inside the 6 px frame):
+     titlebar row 32 · 8 · address 30 · 10 · favorites · 10 · Pinned · separator ·
+     New Tab + tabs (28 px rows, 2 px apart) · agent card · footer            */
+
 .root {
   height: 100%; padding: var(--js-size-frame-padding); padding-right: var(--js-size-frame-gap);
-  display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap);
+  display: flex; flex-direction: column;
   background: transparent; color: var(--js-color-text); position: relative; min-width: 0;
 }
 .root > * { width: var(--js-size-sidebar-width); flex-shrink: 0; }
 
-/* 6:17 Navigation Controls: 240×40, padding 4/8, primary MAX, gap 20. */
-.nav { height: var(--js-size-nav-height); padding: 4px 8px; display: flex; align-items: center; justify-content: flex-end; gap: 20px; -webkit-app-region: drag; }
+/* Title-bar row. The window's traffic lights sit in the leading 78 px (macOS);
+   the native host centres them on this row (titlebar height 44 = 6 + 32 + 6).
+   Toggle trails the traffic lights; history controls are right-aligned. */
+.nav {
+  height: var(--js-size-nav-height); padding: 0 4px 0 var(--js-size-traffic-light-reserve);
+  display: flex; align-items: center; gap: 4px; -webkit-app-region: drag;
+}
 .nav button { -webkit-app-region: no-drag; }
-/* 7:39 History Controls: 104 wide, gap 4. */
-.history { display: flex; gap: 4px; }
+.navSpacer { flex: 1; }
+.history { display: flex; gap: 2px; }
+html[data-platform='win'] .nav, html[data-platform='linux'] .nav { padding-left: 4px; }
 
-/* 7:46 Address Bar: 240×32, r8, text inset 8, SF Pro 12/18 510. */
-.address { height: var(--js-size-address-height); position: relative; display: flex; align-items: center; border-radius: var(--js-radius-control); background: var(--js-color-address); }
+/* Address field (macOS search-field metrics: 13 pt text, 8 px inset). */
+.address {
+  margin-top: 8px; height: var(--js-size-address-height); position: relative; display: flex; align-items: center;
+  border-radius: var(--js-radius-control); background: var(--js-color-address); box-shadow: var(--js-shadow-control);
+}
 .addressInput {
   appearance: none; border: 0; outline: none; background: transparent; width: 100%; height: 100%;
-  padding: 0 8px; font: var(--js-type-address); color: var(--js-color-text); border-radius: inherit; user-select: text;
+  padding: 0 10px; font: var(--js-type-address); letter-spacing: var(--js-type-address-tracking);
+  color: var(--js-color-text); border-radius: inherit; text-overflow: ellipsis;
 }
-.addressInput::placeholder { color: var(--js-color-text-muted); opacity: var(--js-opacity-scope); }
-.address { box-shadow: var(--js-shadow-control); }
-.address:focus-within { box-shadow: var(--js-shadow-control), var(--js-shadow-focus); }
-.securityWarn { flex-shrink: 0; margin-left: 8px; font: var(--js-type-count); color: var(--js-color-danger); }
+.addressInput:focus-visible { outline: none; }
+.address:focus-within { outline: 3px solid var(--js-color-focus-ring); outline-offset: 0; }
+.addressInput::placeholder { color: var(--js-color-text-muted); }
+.securityWarn { flex-shrink: 0; margin-left: 10px; font: var(--js-type-count); color: var(--js-color-danger); }
 .securityWarn + .addressInput { padding-left: 6px; }
 
-/* 7:87 Website favorites: wrap, gap 4, padding 4; tiles 43×34 r8, padding 7/8, icon 18. */
-.favorites { display: flex; flex-wrap: wrap; gap: var(--js-size-favorites-gap); padding: 4px; }
+/* Favorites: five 43×34 tiles (Figma 7:87), 4 px apart; drag to add/reorder. */
+.favorites { margin-top: 10px; display: flex; flex-wrap: wrap; gap: var(--js-size-favorites-gap); padding: 0 2px; }
 .favCell { display: flex; }
 .favorite {
   appearance: none; border: 0; padding: 0; position: relative;
@@ -38,110 +50,115 @@
   background: var(--js-color-favorite); display: flex; align-items: center; justify-content: center; color: var(--js-color-icon);
   box-shadow: var(--js-shadow-control);
 }
-.favorite:hover { filter: brightness(0.97); }
-.favorite:focus-visible { outline: none; box-shadow: var(--js-shadow-control), var(--js-shadow-focus); }
-.favoriteAdd { background: var(--js-color-favorite-add); box-shadow: none; color: var(--js-color-text-muted); }
-/* Drag-and-drop (owner decision: favorites are added by dragging tabs/links). */
-.favorites[data-drop] .favoriteAdd, .favDropBefore .favorite { box-shadow: var(--js-shadow-drop); }
+.favorite:active { box-shadow: var(--js-shadow-control), inset 0 0 0 100px var(--js-color-pressed); }
+.favoriteAdd { background: var(--js-color-favorite-add); box-shadow: none; color: var(--js-color-icon-secondary); }
+.favorites[data-drop] .favoriteAdd, .favDropBefore .favorite { box-shadow: 0 0 0 2px color-mix(in srgb, AccentColor 70%, transparent); }
 .favDragging { opacity: 0.4; }
-.favHint { flex: 1; min-width: 0; height: var(--js-size-favorite-height); display: flex; align-items: center; padding: 0 6px; font: var(--js-type-count); color: var(--js-color-text-muted); opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.favorites[data-drop] .favHint { opacity: 1; color: var(--js-color-text); }
+.favHint {
+  flex: 1; min-width: 0; height: var(--js-size-favorite-height); display: flex; align-items: center; padding: 0 6px;
+  font: var(--js-type-caption); letter-spacing: var(--js-type-caption-tracking); color: var(--js-color-text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.favorites[data-drop] .favHint { color: var(--js-color-text); }
 
-/* 25:4 Pinned Section: gap 4. 7:88 trigger 28 high, r8, padding 5/8, gap 8. */
-.pinned { display: flex; flex-direction: column; gap: var(--js-size-list-gap); }
+/* Section header (macOS sidebar style: 11 pt semibold, secondary, title case). */
+.pinned { margin-top: 10px; display: flex; flex-direction: column; gap: var(--js-size-list-gap); }
 .pinnedTrigger {
   appearance: none; border: 0; background: transparent; width: 100%; height: var(--js-size-trigger-height);
-  padding: 5px 8px; display: flex; align-items: center; gap: 8px; border-radius: var(--js-radius-control); color: var(--js-color-icon);
+  padding: 0 8px 0 10px; display: flex; align-items: center; gap: 6px; border-radius: var(--js-radius-row);
+  color: var(--js-color-icon-secondary);
 }
-.pinnedTrigger:hover { background: var(--js-color-tab-hover); }
-.pinnedTrigger:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
-.sectionTitle { flex: 1; min-width: 0; text-align: left; font: var(--js-type-section); color: var(--js-color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.count { font: var(--js-type-count); color: var(--js-color-text-muted); opacity: var(--js-opacity-count); }
+.pinnedTrigger:focus-visible { outline-offset: -3px; }
+.sectionTitle {
+  flex: 1; min-width: 0; text-align: left; font: var(--js-type-section); letter-spacing: var(--js-type-section-tracking);
+  color: var(--js-color-text-label); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.count { font: var(--js-type-count); letter-spacing: var(--js-type-count-tracking); color: var(--js-color-text-muted); font-variant-numeric: tabular-nums; }
+.chevron { display: inline-flex; transition: transform 160ms ease-out; }
+.chevron[data-open] { transform: rotate(90deg); }
+/* Disclosure chevron appears on hover/focus, like Finder's sidebar sections. */
+.pinnedTrigger .chevron { opacity: 0; }
+.pinnedTrigger:hover .chevron, .pinnedTrigger:focus-visible .chevron, .pinnedTrigger[aria-expanded='false'] .chevron { opacity: 1; }
 
-/* 35:160 Section separator: 224 wide, inset 8, 1px. */
-.separator { border: 0; height: 1px; margin: 0 8px; width: calc(var(--js-size-sidebar-width) - 16px) !important; background: var(--js-color-separator); }
+/* Hairline separator. */
+.separator { border: 0; height: 1px; margin: 6px 10px 2px; width: calc(var(--js-size-sidebar-width) - 20px) !important; background: var(--js-color-separator); }
 
-/* 20:82 Browser Sidebar: fills remaining height, gap 8; 12:289 tabs scroll independently, gap 4. */
-.tabArea { flex: 1 1 auto !important; min-height: 0; display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap); }
+/* Tab area fills the remaining height; the list scrolls on its own with
+   native overlay scrollbars (not hidden: they are the scroll affordance). */
+.tabArea { flex: 1 1 auto !important; min-height: 0; margin-top: 6px; display: flex; flex-direction: column; gap: var(--js-size-list-gap); }
 .tabList { display: flex; flex-direction: column; gap: var(--js-size-list-gap); }
-.scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
-.scroll::-webkit-scrollbar { display: none; }
+.scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 6px; }
 
-/* 12:140 New Tab: 32 high, r8, padding 7/8, gap 8, icon 12, SF Pro 13/18 590. */
+/* Rows: 28 px (macOS medium sidebar rows), 10 px leading inset, 16 px favicon, 8 px gap. */
 .newTab {
   appearance: none; border: 0; background: transparent; height: var(--js-size-row-height); flex-shrink: 0;
-  padding: 7px 8px; display: flex; align-items: center; gap: 8px; border-radius: var(--js-radius-control);
-  font: var(--js-type-tab-selected); color: var(--js-color-text); text-align: left;
+  padding: 0 10px; display: flex; align-items: center; gap: 10px; border-radius: var(--js-radius-row);
+  font: var(--js-type-tab); letter-spacing: var(--js-type-tab-tracking); color: var(--js-color-text); text-align: left;
 }
-.newTab svg { color: var(--js-color-icon); }
-.newTab:hover { background: var(--js-color-tab-hover); }
-.newTab:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
+.newTab svg { color: var(--js-color-icon-secondary); margin: 0 2px; }
+.newTab:active { background: var(--js-color-pressed); }
+.newTab:focus-visible { outline-offset: -3px; }
 
-/* 30:100 Slide / Tab: 240×32 r8, padding 4/8, gap 8, favicon 16, close target 24 r6 (icon 12). */
-.tab { position: relative; display: flex; align-items: center; height: var(--js-size-row-height); flex-shrink: 0; border-radius: var(--js-radius-control); padding-right: 4px; }
-.tab:hover { background: var(--js-color-tab-hover); }                                   /* 30:67 Hover */
-.tab[data-selected] { background: var(--js-color-tab-selected); box-shadow: var(--js-shadow-selected); } /* 30:78 / 35:168 — shadow replaces the 1px stroke */
+.tab { position: relative; display: flex; align-items: center; height: var(--js-size-row-height); flex-shrink: 0; border-radius: var(--js-radius-row); padding-right: 2px; }
+/* No hover fill on list rows (macOS sidebars don't hover-highlight); the close
+   button appearing on hover is the affordance. */
+.tab:active:not(:has(.close:active)) { background: var(--js-color-pressed); }
+.tab[data-selected] { background: var(--js-color-tab-selected); box-shadow: var(--js-shadow-selected); }
 .tabMain {
   appearance: none; border: 0; background: transparent; flex: 1; min-width: 0; height: 100%;
-  padding: 4px 0 4px 8px; display: flex; align-items: center; gap: 8px; text-align: left; border-radius: var(--js-radius-control); color: var(--js-color-text);
+  padding: 0 0 0 10px; display: flex; align-items: center; gap: 8px; text-align: left; border-radius: var(--js-radius-row); color: var(--js-color-text);
 }
 .tabMain:focus-visible { outline: none; }
-.tab:has(.tabMain:focus-visible) { background: var(--js-color-tab-hover); box-shadow: var(--js-shadow-focus); } /* 30:89, glow instead of dashed stroke */
-.tab[data-selected]:has(.tabMain:focus-visible) { box-shadow: var(--js-shadow-selected), var(--js-shadow-focus); }
-.tab[draggable='true'] { cursor: default; }
+.tab:has(.tabMain:focus-visible) { outline: 3px solid var(--js-color-focus-ring); outline-offset: -1px; }
 .favicon { position: relative; width: var(--js-size-favicon); height: var(--js-size-favicon); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.tabTitle { flex: 1; min-width: 0; font: var(--js-type-tab); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tab[data-selected] .tabTitle { font: var(--js-type-tab-selected); }
+.tabTitle { flex: 1; min-width: 0; font: var(--js-type-tab); letter-spacing: var(--js-type-tab-tracking); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .close { color: var(--js-color-close-glyph); visibility: hidden; }
 .tab:hover .close, .tab[data-selected] .close, .tab:focus-within .close { visibility: visible; }
+.tab[draggable='true'] { cursor: default; }
 .spinner {
   width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--js-color-separator); border-top-color: var(--js-color-icon);
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .errorDot { position: absolute; right: -2px; bottom: -2px; width: 7px; height: 7px; border-radius: 50%; background: var(--js-color-danger); box-shadow: 0 0 0 1.5px var(--js-color-frame); }
 
-/* 35:313 Background agent activity: 240×56, r10, padding 8, gap 8, 1px stroke. */
-.agents { display: flex; flex-direction: column; gap: var(--js-size-sidebar-gap); }
+/* Background agent card (Figma 35:313), compacted to two text lines. */
+.agents { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .agentCard {
-  height: var(--js-size-agent-card-height); padding: 8px; display: flex; align-items: center; gap: 8px;
+  min-height: var(--js-size-agent-card-height); padding: 8px 8px 8px 10px; display: flex; align-items: center; gap: 10px;
   border-radius: var(--js-radius-card); background: var(--js-color-agent-card); box-shadow: var(--js-shadow-card);
 }
-.agentIcon { width: 16px; height: 16px; flex-shrink: 0; display: inline-flex; margin-left: 1px; }
-.agentText { appearance: none; border: 0; background: transparent; padding: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; text-align: left; color: var(--js-color-text); border-radius: var(--js-radius-small); }
-.agentText:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
-.agentState { font: var(--js-type-agent-title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agentScope { font: var(--js-type-caption); color: var(--js-color-text-muted); opacity: var(--js-opacity-scope); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.agentControl { background: var(--js-color-agent-control); }
-.agentCard[data-state='pending'] .agentState { color: var(--js-color-text); }
+.agentIcon { width: 16px; height: 16px; flex-shrink: 0; display: inline-flex; }
+.agentText { appearance: none; border: 0; background: transparent; padding: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; text-align: left; color: var(--js-color-text); border-radius: var(--js-radius-menu-item); }
+.agentState { font: var(--js-type-agent-title); letter-spacing: var(--js-type-agent-title-tracking); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agentScope { font: var(--js-type-caption); letter-spacing: var(--js-type-caption-tracking); color: var(--js-color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.agentControl { background: var(--js-color-agent-control); box-shadow: var(--js-shadow-control); }
 .request { display: flex; flex-direction: column; gap: 4px; padding: 8px; border-radius: var(--js-radius-control); box-shadow: var(--js-shadow-control); }
-.requestActions { display: flex; justify-content: flex-end; gap: 8px; }
+.requestActions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 
-/* 12:290 Workspace footer: 64 high, padding-top 8, gap 8. */
-.footer { height: var(--js-size-footer-height); padding-top: 8px; display: flex; flex-direction: column; gap: 8px; }
-/* 30:114 heading: 16 high, padding 0 8, space-between. */
-.wsHeading { height: 16px; padding: 0 8px; display: flex; align-items: center; justify-content: space-between; }
-.overline { font: var(--js-type-overline); letter-spacing: var(--js-type-overline-tracking); text-transform: uppercase; color: var(--js-color-text-label); opacity: var(--js-opacity-label); }
-.currentWs { font: var(--js-type-caption); color: var(--js-color-text-workspace); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-/* 30:117 controls: 32 high, padding 0 4, space-between; 20:17 switcher 140 wide, gap 4. */
-.wsControls { height: 32px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between; }
-.switcher { width: 140px; display: flex; gap: var(--js-size-workspace-switcher-gap); overflow-x: auto; scrollbar-width: none; padding: 0; }
+/* Footer: section header row + controls row. */
+.footer { margin-top: 6px; height: var(--js-size-footer-height); padding-top: 4px; display: flex; flex-direction: column; gap: 4px; }
+.wsHeading { height: 18px; padding: 0 8px 0 10px; display: flex; align-items: center; justify-content: space-between; }
+.overline { font: var(--js-type-section); letter-spacing: var(--js-type-section-tracking); color: var(--js-color-text-label); }
+.currentWs { font: var(--js-type-caption); letter-spacing: var(--js-type-caption-tracking); color: var(--js-color-text-workspace); max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wsControls { height: 32px; padding: 0 2px; display: flex; align-items: center; justify-content: space-between; }
+.switcher { width: 140px; display: flex; gap: var(--js-size-workspace-switcher-gap); overflow-x: auto; scrollbar-width: none; }
 .switcher::-webkit-scrollbar { display: none; }
 .wsItem { position: relative; flex-shrink: 0; display: inline-flex; }
 .wsButton {
   appearance: none; border: 0; padding: 0; width: 32px; height: 32px; border-radius: var(--js-radius-control);
-  display: inline-flex; align-items: center; justify-content: center; background: var(--js-color-workspace-idle); color: var(--js-color-icon);
+  display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--js-color-icon);
 }
 .wsButton:hover:not([data-selected]) { background: var(--js-color-tab-hover); }
+.wsButton:active { background: var(--js-color-pressed); }
 .wsButton[data-selected] { background: var(--js-color-workspace-selected); box-shadow: var(--js-shadow-selected); }
-.wsButton:focus-visible { outline: none; box-shadow: var(--js-shadow-focus); }
-.wsButton[data-selected]:focus-visible { box-shadow: var(--js-shadow-selected), var(--js-shadow-focus); }
-.wsLetter { font: 590 11px/1 var(--js-font); color: var(--js-color-text); }
-/* 35:322 Background activity indicator: 7×7 at (+24,+2), 1.5px ring in the sidebar colour. */
+.wsLetter { font: 600 11px/1 var(--js-font); color: var(--js-color-text); }
+/* Activity indicator: 7 px dot with a 1.5 px ring in the backdrop colour. */
 .activityDot {
   position: absolute; left: 24px; top: 2px; width: var(--js-size-activity-dot); height: var(--js-size-activity-dot); border-radius: 50%;
   background: var(--js-color-activity); box-shadow: 0 0 0 1.5px var(--js-color-frame); pointer-events: none;
 }
 
-/* Collapsed rail — not designed in Figma yet; uses the 32 px targets. */
-.rail { height: 100%; padding: var(--js-size-frame-padding); display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; }
+/* Collapsed rail (not designed in Figma): keeps traffic-light clearance on top. */
+.rail { height: 100%; padding: var(--js-size-titlebar-height) var(--js-size-frame-padding) var(--js-size-frame-padding); display: flex; flex-direction: column; align-items: center; gap: 4px; background: transparent; }
+html[data-platform='win'] .rail, html[data-platform='linux'] .rail { padding-top: var(--js-size-frame-padding); }

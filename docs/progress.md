@@ -46,10 +46,23 @@ or link onto the row to add (`AddFavoriteFromTab`, `AddFavoriteFromUrl` with dro
 only, sizes bounded in C++), drag tiles to reorder (MoveFavorite now accepts any delta); Gmail 2026
 mark. Sidebar + window background are one colour layer (sidebar transparent; native host 252 dip, rail 44), frame padding and gap 6 px. UI tests 33/33; Figma comparison now mint frames only.
 
+### UI/UX audit for a native Mac feel (2026-11-13, later)
+See `docs/ux-audit.md`. Measured findings went from 74 to 0 on every fixture (contrast, sizes under 11 px, targets,
+cursors). Native context menus (`ShowContextMenu` → `SidebarContextMenu` → NSMenu), window-active state
+(`window_active`), native help tags, list keyboard navigation, macOS text styles, a traffic-light slot,
+Windows platform styles. UI tests 38/38.
+
+### Build Mac facts (from the pipeline's doctor step, 2026-11-13)
+MacBookPro16,2, Intel Core i5-7300U, **4 logical cores, 8 GB RAM**, macOS 26.5.1, Xcode 26.6 (SDK 26.5), APFS,
+76 GB free before fetch. The pipeline now uses `-j3` and `concurrent_links=1` for 8 GB. Expect the first full
+Chromium build to take **a day or more** of 52-minute runs on this machine. Run 1: doctor, depot_tools,
+shallow `src` at the tag (37 min fetch) done; `gclient sync` started.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|
-| UI tests (jsdom) | **33/33 pass** | `bun run test:ui` |
+| UI tests (jsdom) | **38/38 pass** | `bun run test:ui` |
+| UX audit (contrast, type scale, targets, cursor) | **0 findings** (was 74) | `tests/visual/ux-audit.ts` |
 | Typecheck | pass | `bun run typecheck` |
 | WebUI production build + audit (no inline script, eval, preview code, TT policy, remote hosts; no HTML sinks in product source) | pass, 4 files, ~293 KB | `bun run build:ui` |
 | Sidebar under Chromium 157 WebUI CSP (`trusted-types;` with zero policies, `connect-src 'none'`) | 0 errors, 0 violations, 0 egress, correct mint/dark token values | `docs/evidence/visual/webui-csp-report.json` |

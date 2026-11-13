@@ -1,28 +1,67 @@
-/* Base layer for the trusted sidebar document. Tokens come from
-   tokens.generated.css (Figma-derived); nothing here introduces colours. */
+/* Base layer for the trusted sidebar document: native-desktop defaults.
+   Tokens come from tokens.generated.css (Figma + Apple HIG); nothing here
+   introduces new colours. See docs/ux-audit.md for the rationale per rule. */
 @import './tokens.generated.css';
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
-body {
-  font: var(--js-type-tab); color: var(--js-color-text); background: var(--js-color-frame); /* the single backdrop layer */
-  -webkit-font-smoothing: antialiased; overflow: hidden; user-select: none;
+html {
+  /* Native chrome never rubber-bands or zooms as a document. */
+  overscroll-behavior: none; -webkit-text-size-adjust: none; text-size-adjust: none;
 }
-button, input { font: inherit; color: inherit; }
+body {
+  font: var(--js-type-tab); letter-spacing: var(--js-type-tab-tracking);
+  color: var(--js-color-text); background: var(--js-color-frame); /* the single backdrop layer */
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal; font-optical-sizing: auto; text-rendering: optimizeLegibility;
+  overflow: hidden; user-select: none; -webkit-user-select: none; cursor: default;
+  -webkit-tap-highlight-color: transparent; -webkit-user-drag: none;
+}
+/* Native controls use the arrow cursor, never the web "hand". */
+button, [role='button'], [role='menuitem'], a { cursor: default; }
+button, input { font: inherit; letter-spacing: inherit; color: inherit; }
+img, svg { -webkit-user-drag: none; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
+input { user-select: text; -webkit-user-select: text; }
+::selection { background: color-mix(in srgb, Highlight 70%, transparent); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
-/* Frosted glass backdrop. The window behind the page is native macOS vibrancy
-   (NSVisualEffectView, see docs/chromium-integration.md); this document only
-   becomes translucent so it shows through. Surfaces stay mostly opaque. */
+/* Keyboard focus = the system focus ring (accent colour, 3px, follows radius),
+   shown only for keyboard navigation (macOS "Keyboard navigation" setting). */
+:focus { outline: none; }
+:focus-visible { outline: 3px solid var(--js-color-focus-ring); outline-offset: 0; }
+
+/* Platform layout differences (data-platform set in app/theme.ts). */
+html[data-platform='win'] { --js-focus-width: 2px; }
+html[data-platform='win'] :focus-visible { outline: 2px solid AccentColor; outline-offset: 1px; }
+
+/* Frosted glass backdrop. The window behind the page is native vibrancy
+   (NSVisualEffectView on macOS, Mica/Acrylic on Windows; see
+   docs/chromium-integration.md); this document only becomes translucent. */
 html[data-material='glass'], html[data-material='glass'] body { background: transparent; }
 [data-material='glass'] {
   --js-color-address: rgba(255, 255, 255, var(--js-glass-surface-alpha));
   --js-color-favorite: rgba(255, 255, 255, var(--js-glass-surface-alpha));
-  --js-color-favorite-add: rgba(255, 255, 255, 0.55);
+  --js-color-favorite-add: rgba(255, 255, 255, 0.5);
   --js-color-tab-selected: rgba(255, 255, 255, var(--js-glass-surface-alpha));
   --js-color-workspace-selected: rgba(255, 255, 255, var(--js-glass-surface-alpha));
   --js-color-agent-card: rgba(255, 255, 255, var(--js-glass-surface-alpha));
   --js-color-agent-control: rgba(255, 255, 255, 0.9);
-  --js-color-tab-hover: rgba(255, 255, 255, 0.45);
 }
+
+/* Inactive (non-key) window: selection and accents mute, as in every macOS app. */
+html[data-window='inactive'] { --js-color-tab-selected: var(--js-color-tab-selected-inactive); --js-color-workspace-selected: var(--js-color-tab-selected-inactive); }
+html[data-window='inactive'] [data-icon^='brand-'] { opacity: 0.72; }
+
+/* Accessibility settings (System Settings ▸ Accessibility ▸ Display). */
+@media (prefers-reduced-transparency: reduce) {
+  html[data-material='glass'] body { background: var(--js-color-frame-opaque, #acfff7); }
+}
+@media (prefers-contrast: more) {
+  :root {
+    --js-color-text-muted: rgba(14, 27, 27, 0.86); --js-color-text-label: rgba(14, 27, 27, 0.86);
+    --js-color-text-workspace: rgba(14, 27, 27, 0.86); --js-color-separator: rgba(14, 27, 27, 0.4);
+    --js-shadow-control: var(--js-shadow-contrast-control); --js-shadow-selected: var(--js-shadow-contrast-control);
+    --js-shadow-card: var(--js-shadow-contrast-control);
+  }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

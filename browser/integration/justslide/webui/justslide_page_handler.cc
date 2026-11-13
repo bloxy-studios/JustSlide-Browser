@@ -54,8 +54,15 @@ JustSlidePageHandler::JustSlidePageHandler(
       page_(std::move(page)),
       window_(window),
       model_(window->GetTabStripModel()),
-      workspaces_(WorkspaceService::Get(window->GetProfile())) {
+      workspaces_(WorkspaceService::Get(window->GetProfile())),
+      sidebar_contents_(sidebar_contents) {
   model_->AddObserver(this);
+  // Key-window changes restyle selection (active vs inactive, as on macOS).
+  auto resnap = base::BindRepeating([](base::WeakPtr<JustSlidePageHandler> h, BrowserWindowInterface*) {
+    if (h) h->ScheduleSnapshot();
+  }, weak_factory_.GetWeakPtr());
+  window_activation_subs_.push_back(window->RegisterDidBecomeActive(resnap));
+  window_activation_subs_.push_back(window->RegisterDidBecomeInactive(resnap));
   ws_obs_.Observe(workspaces_.get());
   selected_workspace_id_ = window->GetProfile()->GetPrefs()->GetString(kPrefSelectedWorkspace);
   if (!workspaces_->Find(selected_workspace_id_)) selected_workspace_id_ = workspaces_->default_workspace_id();
@@ -83,6 +90,7 @@ mojom::ShellSnapshotPtr JustSlidePageHandler::BuildSnapshot() {
   s->sidebar_collapsed = prefs->GetBoolean(kPrefSidebarCollapsed);
   s->color_mode = static_cast<mojom::ColorMode>(std::clamp(prefs->GetInteger(kPrefColorMode), 0, 2));
   s->backdrop_color = prefs->GetString(kPrefBackdropColor);
+  s->window_active = window_->IsActive();
   if (active) {
     s->display_url = active->GetVisibleURL().spec();  // full, unelided
     s->origin = active->GetVisibleURL().host();
@@ -248,6 +256,75 @@ void JustSlidePageHandler::SetBackdropColor(const std::string& hex) {
 }
 void JustSlidePageHandler::ShowPairingDialog() {}
 void JustSlidePageHandler::ShowDownloads() { chrome::ExecuteCommand(window_, IDC_SHOW_DOWNLOADS); }
+
+void JustSlidePageHandler::ShowContextMenu(mojom::ContextMenuKind kind, const std::string& id, int32_t x,
+                                           int32_t y, bool from_keyboard) {
+  if (x < 0 || y < 0 || x > 16384 || y > 16384 || id.size() > 64) {
+    receiver_.ReportBadMessage("invalid context menu request");
+    return;
+  }
+  using C = SidebarContextMenu;
+  context_menu_ = std::make_unique<SidebarContextMenu>(
+      base::BindRepeating(&JustSlidePageHandler::OnContextCommand, weak_factory_.GetWeakPtr(), kind, id));
+  C& m = *context_menu_;
+  // Labels follow macOS title-case menu style. TODO(l10n): move to GRIT strings.
+  switch (kind) {
+    case mojom::ContextMenuKind::kTab: {
+      const int i = IndexOfTab(id);
+      if (i == TabStripModel::kNoTab) return;
+      const bool pinned = model_->IsTabPinned(i);
+      const GURL& url = model_->GetWebContentsAt(i)->GetLastCommittedURL();
+      m.AddItem(pinned ? C::kUnpinTab : C::kPinTab, pinned ? u"Unpin Tab" : u"Pin Tab");
+      m.AddItem(C::kAddTabToFavorites, u"Add to Favorites", url.SchemeIsHTTPOrHTTPS());
+      m.AddSeparator();
+      const bool can_up = i > 0 && model_->IsTabPinned(i - 1) == pinned;
+      const bool can_down = i + 1 < model_->count() && model_->IsTabPinned(i + 1) == pinned;
+      m.AddItem(C::kMoveTabUp, u"Move Up", can_up);
+      m.AddItem(C::kMoveTabDown, u"Move Down", can_down);
+      m.AddSeparator();
+      m.AddItem(C::kReopenClosedTab, u"Reopen Closed Tab");
+      m.AddItem(C::kCloseTab, u"Close Tab");
+      break;
+    }
+    case mojom::ContextMenuKind::kFavorite: {
+      const auto favs = workspaces_->GetFavorites();
+      size_t i = 0;
+      while (i < favs.size() && favs[i].id != id) ++i;
+      if (i == favs.size()) return;
+      m.AddItem(C::kOpenFavorite, u"Open");
+      m.AddSeparator();
+      m.AddItem(C::kMoveFavoriteLeft, u"Move Left", i > 0);
+      m.AddItem(C::kMoveFavoriteRight, u"Move Right", i + 1 < favs.size());
+      m.AddSeparator();
+      m.AddItem(C::kRemoveFavorite, u"Remove from Favorites");
+      break;
+    }
+    case mojom::ContextMenuKind::kWorkspace:
+      if (!workspaces_->Find(id)) return;
+      m.AddItem(C::kRenameWorkspace, u"Rename Workspace\u2026");
+      break;
+  }
+  context_menu_->Show(sidebar_contents_, gfx::Point(x, y),
+                      from_keyboard ? ui::mojom::MenuSourceType::kKeyboard : ui::mojom::MenuSourceType::kMouse);
+}
+
+void JustSlidePageHandler::OnContextCommand(mojom::ContextMenuKind, const std::string& id, int command) {
+  using C = SidebarContextMenu;
+  switch (command) {
+    case C::kPinTab: SetTabPinned(id, true); break;
+    case C::kUnpinTab: SetTabPinned(id, false); break;
+    case C::kAddTabToFavorites: AddFavoriteFromTab(id, -1); break;
+    case C::kMoveTabUp: MoveTab(id, -1); break;
+    case C::kMoveTabDown: MoveTab(id, 1); break;
+    case C::kReopenClosedTab: ReopenClosedTab(); break;
+    case C::kCloseTab: CloseTab(id); break;
+    case C::kOpenFavorite: OpenFavorite(id); break;
+    case C::kMoveFavoriteLeft: MoveFavorite(id, -1); break;
+    case C::kMoveFavoriteRight: MoveFavorite(id, 1); break;
+    case C::kRemoveFavorite: RemoveFavorite(id); break;
+    case C::kRenameWorkspace: page_->StartRenameWorkspace(id); break;
+  }
+}
 
 void JustSlidePageHandler::OnTabStripModelChanged(TabStripModel*, const TabStripModelChange& change,
                                                   const TabStripSelectionChange&) {

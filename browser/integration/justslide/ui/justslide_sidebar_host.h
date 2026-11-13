@@ -33,6 +33,16 @@ class JustSlideSidebarHost : public views::WebView {
   static constexpr int kExpandedWidthDip = 252;
   static constexpr int kRailWidthDip = 44;
   static constexpr int kFramePaddingDip = 6;
+  // Native window chrome (docs/ux-audit.md §Window chrome):
+  // macOS: hidden title bar, full-size content; the traffic lights are
+  // vertically centred on the sidebar's 32 dip title-bar row, i.e. a title bar
+  // height of 6 + 32 + 6 = 44 dip, starting 13 dip from the leading edge. The
+  // sidebar reserves the leading 78 dip of that row for them.
+  // Windows: caption buttons (min/max/close) sit at the top-right of the page
+  // area, inside the 6 dip frame; the sidebar row has no leading reserve.
+  static constexpr int kTitlebarHeightDip = 44;
+  static constexpr int kTrafficLightsLeadingDip = 13;
+  static constexpr int kTrafficLightsReserveDip = 78;
 
   // Returns the host added as a child of `region`, or nullptr when the
   // JustSlideSidebar feature is disabled.

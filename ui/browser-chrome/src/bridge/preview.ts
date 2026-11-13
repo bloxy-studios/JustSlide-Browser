@@ -2,7 +2,7 @@
 // component tests. It is NOT JustSlide, does not render web pages and must
 // never be bundled into the WebUI resources (enforced by scripts/ui/finalize-webui.ts).
 import { classifyInputForPreview } from '../lib/input';
-import type { ColorMode, ShellBridge, ShellSnapshot, TabInfo } from './types';
+import type { ColorMode, ContextMenuKind, ShellBridge, ShellSnapshot, TabInfo } from './types';
 
 let counter = 100;
 const nid = (p: string) => `${p}_preview${(counter++).toString(36).padStart(4, '0')}`;
@@ -40,6 +40,7 @@ export function previewSeed(): ShellSnapshot {
     ],
     colorMode: 'system',
     backdropColor: '',
+    windowActive: true,
   };
 }
 
@@ -48,6 +49,7 @@ export class PreviewBridge implements ShellBridge {
   private snap: ShellSnapshot;
   private listeners = new Set<() => void>();
   private focusListeners = new Set<() => void>();
+  private renameListeners = new Set<(id: string) => void>();
   private closed: TabInfo[] = [];
   readonly log: Array<[string, unknown[]]> = [];
 
@@ -57,6 +59,11 @@ export class PreviewBridge implements ShellBridge {
   subscribe(l: () => void) { this.listeners.add(l); return () => { this.listeners.delete(l); }; }
   onFocusAddressField(l: () => void) { this.focusListeners.add(l); return () => { this.focusListeners.delete(l); }; }
   requestFocusAddressField() { this.focusListeners.forEach(l => l()); }
+  onRenameWorkspace(l: (id: string) => void) { this.renameListeners.add(l); return () => { this.renameListeners.delete(l); }; }
+  /** Preview: the UI falls back to its own menu; this records the request. */
+  showContextMenu(kind: ContextMenuKind, id: string, x: number, y: number, fromKeyboard: boolean) { this.log.push(['showContextMenu', [kind, id, x, y, fromKeyboard]]); }
+  startRenameWorkspace(id: string) { this.renameListeners.forEach(l => l(id)); }
+  setWindowActive(active: boolean) { this.update('external:windowActive', [active], s => ({ ...s, windowActive: active })); }
 
   private update(name: string, args: unknown[], fn: (s: ShellSnapshot) => ShellSnapshot) {
     this.log.push([name, args]);

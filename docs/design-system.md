@@ -33,22 +33,17 @@ Values per theme are in `tokens.generated.css`; each line names its source (`fig
 |---|---|
 | `danger` (all) | crashed/failed tab and insecure-origin markers are not designed |
 
-## Typography (`--js-type-*`)
-SF Pro via `-apple-system, BlinkMacSystemFont, "SF Pro", system-ui`. Weights 510 and 590 are
-variable-font weights of SF Pro on macOS.
-| Token | Spec | Figma |
+## Typography (`--js-type-*`, Apple HIG macOS text styles)
+`-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI Variable Text", "Segoe UI"`.
+Only two sizes and three weights (audited by `tests/visual/ux-audit.ts`):
+| Token | Spec | Used for |
 |---|---|---|
-| tab / tab-selected | 13/18, 510 / 590 | Tab title |
-| address | 12/18, 510 | Address |
-| section | 12/18, 590 | "Pinned" |
-| count | 11/18, 510, opacity .6 | Pinned count |
-| overline | 10/16, 590, +0.6 tracking, upper, opacity .68 | "WORKSPACES" |
-| caption | 11/16, 510 | current workspace, agent scope (opacity .72) |
-| agent-title | 12/18, 590 | "Claude Code · Working" |
-| tooltip | 12/18, 510 | Slide / Tooltip |
+| tab, address, menu, button, agent-title (500), dialog-title (600) | 13/16, −0.08 px | Body: rows, fields, menus, buttons |
+| section, overline (600), count, caption, dialog-body | 11/14, +0.06 px | Subheadline: headers (title case), counts (tabular), captions |
+Label colours are alpha-based (`rgba(14,27,27,.66)` secondary), like macOS `secondaryLabelColor`.
 
 ## Sizes and radii
-From `design/tokens.json` (`--js-size-*`, `--js-radius-*`): sidebar 240, frame padding/gap 6 (owner decision), collapsed rail 44,
+From `design/tokens.json` (`--js-size-*`, `--js-radius-*`): sidebar 240, frame padding/gap 6 (owner decision), collapsed rail 44, title bar 44 (traffic-light reserve 78), nav row 32, address 30, rows 28 (2 apart), section header 24,
 section gap 8, nav row 40, targets 32 / 24, icons 16 / 12 / 14, favorites 43×34 (icon 18, gap 4),
 rows 32, pinned trigger 28, list gap 4, agent card 56, footer 64, activity dot 7.
 Radii: control 8, small 6, card 10, page window 16, favicon 3.
@@ -57,9 +52,9 @@ Radii: control 8, small 6, card 10, page window 16, favicon 3.
 | Component | File | States |
 |---|---|---|
 | `Icon` | `design-system/Icon.tsx` | glyph (`currentColor`) or brand (official colours); decorative unless labelled |
-| `IconButton` | `design-system/IconButton.tsx` | hover, pressed, disabled (.35), dashed focus ring, `workspace` variant selected |
-| `TooltipLayer` / `useTooltip` | `design-system/tooltip.tsx` | 450 ms hover delay, immediate on `:focus-visible`, below or above |
-| `Menu` / `useMenu` | `design-system/Menu.tsx` | arrows, Home/End, Enter/Space, Escape/Tab; focus returns to the trigger and follows moved rows |
+| `IconButton` | `design-system/IconButton.tsx` | hover bezel, pressed, disabled (.3), system focus ring, native help tag |
+| `useTooltip` | `design-system/tooltip.tsx` | returns `{ title }`: native help tags |
+| `Menu` / `useMenu` | `design-system/Menu.tsx` | browser: native NSMenu via `ShowContextMenu`; preview: NSMenu-styled fallback (arrows, Home/End, Return, Esc) |
 | `Dialog`, `Button`, `TextInput` | `design-system/Dialog.tsx` | native `<dialog>` (focus trap, Escape) |
 | Sidebar parts | `components/*` | see `DESIGN.md` §3 |
 

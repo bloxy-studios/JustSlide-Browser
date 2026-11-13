@@ -20,12 +20,12 @@ const snapshot = {
     { id: 'fav_2', url: { url: 'https://claude.ai/' }, title: 'Claude' },
   ],
   agents: [{ grantId: 'g1', clientName: 'Cursor (local MCP)', workspaceIds: ['ws_agent0001'], state: 0, lastAction: 'Opened example.com/b in the background', pending: [] }],
-  colorMode: Number(new URLSearchParams(location.search).get('mode') ?? 0), backdropColor: '',
+  colorMode: Number(new URLSearchParams(location.search).get('mode') ?? 0), backdropColor: '', windowActive: true,
 };
 const calls = (globalThis.__mojoCalls = []);
 const listeners = [];
 export class PageCallbackRouter {
-  constructor() { this.$ = { bindNewPipeAndPassRemote: () => ({}) }; this.snapshotChanged = { addListener: (f) => listeners.push(f) }; this.focusAddressField = { addListener: () => 0 }; }
+  constructor() { this.$ = { bindNewPipeAndPassRemote: () => ({}) }; this.snapshotChanged = { addListener: (f) => listeners.push(f) }; this.focusAddressField = { addListener: () => 0 }; this.startRenameWorkspace = { addListener: () => 0 }; }
 }
 export class PageHandlerRemote {
   constructor() {

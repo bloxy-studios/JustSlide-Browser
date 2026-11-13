@@ -42,7 +42,7 @@ function base(): ShellSnapshot {
       ['slack', 'https://app.slack.com/', 'Slack'], ['notion', 'https://www.notion.so/', 'Notion'], ['discord', 'https://discord.com/app', 'Discord'],
       ['netflix', 'https://www.netflix.com/', 'Netflix'], ['supabase', 'https://supabase.com/dashboard', 'Supabase'], ['convex', 'https://dashboard.convex.dev/', 'Convex'],
     ].map(([id, url, title]) => ({ id: `fav_${id}`, url, title })),
-    agents: [], colorMode: 'light', backdropColor: '',
+    agents: [], colorMode: 'light', backdropColor: '', windowActive: true,
   };
 }
 

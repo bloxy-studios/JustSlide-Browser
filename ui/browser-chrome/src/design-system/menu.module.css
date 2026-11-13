@@ -1,13 +1,15 @@
+/* Preview-only fallback that imitates NSMenu. In the browser, context menus are
+   native (SidebarContextMenu → NSMenu on macOS). */
 .menu {
-  position: absolute; z-index: 30; min-width: 168px; max-width: 224px; box-sizing: border-box; padding: 4px;
-  background: var(--js-color-address); color: var(--js-color-text);
-  border: 0; border-radius: var(--js-radius-control);
-  box-shadow: var(--js-shadow-popover); outline: none;
+  position: absolute; z-index: 30; min-width: 180px; max-width: 228px; padding: 5px;
+  background: rgba(246, 248, 248, 0.96); color: #000; border: 0; border-radius: var(--js-radius-menu);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.18), var(--js-shadow-popover); outline: none;
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
 }
 .item {
-  font: var(--js-type-tab); height: 28px; display: flex; align-items: center; padding: 0 8px;
-  border-radius: var(--js-radius-small); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font: var(--js-type-menu); letter-spacing: var(--js-type-menu-tracking); height: 22px; display: flex; align-items: center; padding: 0 9px;
+  border-radius: var(--js-radius-menu-item); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgba(0, 0, 0, 0.85);
 }
-.item[data-active] { background: var(--js-color-tab-hover); }
-.item[aria-disabled] { opacity: 0.45; }
-.item[data-danger] { color: var(--js-color-danger); }
+.item[data-active] { background: var(--js-color-accent); color: var(--js-color-accent-text); }
+.item[aria-disabled] { color: rgba(0, 0, 0, 0.26); }
+.separator { height: 1px; margin: 5px 9px; background: rgba(0, 0, 0, 0.1); }

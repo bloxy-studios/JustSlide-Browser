@@ -31,10 +31,10 @@ function FavoriteTile({ f, index, count, dropBefore, dragging, onDragState }: {
   f: FavoriteInfo; index: number; count: number; dropBefore: boolean; dragging: boolean; onDragState: (id: string | null) => void;
 }) {
   const b = useBridge();
-  const menu = useMenu();
+  const menu = useMenu({ kind: 'favorite', id: f.id });
   const name = f.title || displayHost(f.url);
   const label = `Open ${name} website`;
-  const tip = useTooltip(label);
+  const tip = useTooltip(name);
   return (
     <li className={[s.favCell, dropBefore && s.favDropBefore, dragging && s.favDragging].filter(Boolean).join(' ')} data-fav-index={index}>
       <button
@@ -54,9 +54,11 @@ function FavoriteTile({ f, index, count, dropBefore, dragging, onDragState }: {
       </button>
       {menu.render(`${name} favorite`, [
         { label: 'Open', onSelect: () => b.openFavorite(f.id) },
-        { label: 'Move left', disabled: index === 0, onSelect: () => b.moveFavorite(f.id, -1) },
-        { label: 'Move right', disabled: index === count - 1, onSelect: () => b.moveFavorite(f.id, 1) },
-        { label: 'Remove from favorites', danger: true, onSelect: () => b.removeFavorite(f.id) },
+        { separator: true },
+        { label: 'Move Left', disabled: index === 0, onSelect: () => b.moveFavorite(f.id, -1) },
+        { label: 'Move Right', disabled: index === count - 1, onSelect: () => b.moveFavorite(f.id, 1) },
+        { separator: true },
+        { label: 'Remove from Favorites', onSelect: () => b.removeFavorite(f.id) },
       ])}
     </li>
   );
@@ -136,7 +138,7 @@ export function FavoritesGrid({ favorites }: { favorites: FavoriteInfo[] }) {
         </button>
       </li>
       {favorites.length === 0 && (
-        <li className={s.favHint} id="favorites-hint" data-testid="favorites-hint">Drag a tab here to add it</li>
+        <li className={s.favHint} id="favorites-hint" data-testid="favorites-hint">Drag tabs here to add favorites</li>
       )}
     </ul>
   );

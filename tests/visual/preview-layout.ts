@@ -19,6 +19,8 @@ const shots: Array<[string, string, number, number, 'light' | 'dark']> = [
   ['preview-1100x720-empty-favorites', 'preview.html', 1100, 720, 'light'],
   ['preview-1100x720-glass', 'preview.html?fixture=figma-compact&backdrop=glass', 1100, 720, 'light'],
   ['preview-1100x720-custom-backdrop', 'preview.html?fixture=figma-compact&backdrop=f6e7ff', 1100, 720, 'light'],
+  ['preview-1100x720-inactive-window', 'preview.html?fixture=figma-compact&inactive=1', 1100, 720, 'light'],
+  ['preview-1100x720-windows', 'preview.html?fixture=figma-compact&platform=win', 1100, 720, 'light'],
 ];
 let errors = 0;
 for (const [name, path, w, h, scheme] of shots) {

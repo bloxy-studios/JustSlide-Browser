@@ -3,58 +3,81 @@
  * Do not edit by hand: run `bun run design:tokens`. */
 
 :root {
-  --js-font: -apple-system, BlinkMacSystemFont, "SF Pro", system-ui, sans-serif;
+  --js-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI Variable Text", "Segoe UI", sans-serif;
   --js-size-frame-padding: 6px;
   --js-size-frame-gap: 6px;
   --js-size-sidebar-width: 240px;
   --js-size-sidebar-gap: 8px;
-  --js-size-nav-height: 40px;
+  --js-size-nav-height: 32px;
   --js-size-target: 32px;
   --js-size-target-small: 24px;
   --js-size-icon: 16px;
   --js-size-icon-small: 12px;
   --js-size-icon-indicator: 14px;
-  --js-size-address-height: 32px;
+  --js-size-address-height: 30px;
   --js-size-favorite-width: 43px;
   --js-size-favorite-height: 34px;
   --js-size-favorite-icon: 18px;
   --js-size-favorites-gap: 4px;
-  --js-size-row-height: 32px;
-  --js-size-trigger-height: 28px;
+  --js-size-row-height: 28px;
+  --js-size-trigger-height: 24px;
   --js-size-favicon: 16px;
-  --js-size-list-gap: 4px;
-  --js-size-agent-card-height: 56px;
-  --js-size-footer-height: 64px;
+  --js-size-list-gap: 2px;
+  --js-size-agent-card-height: 48px;
+  --js-size-footer-height: 56px;
   --js-size-workspace-switcher-gap: 4px;
   --js-size-activity-dot: 7px;
   --js-size-tooltip-height: 32px;
   --js-size-tooltip-width: 224px;
   --js-size-collapsed-rail: 44px;
+  --js-size-titlebar-height: 44px;
+  --js-size-traffic-light-reserve: 78px;
   --js-radius-control: 8px;
   --js-radius-small: 6px;
   --js-radius-card: 10px;
   --js-radius-page: 16px;
   --js-radius-favicon: 3px;
-  --js-opacity-count: 0.6;
-  --js-opacity-scope: 0.72;
-  --js-opacity-label: 0.68;
-  --js-type-tab: 510 13px/18px var(--js-font);
-  --js-type-tab-selected: 590 13px/18px var(--js-font);
-  --js-type-address: 510 12px/18px var(--js-font);
-  --js-type-section: 590 12px/18px var(--js-font);
-  --js-type-count: 510 11px/18px var(--js-font);
-  --js-type-overline: 590 10px/16px var(--js-font);
-  --js-type-overline-tracking: 0.6px;
-  --js-type-caption: 510 11px/16px var(--js-font);
-  --js-type-agent-title: 590 12px/18px var(--js-font);
-  --js-type-tooltip: 510 12px/18px var(--js-font);
+  --js-radius-row: 7px;
+  --js-radius-menu: 10px;
+  --js-radius-menu-item: 5px;
+  --js-radius-dialog: 12px;
+  --js-opacity-count: 1;
+  --js-opacity-scope: 1;
+  --js-opacity-label: 1;
+  --js-type-tab: 400 13px/16px var(--js-font);
+  --js-type-tab-tracking: -0.08px;
+  --js-type-tab-selected: 400 13px/16px var(--js-font);
+  --js-type-tab-selected-tracking: -0.08px;
+  --js-type-address: 400 13px/16px var(--js-font);
+  --js-type-address-tracking: -0.08px;
+  --js-type-section: 600 11px/14px var(--js-font);
+  --js-type-section-tracking: 0.06px;
+  --js-type-count: 400 11px/14px var(--js-font);
+  --js-type-count-tracking: 0.06px;
+  --js-type-overline: 600 11px/14px var(--js-font);
+  --js-type-overline-tracking: 0.06px;
+  --js-type-caption: 400 11px/14px var(--js-font);
+  --js-type-caption-tracking: 0.06px;
+  --js-type-agent-title: 500 13px/16px var(--js-font);
+  --js-type-agent-title-tracking: -0.08px;
+  --js-type-tooltip: 400 11px/14px var(--js-font);
+  --js-type-tooltip-tracking: 0.06px;
+  --js-type-menu: 400 13px/16px var(--js-font);
+  --js-type-menu-tracking: -0.08px;
+  --js-type-button: 400 13px/16px var(--js-font);
+  --js-type-button-tracking: -0.08px;
+  --js-type-dialog-title: 600 13px/16px var(--js-font);
+  --js-type-dialog-title-tracking: -0.08px;
+  --js-type-dialog-body: 400 11px/14px var(--js-font);
+  --js-type-dialog-body-tracking: 0.06px;
   --js-shadow-control: 0 1px 2px rgba(14, 27, 27, 0.10), 0 0 0 0.5px rgba(14, 27, 27, 0.04); /* derived */
   --js-shadow-selected: 0 1px 3px rgba(14, 27, 27, 0.14), 0 1px 1px rgba(14, 27, 27, 0.06); /* derived */
   --js-shadow-card: 0 2px 8px rgba(14, 27, 27, 0.12), 0 1px 2px rgba(14, 27, 27, 0.06); /* derived */
   --js-shadow-popover: 0 8px 24px rgba(14, 27, 27, 0.18), 0 2px 6px rgba(14, 27, 27, 0.08); /* derived */
   --js-shadow-page: none; /* derived */
-  --js-shadow-focus: 0 0 0 2px rgba(16, 87, 79, 0.45); /* derived */
+  --js-shadow-focus: none; /* derived */
   --js-shadow-drop: 0 0 0 2px rgba(18, 128, 102, 0.55); /* derived */
+  --js-shadow-contrast-control: 0 0 0 1px rgba(14, 27, 27, 0.35); /* derived */
   --js-glass-tint-alpha: 0.42;
   --js-glass-surface-alpha: 0.82;
 }
@@ -65,7 +88,7 @@
   --js-color-sidebar: #acfff7; /* figma 55:68 */
   --js-color-page: #ffffff; /* figma 55:69 */
   --js-color-page-border: #ffffff; /* figma 55:70 */
-  --js-color-separator: #627f87; /* figma 55:71 */
+  --js-color-separator: rgba(14, 27, 27, 0.12); /* derived (not in Figma) */
   --js-color-address: #ffffff; /* figma 55:77 */
   --js-color-favorite: #ffffff; /* figma 55:79 */
   --js-color-favorite-add: #ffffff; /* figma 55:80 */
@@ -78,14 +101,20 @@
   --js-color-agent-control: #ffffff; /* figma 55:74 */
   --js-color-activity: #128066; /* figma 55:93 */
   --js-color-text: #0e1b1b; /* figma 55:96 */
-  --js-color-text-muted: #304b48; /* figma 55:97 */
-  --js-color-text-label: #45615f; /* figma 55:98 */
-  --js-color-text-workspace: #304b48; /* figma 55:90 */
+  --js-color-text-muted: rgba(14, 27, 27, 0.66); /* derived (not in Figma) */
+  --js-color-text-label: rgba(14, 27, 27, 0.66); /* derived (not in Figma) */
+  --js-color-text-workspace: rgba(14, 27, 27, 0.66); /* derived (not in Figma) */
   --js-color-icon: #171717; /* figma 55:102 */
   --js-color-tooltip: #0e1b1b; /* figma 55:109 */
   --js-color-tooltip-text: #ffffff; /* figma 55:110 */
-  --js-color-tab-hover: #f2fffd; /* figma literal */
-  --js-color-focus-ring: #10574f; /* figma literal */
-  --js-color-close-glyph: #304b48; /* figma literal */
+  --js-color-tab-hover: rgba(14, 27, 27, 0.06); /* derived (not in Figma) */
+  --js-color-focus-ring: color-mix(in srgb, AccentColor 60%, transparent); /* derived (not in Figma) */
+  --js-color-close-glyph: rgba(14, 27, 27, 0.66); /* derived (not in Figma) */
   --js-color-danger: #b3261e; /* derived (not in Figma) */
+  --js-color-text-tertiary: rgba(14, 27, 27, 0.42); /* derived (not in Figma) */
+  --js-color-pressed: rgba(14, 27, 27, 0.11); /* derived (not in Figma) */
+  --js-color-tab-selected-inactive: rgba(255, 255, 255, 0.62); /* derived (not in Figma) */
+  --js-color-icon-secondary: rgba(14, 27, 27, 0.66); /* derived (not in Figma) */
+  --js-color-accent: AccentColor; /* derived (not in Figma) */
+  --js-color-accent-text: AccentColorText; /* derived (not in Figma) */
 }

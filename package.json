@@ -14,7 +14,7 @@
     "build:ui:preview": "cd ui/browser-chrome && bun run build:preview",
     "typecheck": "cd ui/browser-chrome && bun run typecheck",
     "test:ui": "cd ui/browser-chrome && bun run test",
-    "test:visual": "bun run build:ui && bun run build:ui:preview && bun tests/visual/webui-csp.ts && bun tests/visual/figma-compare.ts",
+    "test:visual": "bun run build:ui && bun run build:ui:preview && bun tests/visual/webui-csp.ts && bun tests/visual/figma-compare.ts && bun tests/visual/ux-audit.ts --strict",
     "protocol:gen": "bun protocol/scripts/gen.ts",
     "protocol:check": "bun protocol/scripts/gen.ts --check && bun scripts/design/gen-tokens.ts --check && bun scripts/ui/gen-icons.ts --check",
     "mcp:build": "cd mcp && cargo build --release",

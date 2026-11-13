@@ -10,6 +10,7 @@ export type ColorMode = 'system' | 'light' | 'dark';
 export type WorkspaceIcon = 'personal' | 'chatgpt' | 'claude-code' | 'agent' | 'work' | 'generic' | 'codex';
 export type ProfileKind = 'personal' | 'agent-isolated';
 export type AgentState = 'active' | 'paused' | 'revoked';
+export type ContextMenuKind = 'tab' | 'favorite' | 'workspace';
 
 export interface TabInfo {
   id: string;
@@ -73,6 +74,8 @@ export interface ShellSnapshot {
   agents: AgentInfo[];
   colorMode: ColorMode;
   backdropColor: string;
+  /** Key window (macOS) / foreground window: inactive windows mute selection. */
+  windowActive: boolean;
 }
 
 /** Intents the sidebar may send. Every method maps 1:1 to a PageHandler mojom method. */
@@ -107,6 +110,8 @@ export interface ShellIntents {
   setBackdropColor(cssHex: string): void;
   showPairingDialog(): void;
   showDownloads(): void;
+  /** Native context menu (NSMenu on macOS) for a sidebar item; x/y in sidebar CSS px. */
+  showContextMenu(kind: ContextMenuKind, id: string, x: number, y: number, fromKeyboard: boolean): void;
 }
 
 export interface ShellBridge extends ShellIntents {
@@ -115,6 +120,8 @@ export interface ShellBridge extends ShellIntents {
   getSnapshot(): ShellSnapshot | null;
   subscribe(listener: () => void): () => void;
   onFocusAddressField(listener: () => void): () => void;
+  /** The browser asks the UI to start renaming a workspace (from the native menu). */
+  onRenameWorkspace(listener: (workspaceId: string) => void): () => void;
 }
 
 export const INTENT_NAMES: ReadonlyArray<keyof ShellIntents> = [
@@ -122,5 +129,5 @@ export const INTENT_NAMES: ReadonlyArray<keyof ShellIntents> = [
   'closeTab', 'reopenClosedTab', 'setTabPinned', 'moveTab', 'selectWorkspace', 'createWorkspace',
   'renameWorkspace', 'addFavoriteForActiveTab', 'addFavoriteFromTab', 'addFavoriteFromUrl', 'removeFavorite', 'moveFavorite', 'openFavorite',
   'resolvePendingRequest', 'setAgentPaused', 'revokeAgent', 'setColorMode', 'setBackdropColor',
-  'showPairingDialog', 'showDownloads',
+  'showPairingDialog', 'showDownloads', 'showContextMenu',
 ];
