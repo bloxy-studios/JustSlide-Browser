@@ -1,0 +1,12 @@
+# Blocks Agent/Tab/@-mention access (gitignored paths are excluded by default).
+# NOTE: this is not a security sandbox — terminal and MCP tools can still read
+# these paths (https://cursor.com/docs/reference/ignore-file).
+**/.env
+**/.env.*
+**/*.pem
+**/*.p12
+**/*.key
+**/JustSlideAutomation/
+**/*.sock
+**/Default/Cookies
+**/Default/Login Data*

@@ -1,0 +1,28 @@
+# Copyright 2026 Bloxy Studios. Added to //chrome/test:browser_tests and
+# :unit_tests by patches/chromium/0002.
+import("//testing/test.gni")
+
+source_set("browser_tests") {
+  testonly = true
+  defines = [ "HAS_OUT_OF_PROC_TEST_RUNNER" ]
+  sources = [ "justslide_browsertest.cc" ]
+  deps = [
+    "//chrome/browser/ui:browser_window_header",
+    "//chrome/browser/ui/tabs:tab_strip",
+    "//chrome/test:test_support",
+    "//content/test:test_support",
+    "//justslide",
+    "//net:test_support",
+  ]
+}
+
+source_set("unit_tests") {
+  testonly = true
+  sources = [ "grant_store_unittest.cc" ]
+  deps = [
+    "//components/prefs:test_support",
+    "//justslide/automation",
+    "//justslide/browser",
+    "//testing/gtest",
+  ]
+}

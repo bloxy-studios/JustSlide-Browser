@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8"><title>JustSlide typing fixture</title>
+<style>body{font:16px system-ui;margin:24px} textarea{width:100%;height:240px}</style>
+<h1>Type here continuously</h1>
+<p>Used by the focus-preservation demo: keystrokes must keep landing here while an agent works in another workspace.</p>
+<textarea autofocus aria-label="typing area"></textarea>
+<p>Keystrokes: <output id="n">0</output> · Focus lost events: <output id="lost">0</output></p>
+<script>
+const t = document.querySelector('textarea'); let n = 0, lost = 0;
+t.addEventListener('input', () => document.getElementById('n').textContent = ++n);
+window.addEventListener('blur', () => document.getElementById('lost').textContent = ++lost);
+</script>

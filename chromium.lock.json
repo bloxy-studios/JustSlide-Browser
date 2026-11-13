@@ -1,0 +1,42 @@
+{
+  "$comment": "Pinned upstream for JustSlide. Change only via scripts/engine/upstream-check.sh --propose + human review (docs/upstream-maintenance.md).",
+  "upstream": {
+    "repository": "https://chromium.googlesource.com/chromium/src.git",
+    "tag": "157.0.8103.51",
+    "commit": "653674df293788cf4932c40d914e9e15b41a2d31",
+    "milestone": 157,
+    "channel": "Stable (Mac)",
+    "resolvedFrom": [
+      "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Mac&num=10 (157.0.8103.51, chromium hash 653674df…, 2026-11-09T20:47:24Z)",
+      "https://versionhistory.googleapis.com/v1/chrome/platforms/mac/channels/stable/versions/all/releases?filter=endtime=none (157.0.8103.51 fraction=1; 158.0.8127.18 fraction=0.005 early-stable, not chosen)"
+    ],
+    "resolvedAt": "2026-11-11",
+    "verified": "git clone --depth 1 --branch 157.0.8103.51 => HEAD 653674df293788cf4932c40d914e9e15b41a2d31 'Incrementing VERSION to 157.0.8103.51'"
+  },
+  "dependencySync": {
+    "tool": "depot_tools gclient",
+    "policy": "gclient sync --revision src@<commit> --no-history -D; DEPS of the pinned commit are authoritative; never `gclient sync` without -r; never roll individual DEPS entries.",
+    "depotTools": "https://chromium.googlesource.com/chromium/tools/depot_tools.git (main at fetch time; recorded in out/<cfg>/justslide_provenance.json)"
+  },
+  "toolchain": {
+    "macSdkOfficialVersion": "27.0",
+    "macDeploymentTarget": "13.0",
+    "source": "build/config/mac/mac_sdk.gni @ pinned commit",
+    "clang": "bundled by DEPS (third_party/llvm-build), not system clang",
+    "rust": "bundled by DEPS for Chromium; justslide-mcp uses rustup stable >= 1.88 (rmcp 3.9.0 MSRV)",
+    "node": "bundled by DEPS for Chromium WebUI tooling; JustSlide UI uses Bun 1.4.4"
+  },
+  "patchSeries": {
+    "version": 1,
+    "path": "patches/chromium/series",
+    "productSourceMap": {
+      "browser/integration/justslide/": "src/justslide/",
+      "browser/resources/": "src/justslide/resources/",
+      "ui/browser-chrome/dist/webui/": "src/justslide/resources/webui_dist/ (generated, untracked)",
+      "tests/fixtures/pages/": "src/justslide/test/data/"
+    }
+  },
+  "targets": {
+    "macos": { "cpus": ["x64", "arm64"], "universal": "not produced; see docs/development-and-release.md" }
+  }
+}

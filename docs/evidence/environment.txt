@@ -1,0 +1,32 @@
+# Environment (captured 2026-11-11T14:12:54Z)
+Linux 3fc8e23f-5a6 6.18.56 #1 SMP Mon Nov  9 17:28:30 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+NAME="Amazon Linux"
+VERSION="2023"
+cpus=2
+               total        used        free      shared  buff/cache   available
+Mem:               4           0           0           0           3           3
+/dev/vdb         32G  7.4G   25G  24% /
+git version 2.49.0
+v24.22.1
+bun 1.4.4
+rustc 1.99.1 (58cf8f9c3 2026-10-13)
+cargo 1.99.1 (5f94df478 2026-08-27)
+Python 3.9.25
+
+## scripts/doctor.sh --engine
+JustSlide doctor (2026-11-11T14:12:54Z)
+host: Linux 6.18.56 cpu=x64 (x86_64)
+resources: 2 cores, 4 GB RAM, 24 GB free in $HOME
+  ok    git git version 2.49.0
+  ok    python3 Python 3.9.25
+  ok    curl curl 8.21.0 (x86_64-amazon-linux-gnu) libcurl/8.21.0 OpenSSL/3.5.8 zlib/1.2.11 libidn2/2.3.2 libpsl/0.21.5 nghttp2/1.59.0 mit-krb5/1.21.3
+  ok    bun 1.4.4
+  ok    cargo 1.99.1 (5f94df478 2026-08-27)
+engine checks (checkout at /agent/justslide-engine):
+  note  non-macOS host: macOS builds/runtime tests cannot be verified here
+  FAIL  RAM 4 GB < 16 GB (Chromium links will thrash or fail)
+  note  only 2 cores: a full build may take many hours
+  FAIL  24 GB free at /agent/justslide-engine; need >= 120 GB (checkout ~60 GB + one out dir)
+  note  depot_tools not yet cloned (scripts/engine/fetch.sh does it)
+  note  no checkout yet at /agent/justslide-engine/chromium/src
+exit=1

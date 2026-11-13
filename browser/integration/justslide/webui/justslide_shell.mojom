@@ -1,0 +1,140 @@
+// Copyright 2026 Bloxy Studios. All rights reserved.
+//
+// Trusted sidebar WebUI <-> browser-process contract for
+// chrome://justslide-sidebar.top-chrome. Bound only for JustSlideSidebarUI
+// (WebUIBrowserInterfaceBrokerRegistry::ForWebUI<JustSlideSidebarUI>()).
+// Requires IPC security review before landing (docs/security/ipc-reviews.md).
+// The page sends *intents*; the browser validates every argument and remains
+// authoritative for tabs, navigation, profiles and permissions.
+// Enum declaration order is relied on by ui/browser-chrome/src/bridge/mojo.ts
+// (drift-tested by src/__tests__/mojom-contract.test.ts).
+
+module justslide.mojom;
+
+import "url/mojom/url.mojom";
+
+enum SecurityLevel { kUnknown, kSecure, kInsecure, kInternal, kDangerous };
+enum OpenedBy { kUser, kAgent, kExtension, kRestore, kPopup };
+enum ColorMode { kSystem, kLight, kDark };
+enum WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric };
+enum ProfileKind { kPersonal, kAgentIsolated };
+enum AgentState { kActive, kPaused, kRevoked };
+
+struct TabInfo {
+  // Durable JustSlide tab id ("tab_..."), never a tab index or process id.
+  string id;
+  string workspace_id;
+  url.mojom.Url url;
+  string title;
+  bool pinned;
+  bool loading;
+  bool active;
+  OpenedBy opened_by;
+  bool crashed;
+  bool audible;
+  bool has_error;
+};
+
+struct WorkspaceInfo {
+  string id;
+  string name;
+  WorkspaceIcon icon;
+  ProfileKind profile_kind;
+  bool agent_owned;
+};
+
+struct FavoriteInfo {
+  string id;
+  url.mojom.Url url;
+  string title;
+};
+
+struct PendingRequestInfo {
+  string id;
+  string grant_id;
+  string workspace_id;
+  string kind;
+  string summary;
+  string origin;
+};
+
+struct AgentInfo {
+  string grant_id;
+  string client_name;
+  array<string> workspace_ids;
+  AgentState state;
+  string last_action;
+  array<PendingRequestInfo> pending;
+};
+
+struct ShellSnapshot {
+  // Strictly increasing per window; the page ignores stale snapshots.
+  int64 revision;
+  string selected_workspace_id;
+  string active_tab_id;
+  bool sidebar_collapsed;
+  // Full, unelided URL of the active tab for inspection/copy/edit.
+  string display_url;
+  SecurityLevel security_level;
+  string origin;
+  bool can_go_back;
+  bool can_go_forward;
+  array<WorkspaceInfo> workspaces;
+  array<TabInfo> tabs;
+  array<FavoriteInfo> favorites;
+  array<AgentInfo> agents;
+  ColorMode color_mode;
+  // "" or "#rrggbb"; validated in the browser.
+  string backdrop_color;
+};
+
+interface PageHandlerFactory {
+  CreatePageHandler(pending_remote<Page> page,
+                    pending_receiver<PageHandler> handler);
+};
+
+// All string ids are validated against browser-owned state; unknown ids are
+// ignored. Text inputs are length-bounded in the browser.
+interface PageHandler {
+  GetSnapshot() => (ShellSnapshot snapshot);
+
+  // Raw omnibox text; classified by Chromium's AutocompleteClassifier.
+  NavigateFromInput(string text);
+  GoBack();
+  GoForward();
+  Reload();
+  ToggleSidebar();
+
+  SelectTab(string tab_id);
+  CreateTab();
+  CloseTab(string tab_id);
+  ReopenClosedTab();
+  SetTabPinned(string tab_id, bool pinned);
+  MoveTab(string tab_id, int32 delta);
+
+  SelectWorkspace(string workspace_id);
+  CreateWorkspace(string name);
+  RenameWorkspace(string workspace_id, string name);
+
+  AddFavoriteForActiveTab();
+  RemoveFavorite(string favorite_id);
+  MoveFavorite(string favorite_id, int32 delta);
+  OpenFavorite(string favorite_id);
+
+  // Human decision on a pending agent request. Only reachable from this
+  // trusted WebUI; never from the automation protocol.
+  ResolvePendingRequest(string request_id, bool approve);
+  SetAgentPaused(string grant_id, bool paused);
+  RevokeAgent(string grant_id);
+
+  SetColorMode(ColorMode mode);
+  SetBackdropColor(string css_hex);
+
+  // Opens the native pairing dialog (token shown once, stored in Keychain).
+  ShowPairingDialog();
+};
+
+interface Page {
+  SnapshotChanged(ShellSnapshot snapshot);
+  FocusAddressField();
+};

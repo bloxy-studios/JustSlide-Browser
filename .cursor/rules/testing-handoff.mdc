@@ -1,0 +1,9 @@
+---
+description: Testing evidence and session handoff rules
+globs: tests/**,docs/progress.md,docs/evidence/**,mcp/tests/**,ui/browser-chrome/src/__tests__/**
+alwaysApply: false
+---
+- Evidence tiers: unit/component (jsdom) < preview (Chrome for Testing, not JustSlide) < native (built JustSlide binary). Never cite a lower tier as native proof.
+- Use deterministic local fixtures (`tests/fixtures`); no personal accounts, no real transactions.
+- `bun run check` must pass before commit. Store tool output under `docs/evidence/` with date and host.
+- End every session by updating `docs/progress.md` with exact resume commands, blockers and the feature-status matrix.

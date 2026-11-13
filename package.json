@@ -1,0 +1,38 @@
+{
+  "name": "justslide",
+  "private": true,
+  "packageManager": "bun@1.4.4",
+  "workspaces": [
+    "ui/browser-chrome",
+    "protocol"
+  ],
+  "scripts": {
+    "doctor": "bash scripts/doctor.sh",
+    "doctor:engine": "bash scripts/doctor.sh --engine",
+    "dev:ui": "cd ui/browser-chrome && bun run dev",
+    "build:ui": "cd ui/browser-chrome && bun run build",
+    "build:ui:preview": "cd ui/browser-chrome && bun run build:preview",
+    "typecheck": "cd ui/browser-chrome && bun run typecheck",
+    "test:ui": "cd ui/browser-chrome && bun run test",
+    "test:visual": "bun run build:ui && bun run build:ui:preview && bun tests/visual/webui-csp.ts && bun tests/visual/preview-layout.ts",
+    "protocol:gen": "bun protocol/scripts/gen.ts",
+    "protocol:check": "bun protocol/scripts/gen.ts --check && cd ui/browser-chrome && bun run check:glyphs",
+    "mcp:build": "cd mcp && cargo build --release",
+    "mcp:test": "cd mcp && cargo test",
+    "licenses:ui": "bun scripts/ui/license-audit.ts",
+    "fixtures:serve": "bun scripts/dev/serve-fixtures.ts",
+    "engine:fetch": "bash scripts/engine/fetch.sh",
+    "engine:patch": "bash scripts/engine/apply-patches.sh",
+    "engine:verify-patches": "python3 scripts/engine/verify_patches_remote.py",
+    "engine:stage-ui": "bash scripts/engine/stage-ui.sh",
+    "engine:gn": "bash scripts/engine/gn-gen.sh",
+    "build:browser": "bash scripts/engine/build.sh",
+    "launch": "bash scripts/engine/launch.sh",
+    "package": "bash scripts/engine/package.sh",
+    "upstream:check": "bash scripts/engine/upstream-check.sh",
+    "check": "bun run protocol:check && bun run typecheck && bun run test:ui && bun run build:ui && bun run mcp:test && bun run engine:verify-patches",
+    "engine:step": "python3 scripts/engine/pipeline.py",
+    "engine:status": "python3 scripts/engine/pipeline.py --status",
+    "engine:errors": "python3 scripts/engine/pipeline.py --errors"
+  }
+}

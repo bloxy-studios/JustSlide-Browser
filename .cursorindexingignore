@@ -1,0 +1,12 @@
+# Excluded from codebase indexing only; files stay readable on demand.
+# Large generated / vendored material — prefer path-scoped searches instead.
+docs/evidence/
+**/*.png
+bun.lock
+mcp/Cargo.lock
+protocol/generated/
+ui/browser-chrome/src/generated/
+browser/integration/justslide/automation/protocol_constants.h
+# If a Chromium checkout is ever placed inside this folder (not recommended;
+# default is $HOME/justslide-engine), keep it out of the index:
+chromium/

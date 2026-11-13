@@ -1,0 +1,11 @@
+---
+description: Atlassian Design System implementation rules for the sidebar WebUI and dev preview
+globs: ui/**
+alwaysApply: false
+---
+- Use real ADS packages (`@atlaskit/button/new`, `@atlaskit/primitives/compiled/*`, `@atlaskit/css` `cssMap`, `@atlaskit/tokens`, `@atlaskit/icon/core/*`, textfield, tooltip, dropdown-menu, modal-dialog…). No Tailwind/shadcn/MUI or hand-rolled look-alikes.
+- Styles: semantic tokens only (verify names in `@atlaskit/tokens` token-names); strict `cssMap` (no descendant selectors). Arbitrary user colors only on the backdrop, never on selection/safety semantics.
+- New icon imports require `bun run build` (regenerates the Trusted Types glyph allowlist); never add a permissive Trusted Types policy.
+- The UI sends intents through `ShellBridge`; never assume React originated a change. Preview bridge is dev-only and must never enter `dist/webui` (audited).
+- Fonts: Atlassian Sans/Mono are unresolved (gated). Do not fetch or bundle them; the system fallback is a labeled dev fallback.
+- Ask the ADS MCP (`atlassian-design-system`) for component docs; Figma is the layout source, ADS the implementation source.

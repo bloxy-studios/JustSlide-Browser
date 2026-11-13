@@ -1,0 +1,25 @@
+# Dependencies / build output
+node_modules/
+.parcel-cache/
+.parcel-dev/
+ui/browser-chrome/dist/
+dist/
+mcp/target/
+*.log
+# Never commit engine checkouts, profiles or secrets
+/chromium/
+/engine/
+justslide-engine/
+/.engine/
+**/JustSlideAutomation/
+*.sock
+*.pem
+*.p12
+*.key
+.env
+.env.*
+# OS
+.DS_Store
+docs/evidence/visual/*.png
+!docs/evidence/*.log
+__pycache__/

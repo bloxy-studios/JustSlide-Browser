@@ -1,0 +1,15 @@
+# Copyright 2026 Bloxy Studios.
+source_set("ui") {
+  sources = [ "justslide_sidebar_host.cc", "justslide_sidebar_host.h" ]
+  deps = [
+    "//base",
+    "//chrome/browser/profiles:profile",
+    "//chrome/browser/ui:browser_window_header",
+    "//components/prefs",
+    "//content/public/browser",
+    "//justslide/common",
+    "//justslide/webui",
+    "//ui/views",
+    "//ui/views/controls/webview",
+  ]
+}

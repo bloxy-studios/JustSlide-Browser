@@ -1,0 +1,9 @@
+# Copyright 2026 Bloxy Studios.
+group("justslide") {
+  public_deps = [
+    "//justslide/automation",
+    "//justslide/browser",
+    "//justslide/ui",
+    "//justslide/webui",
+  ]
+}

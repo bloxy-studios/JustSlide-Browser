@@ -1,0 +1,5 @@
+{
+  "extract": true,
+  "importReact": false,
+  "transformerBabelPlugins": [["@atlaskit/tokens/babel-plugin", { "shouldUseAutoFallback": false }]]
+}

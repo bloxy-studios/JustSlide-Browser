@@ -1,0 +1,31 @@
+# Copyright 2026 Bloxy Studios.
+source_set("browser") {
+  sources = [
+    "background_tab_ops.cc",
+    "background_tab_ops.h",
+    "tab_identity.cc",
+    "tab_identity.h",
+    "workspace_service.cc",
+    "workspace_service.h",
+    "workspace_service_factory.cc",
+    "workspace_service_factory.h",
+  ]
+  deps = [
+    "//base",
+    "//chrome/browser/bookmarks",
+    "//chrome/browser/profiles:profile",
+    "//chrome/browser/ui:browser_window_header",
+    "//chrome/browser/ui/navigator",
+    "//chrome/browser/ui/tabs:tab_strip",
+    "//components/bookmarks/browser",
+    "//components/keyed_service/content",
+    "//components/pref_registry",
+    "//components/prefs",
+    "//components/sessions",
+    "//components/tabs:public",
+    "//content/public/browser",
+    "//justslide/common",
+    "//ui/accessibility",
+    "//ui/gfx",
+  ]
+}

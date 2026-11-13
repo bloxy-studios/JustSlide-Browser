@@ -1,0 +1,4 @@
+# Ordered JustSlide patch series for chromium/src 157.0.8103.51.
+0001-justslide-branding-and-profile-dir.patch
+0002-justslide-build-registration.patch
+0003-justslide-sidebar-host-hook.patch

@@ -1,0 +1,51 @@
+From 8253e22eb43c4febf4da132253272c1b437d0627 Mon Sep 17 00:00:00 2001
+From: JustSlide patch tooling <dev@justslide.app>
+Date: Wed, 11 Nov 2026 09:06:11 -0500
+Subject: [PATCH] 0001-justslide-branding-and-profile-dir
+
+Purpose: Branding (mac bundle id, product name) and isolated user-data dir
+Subsystem: chrome/app (branding, Info.plist)
+Upstream: chromium/src 157.0.8103.51 (653674df293788cf4932c40d914e9e15b41a2d31)
+Tests: tests: scripts/engine/verify-identity.sh (bundle id, CrProductDirName)
+---
+ chrome/app/app-Info.plist          |  2 ++
+ chrome/app/theme/chromium/BRANDING | 18 +++++++++---------
+ 2 files changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/chrome/app/app-Info.plist b/chrome/app/app-Info.plist
+index 6fada0a..544e61b 100644
+--- a/chrome/app/app-Info.plist
++++ b/chrome/app/app-Info.plist
+@@ -157,6 +157,8 @@
+ 	<string>6.0</string>
+ 	<key>CFBundleName</key>
+ 	<string>${CHROMIUM_SHORT_NAME}</string>
++	<key>CrProductDirName</key>
++	<string>JustSlide Dev</string>
+ 	<key>CFBundlePackageType</key>
+ 	<string>APPL</string>
+ 	<key>CFBundleSignature</key>
+diff --git a/chrome/app/theme/chromium/BRANDING b/chrome/app/theme/chromium/BRANDING
+index f8363d5..d3f4788 100644
+--- a/chrome/app/theme/chromium/BRANDING
++++ b/chrome/app/theme/chromium/BRANDING
+@@ -1,10 +1,10 @@
+-COMPANY_FULLNAME=The Chromium Authors
+-COMPANY_SHORTNAME=The Chromium Authors
+-PRODUCT_FULLNAME=Chromium
+-PRODUCT_SHORTNAME=Chromium
+-PRODUCT_INSTALLER_FULLNAME=Chromium Installer
+-PRODUCT_INSTALLER_SHORTNAME=Chromium Installer
+-COPYRIGHT=Copyright @LASTCHANGE_YEAR@ The Chromium Authors. All rights reserved.
+-MAC_BUNDLE_ID=org.chromium.Chromium
+-MAC_CREATOR_CODE=Cr24
++COMPANY_FULLNAME=Bloxy Studios
++COMPANY_SHORTNAME=Bloxy Studios
++PRODUCT_FULLNAME=JustSlide Dev
++PRODUCT_SHORTNAME=JustSlide Dev
++PRODUCT_INSTALLER_FULLNAME=JustSlide Dev Installer
++PRODUCT_INSTALLER_SHORTNAME=JustSlide Dev Installer
++COPYRIGHT=Copyright @LASTCHANGE_YEAR@ Bloxy Studios. Based on Chromium, Copyright The Chromium Authors.
++MAC_BUNDLE_ID=app.justslide.JustSlide.dev
++MAC_CREATOR_CODE=JsSd
+ MAC_TEAM_ID=

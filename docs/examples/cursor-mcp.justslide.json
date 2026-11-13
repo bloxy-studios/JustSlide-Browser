@@ -1,0 +1,11 @@
+{
+  "$comment": "Example ONLY — copy into your own .cursor/mcp.json after pairing. Requires a running native JustSlide build with the JustSlideLocalAutomation feature enabled (not yet built). Token comes from the macOS Keychain (service app.justslide.JustSlide.dev.pairing); never put it here. Do not enable auto-approval for these tools.",
+  "mcpServers": {
+    "justslide": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/mcp/target/release/justslide-mcp",
+      "args": ["--keychain-account", "cursor"],
+      "env": { "RUST_LOG": "warn" }
+    }
+  }
+}

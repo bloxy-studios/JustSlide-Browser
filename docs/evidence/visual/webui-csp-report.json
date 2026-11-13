@@ -1,0 +1,132 @@
+{
+  "chrome": "157.0.8103.50",
+  "csp": "child-src 'none'; object-src 'none'; script-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default; connect-src 'none';",
+  "runs": [
+    {
+      "name": "light-240x1024",
+      "errors": [],
+      "violations": [],
+      "egress": [],
+      "nativeOnlyRequests": 4,
+      "probe": {
+        "htmlAttrs": {
+          "theme": "dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography",
+          "colorMode": "light"
+        },
+        "bodyFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "tabFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "newTabButtonBg": "rgba(0, 0, 0, 0)",
+        "dsTextVar": "#292A2E",
+        "sidebarBox": {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 1024,
+          "top": 0,
+          "right": 240,
+          "bottom": 1024,
+          "left": 0
+        },
+        "overflowX": false,
+        "mojoCalls": 0,
+        "styleSheets": 8
+      },
+      "intentCalls": [
+        "goBack"
+      ],
+      "webFonts": [],
+      "renderedPlatformFonts": [
+        {
+          "familyName": "Liberation Sans",
+          "postScriptName": "LiberationSans",
+          "isCustomFont": false,
+          "glyphCount": 89
+        }
+      ]
+    },
+    {
+      "name": "dark-240x1024",
+      "errors": [],
+      "violations": [],
+      "egress": [],
+      "nativeOnlyRequests": 4,
+      "probe": {
+        "htmlAttrs": {
+          "theme": "dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography",
+          "colorMode": "dark"
+        },
+        "bodyFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "tabFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "newTabButtonBg": "rgba(0, 0, 0, 0)",
+        "dsTextVar": "#CECFD2",
+        "sidebarBox": {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 1024,
+          "top": 0,
+          "right": 240,
+          "bottom": 1024,
+          "left": 0
+        },
+        "overflowX": false,
+        "mojoCalls": 0,
+        "styleSheets": 8
+      },
+      "intentCalls": [
+        "goBack"
+      ],
+      "webFonts": [],
+      "renderedPlatformFonts": [
+        {
+          "familyName": "Liberation Sans",
+          "postScriptName": "LiberationSans",
+          "isCustomFont": false,
+          "glyphCount": 89
+        }
+      ]
+    },
+    {
+      "name": "light-240x720",
+      "errors": [],
+      "violations": [],
+      "egress": [],
+      "nativeOnlyRequests": 4,
+      "probe": {
+        "htmlAttrs": {
+          "theme": "dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography",
+          "colorMode": "light"
+        },
+        "bodyFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "tabFont": "\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+        "newTabButtonBg": "rgba(0, 0, 0, 0)",
+        "dsTextVar": "#292A2E",
+        "sidebarBox": {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 720,
+          "top": 0,
+          "right": 240,
+          "bottom": 720,
+          "left": 0
+        },
+        "overflowX": false,
+        "mojoCalls": 0,
+        "styleSheets": 8
+      },
+      "intentCalls": [
+        "goBack"
+      ],
+      "webFonts": [],
+      "renderedPlatformFonts": [
+        {
+          "familyName": "Liberation Sans",
+          "postScriptName": "LiberationSans",
+          "isCustomFont": false,
+          "glyphCount": 89
+        }
+      ]
+    }
+  ]
+}

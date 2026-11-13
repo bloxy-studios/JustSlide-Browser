@@ -1,0 +1,1326 @@
+{
+  "generatedBy": "scripts/ui/license-audit.ts",
+  "generatedAt": "2026-11-11T14:08:24.891Z",
+  "note": "Package-level OSS licenses only. The separate Atlassian Design System License (https://atlassian.design/license/) scopes ADS use to Add-Ons for Atlassian products; see docs/licensing-and-assets.md. Not legal advice.",
+  "totals": {
+    "packages": 131,
+    "byLicense": {
+      "Apache-2.0": 42,
+      "MIT": 81,
+      "ISC": 4,
+      "BSD-3-Clause": 3,
+      "0BSD": 1
+    },
+    "withoutLicenseFile": [
+      "@atlaskit/platform-feature-flags",
+      "@atlaskit/top-layer",
+      "@compiled/react",
+      "@statsig/client-core"
+    ],
+    "packagesShippingFonts": []
+  },
+  "packages": [
+    {
+      "name": "@atlaskit/analytics-next",
+      "version": "12.6.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/analytics-next-stable-react-context",
+      "version": "1.0.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2020 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/app-provider",
+      "version": "8.3.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/atlassian-context",
+      "version": "2.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/badge",
+      "version": "22.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/blanket",
+      "version": "16.4.4",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/browser-apis",
+      "version": "1.2.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/button",
+      "version": "25.8.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/css",
+      "version": "1.1.8",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/css-reset",
+      "version": "8.4.10",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/dropdown-menu",
+      "version": "21.3.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/ds-lib",
+      "version": "8.0.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2021 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/feature-gate-js-client",
+      "version": "8.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/flag-client",
+      "version": "1.0.3",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2026 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/focus-ring",
+      "version": "6.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2020 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/heading",
+      "version": "8.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2020 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/icon",
+      "version": "38.0.2",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/interaction-context",
+      "version": "4.1.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2022 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/layering",
+      "version": "6.1.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/link",
+      "version": "5.1.7",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2024 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/lozenge",
+      "version": "17.0.8",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/menu",
+      "version": "11.0.6",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/modal-dialog",
+      "version": "17.2.4",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/motion",
+      "version": "10.0.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2018-Present Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/platform-feature-flags",
+      "version": "2.2.2",
+      "license": "Apache-2.0",
+      "licenseFiles": [],
+      "licenseFirstLine": null,
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/popper",
+      "version": "9.4.8",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/popup",
+      "version": "10.2.3",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/portal",
+      "version": "7.1.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop",
+      "version": "4.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2022 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/primitives",
+      "version": "22.7.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2022 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/react-compiler-gating",
+      "version": "0.2.7",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2026 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/section-message",
+      "version": "10.2.6",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/skeleton",
+      "version": "4.4.4",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2022 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/spinner",
+      "version": "20.4.4",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/textfield",
+      "version": "10.3.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/theme",
+      "version": "28.2.5",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/tile",
+      "version": "5.0.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2023 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/tokens",
+      "version": "20.11.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/tooltip",
+      "version": "24.4.5",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/top-layer",
+      "version": "7.2.1",
+      "license": "Apache-2.0",
+      "licenseFiles": [],
+      "licenseFirstLine": null,
+      "fontFiles": []
+    },
+    {
+      "name": "@atlaskit/visually-hidden",
+      "version": "4.4.0",
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2020 Atlassian Pty Ltd",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/code-frame",
+      "version": "7.29.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/generator",
+      "version": "7.29.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/helper-globals",
+      "version": "7.29.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/helper-module-imports",
+      "version": "7.29.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/helper-string-parser",
+      "version": "7.29.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/helper-validator-identifier",
+      "version": "7.29.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/parser",
+      "version": "7.29.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright (C) 2012-2014 by various contributors (see AUTHORS)",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/runtime",
+      "version": "7.29.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/template",
+      "version": "7.29.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/traverse",
+      "version": "7.29.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@babel/types",
+      "version": "7.29.11",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@compiled/react",
+      "version": "1.0.2",
+      "license": "Apache-2.0",
+      "licenseFiles": [],
+      "licenseFirstLine": null,
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/babel-plugin",
+      "version": "11.13.5",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/cache",
+      "version": "11.14.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/hash",
+      "version": "0.9.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/memoize",
+      "version": "0.9.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/react",
+      "version": "11.14.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/serialize",
+      "version": "1.3.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/sheet",
+      "version": "1.4.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/unitless",
+      "version": "0.10.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/use-insertion-effect-with-fallbacks",
+      "version": "1.2.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/utils",
+      "version": "1.4.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@emotion/weak-memoize",
+      "version": "0.4.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "@jridgewell/gen-mapping",
+      "version": "0.3.13",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2024 Justin Ridgewell <justin@ridgewell.name>",
+      "fontFiles": []
+    },
+    {
+      "name": "@jridgewell/resolve-uri",
+      "version": "3.1.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2019 Justin Ridgewell <jridgewell@google.com>",
+      "fontFiles": []
+    },
+    {
+      "name": "@jridgewell/sourcemap-codec",
+      "version": "1.6.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2024 Justin Ridgewell <justin@ridgewell.name>",
+      "fontFiles": []
+    },
+    {
+      "name": "@jridgewell/trace-mapping",
+      "version": "0.3.31",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2024 Justin Ridgewell <justin@ridgewell.name>",
+      "fontFiles": []
+    },
+    {
+      "name": "@popperjs/core",
+      "version": "2.11.8",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "@statsig/client-core",
+      "version": "3.30.2",
+      "license": "ISC",
+      "licenseFiles": [],
+      "licenseFirstLine": null,
+      "fontFiles": []
+    },
+    {
+      "name": "@statsig/js-client",
+      "version": "3.30.2",
+      "license": "ISC",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "ISC License (ISC)",
+      "fontFiles": []
+    },
+    {
+      "name": "@types/parse-json",
+      "version": "4.0.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "babel-plugin-macros",
+      "version": "3.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "bind-event-listener",
+      "version": "3.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "callsites",
+      "version": "3.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "convert-source-map",
+      "version": "2.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2013 Thorsten Lorenz.",
+      "fontFiles": []
+    },
+    {
+      "name": "cosmiconfig",
+      "version": "7.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "csstype",
+      "version": "3.2.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright (c) 2017-2018 Fredrik Nicol",
+      "fontFiles": []
+    },
+    {
+      "name": "debug",
+      "version": "4.4.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "(The MIT License)",
+      "fontFiles": []
+    },
+    {
+      "name": "detect-node-es",
+      "version": "1.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "error-ex",
+      "version": "1.3.4",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "es-errors",
+      "version": "1.3.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "escape-string-regexp",
+      "version": "4.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "eventemitter3",
+      "version": "4.0.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "exenv",
+      "version": "1.2.2",
+      "license": "BSD-3-Clause",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "BSD License",
+      "fontFiles": []
+    },
+    {
+      "name": "find-root",
+      "version": "1.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright © 2017 jsdnxx",
+      "fontFiles": []
+    },
+    {
+      "name": "focus-lock",
+      "version": "1.3.6",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "focus-trap",
+      "version": "2.4.6",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "function-bind",
+      "version": "1.1.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright (c) 2013 Raynos.",
+      "fontFiles": []
+    },
+    {
+      "name": "hasown",
+      "version": "2.0.4",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "hoist-non-react-statics",
+      "version": "3.3.2",
+      "license": "BSD-3-Clause",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Software License Agreement (BSD License)",
+      "fontFiles": []
+    },
+    {
+      "name": "import-fresh",
+      "version": "3.3.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "is-arrayish",
+      "version": "0.2.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "is-core-module",
+      "version": "2.18.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "js-tokens",
+      "version": "4.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "jsesc",
+      "version": "3.1.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE-MIT.txt"
+      ],
+      "licenseFirstLine": "Copyright Mathias Bynens <https://mathiasbynens.be/>",
+      "fontFiles": []
+    },
+    {
+      "name": "json-parse-even-better-errors",
+      "version": "2.3.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "Copyright 2017 Kat Marchán",
+      "fontFiles": []
+    },
+    {
+      "name": "lines-and-columns",
+      "version": "1.2.4",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "loose-envify",
+      "version": "1.4.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "memoize-one",
+      "version": "6.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "ms",
+      "version": "2.1.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "license.md"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "object-assign",
+      "version": "4.1.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "parent-module",
+      "version": "1.0.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "parse-json",
+      "version": "5.2.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "path-parse",
+      "version": "1.0.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "path-type",
+      "version": "4.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "picocolors",
+      "version": "1.1.1",
+      "license": "ISC",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "ISC License",
+      "fontFiles": []
+    },
+    {
+      "name": "prop-types",
+      "version": "15.8.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "raf-schd",
+      "version": "4.0.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react",
+      "version": "19.3.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react-clientside-effect",
+      "version": "1.2.8",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "react-dom",
+      "version": "19.3.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react-fast-compare",
+      "version": "3.2.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react-focus-lock",
+      "version": "2.13.7",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react-is",
+      "version": "17.0.2",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "react-popper",
+      "version": "2.3.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "react-scrolllock",
+      "version": "5.0.1",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "resolve",
+      "version": "1.22.14",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "resolve-from",
+      "version": "4.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "license"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "scheduler",
+      "version": "0.28.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "source-map",
+      "version": "0.7.6",
+      "license": "BSD-3-Clause",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright (c) 2009-2011, Mozilla Foundation and contributors",
+      "fontFiles": []
+    },
+    {
+      "name": "stylis",
+      "version": "4.2.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "supports-preserve-symlinks-flag",
+      "version": "1.0.0",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "tabbable",
+      "version": "1.1.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "The MIT License (MIT)",
+      "fontFiles": []
+    },
+    {
+      "name": "tiny-invariant",
+      "version": "1.3.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "tslib",
+      "version": "2.9.1",
+      "license": "0BSD",
+      "licenseFiles": [
+        "LICENSE.txt"
+      ],
+      "licenseFirstLine": "Copyright (c) Microsoft Corporation.",
+      "fontFiles": []
+    },
+    {
+      "name": "use-callback-ref",
+      "version": "1.3.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "use-memo-one",
+      "version": "1.1.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "use-sidecar",
+      "version": "1.1.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "warning",
+      "version": "4.0.3",
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "licenseFirstLine": "MIT License",
+      "fontFiles": []
+    },
+    {
+      "name": "yaml",
+      "version": "1.10.3",
+      "license": "ISC",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "licenseFirstLine": "Copyright 2018 Eemeli Aro <eemeli@gmail.com>",
+      "fontFiles": []
+    }
+  ]
+}

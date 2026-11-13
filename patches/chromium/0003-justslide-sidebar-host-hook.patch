@@ -1,0 +1,48 @@
+From 595eabca4fa0b165ff703eaa983d70553fff979c Mon Sep 17 00:00:00 2001
+From: JustSlide patch tooling <dev@justslide.app>
+Date: Wed, 11 Nov 2026 09:06:11 -0500
+Subject: [PATCH] 0003-justslide-sidebar-host-hook
+
+Purpose: Attach JustSlideSidebarHost in BrowserView leading-edge region (feature-gated)
+Subsystem: chrome/browser/ui/views/frame
+Upstream: chromium/src 157.0.8103.51 (653674df293788cf4932c40d914e9e15b41a2d31)
+Tests: tests: JustSlideBrowserTest.*, interactive_ui_tests (planned)
+---
+ chrome/browser/ui/views/frame/BUILD.gn        | 1 +
+ chrome/browser/ui/views/frame/browser_view.cc | 4 ++++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/chrome/browser/ui/views/frame/BUILD.gn b/chrome/browser/ui/views/frame/BUILD.gn
+index 07ff356..578ea96 100644
+--- a/chrome/browser/ui/views/frame/BUILD.gn
++++ b/chrome/browser/ui/views/frame/BUILD.gn
+@@ -767,6 +767,7 @@ source_set("browser_view") {
+     "//chrome/browser:browser_public_dependencies",
+   ]
+   deps = [
++    "//justslide/ui",
+     ":app_menu_button",
+     ":browser_frame_view",
+     ":browser_native_widget",
+diff --git a/chrome/browser/ui/views/frame/browser_view.cc b/chrome/browser/ui/views/frame/browser_view.cc
+index d441b8a..84419bb 100644
+--- a/chrome/browser/ui/views/frame/browser_view.cc
++++ b/chrome/browser/ui/views/frame/browser_view.cc
+@@ -184,6 +184,7 @@
+ #include "chrome/browser/ui/views/frame/top_controls_slide_controller.h"
+ #include "chrome/browser/ui/views/frame/vertical_tab_strip_background_blur_backdrop.h"
+ #include "chrome/browser/ui/views/frame/vertical_tab_strip_region_view.h"
++#include "justslide/ui/justslide_sidebar_host.h"  // JustSlide
+ #include "chrome/browser/ui/views/frame/web_contents_close_handler.h"
+ #include "chrome/browser/ui/views/fullscreen_control/fullscreen_control_host.h"
+ #include "chrome/browser/ui/views/glic/glic_button_interface.h"
+@@ -996,6 +997,9 @@ BrowserView::BrowserView(BrowserWindowInterface* browser)
+     }
+     vertical_tab_strip_region_view_ =
+         AddChildView(std::move(vertical_tab_strip_container));
++    // JustSlide: host the trusted sidebar WebUI in the leading-edge region.
++    justslide::JustSlideSidebarHost::MaybeAttach(
++        vertical_tab_strip_region_view_.get(), browser_.get());
+ 
+     vertical_tab_strip_top_corner_ =
+         AddChildView(std::make_unique<CustomFloatingCorner>(

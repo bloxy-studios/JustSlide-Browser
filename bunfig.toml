@@ -1,0 +1,5 @@
+[install]
+# Parcel/Babel/Compiled resolve plugins by name from the project root; Bun's
+# isolated linker hides those transitive packages, so use a hoisted layout.
+linker = "hoisted"
+exact = true

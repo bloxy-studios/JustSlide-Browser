@@ -1,0 +1,12 @@
+---
+description: Rules for Chromium integration code, GN, Mojo and patches (browser/integration, browser/resources, patches/chromium, scripts/engine)
+globs: browser/**,patches/**,scripts/engine/**,chromium.lock.json
+alwaysApply: false
+---
+- Pinned upstream: `chromium.lock.json` (157.0.8103.51 / 653674df…). Verify every symbol/flag against that revision (Gitiles `?format=TEXT` or the local checkout) before use; record source in `docs/chromium-integration.md`.
+- Prefer additive files under `browser/integration/justslide/` (→ `src/justslide/`). Upstream edits go in small ordered patches with Purpose/Subsystem/Upstream/Tests headers; regenerate with `git format-patch` from the checkout; run `bun run engine:verify-patches`.
+- Never global-rename `chrome` symbols or strip notices. Never `--force` patch application; reapplication must be a no-op or a clear failure.
+- Mojo: narrow interfaces, `ForWebUI<JustSlideSidebarUI>()` only, validate every argument browser-side, `ReportBadMessage` on malformed input. Requires IPC security review.
+- WebUI CSP: keep Chromium defaults; only allowed deltas are `trusted-types default` (exact ADS glyph allowlist), `connect-src 'none'`, `img-src chrome://favicon2 'self' data:`.
+- Build baseline (unpatched) before attributing failures to JustSlide. Mark C++ as "authored, not compiled" until a native build passes.
+- Use path-scoped searches in the Chromium tree; never index or dump it wholesale.

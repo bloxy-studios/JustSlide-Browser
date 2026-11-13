@@ -1,0 +1,5 @@
+fetched 12 pristine files @ 653674df2937
+ok   apply 0001-justslide-branding-and-profile-dir.patch
+ok   apply 0002-justslide-build-registration.patch
+ok   apply 0003-justslide-sidebar-host-hook.patch
+ok   re-application detected as no-op (reverse-check) for whole series

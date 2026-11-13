@@ -1,0 +1,162 @@
+From 4833cfef845e4cf53eee6b70607ca1a566844afd Mon Sep 17 00:00:00 2001
+From: JustSlide patch tooling <dev@justslide.app>
+Date: Wed, 11 Nov 2026 09:06:11 -0500
+Subject: [PATCH] 0002-justslide-build-registration
+
+Purpose: Register //justslide WebUI config, Mojo broker, resources pak, keyed service, session persistence, tests
+Subsystem: chrome/browser build graph, WebUI registry, profiles
+Upstream: chromium/src 157.0.8103.51 (653674df293788cf4932c40d914e9e15b41a2d31)
+Tests: tests: //justslide/test:browser_tests, :unit_tests
+---
+ chrome/browser/BUILD.gn                                      | 2 ++
+ .../chrome_browser_interface_binders_webui_parts_desktop.cc  | 5 +++++
+ chrome/browser/profiles/BUILD.gn                             | 1 +
+ .../profiles/chrome_browser_main_extra_parts_profiles.cc     | 4 ++++
+ chrome/browser/ui/webui/BUILD.gn                             | 1 +
+ chrome/browser/ui/webui/chrome_web_ui_configs.cc             | 2 ++
+ chrome/chrome_paks.gni                                       | 2 ++
+ chrome/test/BUILD.gn                                         | 2 ++
+ 8 files changed, 19 insertions(+)
+
+diff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn
+index 814b9d6..285bb6a 100644
+--- a/chrome/browser/BUILD.gn
++++ b/chrome/browser/BUILD.gn
+@@ -595,6 +595,8 @@ if (!is_android) {
+       "//chrome/browser/ui/webui/web_app_internals",
+       "//chrome/browser/ui/webui/web_app_internals:mojo_bindings",
+       "//chrome/browser/ui/webui/webui_gallery",
++      "//justslide/webui",
++      "//justslide/webui:mojo_bindings",
+       "//chrome/browser/ui/webui/webui_toolbar",
+       "//chrome/browser/ui/webui_browser",
+       "//chrome/browser/ui/webui_browser:headers",
+diff --git a/chrome/browser/chrome_browser_interface_binders_webui_parts_desktop.cc b/chrome/browser/chrome_browser_interface_binders_webui_parts_desktop.cc
+index 28f49b3..41f56cc 100644
+--- a/chrome/browser/chrome_browser_interface_binders_webui_parts_desktop.cc
++++ b/chrome/browser/chrome_browser_interface_binders_webui_parts_desktop.cc
+@@ -87,6 +87,8 @@
+ #include "chrome/browser/ui/webui/side_panel/reading_list/reading_list_ui.h"
+ #include "chrome/browser/ui/webui/tab_search/tab_search.mojom.h"
+ #include "chrome/browser/ui/webui/tab_search/tab_search_ui.h"
++#include "justslide/webui/justslide_shell.mojom.h"  // JustSlide
++#include "justslide/webui/justslide_sidebar_ui.h"   // JustSlide
+ #include "chrome/browser/ui/webui/user_education_internals/user_education_internals_ui.h"
+ #include "chrome/browser/ui/webui/web_app_internals/web_app_internals.mojom.h"
+ #include "chrome/browser/ui/webui/web_app_internals/web_app_internals_ui.h"
+@@ -588,6 +590,9 @@ void PopulateChromeWebUIFrameInterfaceBrokersTrustedPartsDesktop(
+   registry.ForWebUI<TabSearchUI>()
+       .Add<tab_search::mojom::PageHandlerFactory>()
+       .Add<tab_search::mojom::SearchHandler>();
++  // JustSlide: the shell interface is bound ONLY for the trusted sidebar.
++  registry.ForWebUI<justslide::JustSlideSidebarUI>()
++      .Add<justslide::mojom::PageHandlerFactory>();
+   registry.ForWebUI<OrganizerPanelUI>()
+       .Add<organizer_panel::mojom::ForeignTabsPageHandlerFactory>()
+       .Add<organizer_panel::mojom::PageHandlerFactory>()
+diff --git a/chrome/browser/profiles/BUILD.gn b/chrome/browser/profiles/BUILD.gn
+index f569264..e1daa7b 100644
+--- a/chrome/browser/profiles/BUILD.gn
++++ b/chrome/browser/profiles/BUILD.gn
+@@ -721,6 +721,7 @@ source_set("profiles_extra_parts_impl") {
+   sources = [ "chrome_browser_main_extra_parts_profiles.cc" ]
+ 
+   deps = [
++    "//justslide/browser",
+     ":misc",
+     ":profile_manager",
+     ":profile_util",
+diff --git a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
+index a281709..2e83f3e 100644
+--- a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
++++ b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
+@@ -49,6 +49,8 @@
+ #include "chrome/browser/bitmap_fetcher/bitmap_fetcher_service_factory.h"
+ #include "chrome/browser/bluetooth/bluetooth_chooser_context_factory.h"
+ #include "chrome/browser/bookmarks/bookmark_model_factory.h"
++#include "justslide/browser/tab_identity.h"               // JustSlide
++#include "justslide/browser/workspace_service_factory.h"  // JustSlide
+ #include "chrome/browser/breadcrumbs/breadcrumb_manager_keyed_service_factory.h"
+ #include "chrome/browser/browser_actuator/browser_actuator_service_factory.h"
+ #include "chrome/browser/browser_process.h"
+@@ -825,6 +827,8 @@ void ChromeBrowserMainExtraPartsProfiles::
+   BookmarkMergedSurfaceServiceFactory::GetInstance();
+ #endif
+   BookmarkModelFactory::GetInstance();
++  justslide::WorkspaceServiceFactory::GetInstance();
++  justslide::TabIdentity::RegisterSessionPersistence();
+   BookmarkUndoServiceFactory::GetInstance();
+   if (breadcrumbs::IsEnabled(
+           g_browser_process ? g_browser_process->local_state() : nullptr)) {
+diff --git a/chrome/browser/ui/webui/BUILD.gn b/chrome/browser/ui/webui/BUILD.gn
+index d591f47..1260ca2 100644
+--- a/chrome/browser/ui/webui/BUILD.gn
++++ b/chrome/browser/ui/webui/BUILD.gn
+@@ -144,6 +144,7 @@ source_set("configs") {
+       "//chrome/browser/ui/webui/side_panel/read_anything",
+       "//chrome/browser/ui/webui/tab_search",
+       "//chrome/browser/ui/webui/web_app_internals",
++      "//justslide/webui",
+       "//chrome/browser/ui/webui/webnn_internals",
+       "//chrome/browser/ui/webui/webui_js_error",
+       "//chrome/browser/ui/webui/webui_toolbar",
+diff --git a/chrome/browser/ui/webui/chrome_web_ui_configs.cc b/chrome/browser/ui/webui/chrome_web_ui_configs.cc
+index d79e9df..82ad408 100644
+--- a/chrome/browser/ui/webui/chrome_web_ui_configs.cc
++++ b/chrome/browser/ui/webui/chrome_web_ui_configs.cc
+@@ -139,6 +139,7 @@
+ #include "chrome/browser/ui/webui/support_tool/support_tool_ui.h"
+ #include "chrome/browser/ui/webui/system/system_info_ui.h"
+ #include "chrome/browser/ui/webui/tab_search/tab_search_ui.h"
++#include "justslide/webui/justslide_sidebar_ui.h"  // JustSlide
+ #include "chrome/browser/ui/webui/user_education_internals/user_education_internals_ui.h"
+ #include "chrome/browser/ui/webui/web_app_internals/web_app_internals_ui.h"
+ #include "chrome/browser/ui/webui/webnn_internals/webnn_internals_ui.h"
+@@ -413,6 +414,7 @@ void RegisterChromeWebUIConfigs() {
+   map.AddWebUIConfig(std::make_unique<SystemInfoUIConfig>());
+   map.AddWebUIConfig(std::make_unique<tabs::TabGroupHomeUIConfig>());
+   map.AddWebUIConfig(std::make_unique<TabSearchUIConfig>());
++  map.AddWebUIConfig(std::make_unique<justslide::JustSlideSidebarUIConfig>());
+   map.AddWebUIConfig(std::make_unique<TermsUIConfig>());
+   map.AddWebUIConfig(std::make_unique<UserEducationInternalsUIConfig>());
+   map.AddWebUIConfig(std::make_unique<WebAppInternalsUIConfig>());
+diff --git a/chrome/chrome_paks.gni b/chrome/chrome_paks.gni
+index 150c570..b1e0ed1 100644
+--- a/chrome/chrome_paks.gni
++++ b/chrome/chrome_paks.gni
+@@ -264,6 +264,7 @@ template("chrome_extra_paks") {
+         "$root_gen_dir/chrome/tab_group_home_resources.pak",
+         "$root_gen_dir/chrome/tab_group_shared_resources.pak",
+         "$root_gen_dir/chrome/tab_search_resources.pak",
++        "$root_gen_dir/justslide/justslide_sidebar_resources.pak",
+         "$root_gen_dir/chrome/web_app_internals_resources.pak",
+         "$root_gen_dir/chrome/webnn_internals_resources.pak",
+         "$root_gen_dir/chrome/webui_browser_resources.pak",
+@@ -278,6 +279,7 @@ template("chrome_extra_paks") {
+ 
+       deps += [
+         "//chrome/browser/actor/resources:browser_resources",
++        "//justslide/resources",
+         "//chrome/browser/indigo/resources:browser_resources",
+         "//chrome/browser/resources/contextual_cueing/internals:resources",
+         "//components/headless/command_handler",
+diff --git a/chrome/test/BUILD.gn b/chrome/test/BUILD.gn
+index f7779bf..e1a6c18 100644
+--- a/chrome/test/BUILD.gn
++++ b/chrome/test/BUILD.gn
+@@ -1529,6 +1529,7 @@ if (!is_android) {
+       "//chrome/browser/ui/tabs/tab_drag_api:browser_tests",
+       "//chrome/browser/ui/tabs/tab_strip_api:browser_tests",
+       "//chrome/browser/ui/test:browser_tests",
++      "//justslide/test:browser_tests",
+       "//chrome/browser/ui/thumbnails:browser_tests",
+       "//chrome/browser/ui/toolbar:browser_tests",
+       "//chrome/browser/ui/toolbar/cast:browser_tests",
+@@ -3360,6 +3361,7 @@ test("unit_tests") {
+       "//chrome/browser/ui/webui/skills:unit_tests",
+       "//chrome/browser/ui/webui/support_tool:unit_tests",
+       "//chrome/browser/ui/webui/tab_search:unit_tests",
++      "//justslide/test:unit_tests",
+       "//chrome/browser/ui/webui/user_education:unit_tests",
+       "//chrome/browser/ui/webui/util:unit_tests",
+       "//chrome/browser/ui/webui/webui_toolbar:unit_tests",

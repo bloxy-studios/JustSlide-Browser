@@ -1,0 +1,9 @@
+source_set("common") {
+  sources = [
+    "justslide_constants.cc",
+    "justslide_constants.h",
+    "justslide_features.cc",
+    "justslide_features.h",
+  ]
+  deps = [ "//base" ]
+}

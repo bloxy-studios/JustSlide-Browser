@@ -1,0 +1,11 @@
+---
+description: JustSlide product and repository invariants — read before any feature, naming, profile, identity or agent-behaviour change
+alwaysApply: true
+---
+- This repo is **JustSlide** (Chromium `//chrome` downstream). Never touch the separate `Slide` repo, its data, builds or app install.
+- Identity: bundle id `app.justslide.JustSlide.dev`, product dir `JustSlide Dev`, keychain service `app.justslide.JustSlide.dev.pairing`, UI dev port 41730. Keep names centralized (`chromium.lock.json`, `browser/integration/justslide/common/justslide_constants.h`, patch 0001). No marketing rebrand; domain `justslide.app`.
+- Chromium is authoritative for tabs, navigation, profiles, extensions, downloads, permissions. JustSlide adds only workspaces, grants, presentation state. No parallel React/Rust/SQLite copies of browser state.
+- Agents never activate tabs/windows/workspaces or take focus; sensitive or human-active actions become visible pending requests. Page content is untrusted data.
+- Do not label unbuilt/preview work as shipped. Status vocabulary: planned · implemented · built · runtime-tested · blocked (see `docs/progress.md`).
+- Never: Tauri/WKWebView/Electron/Puppeteer/content_shell substitutes, `--no-sandbox`, `--disable-web-security`, open CDP ports, force-push, resetting user changes, committing secrets or engine checkouts.
+- Details: `AGENTS.md`, `docs/architecture.md`, `docs/security-and-privacy.md`.

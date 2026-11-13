@@ -1,0 +1,145 @@
+$ bun run protocol:check && bun run typecheck && bun run test:ui && bun run build:ui && bun run mcp:test && bun run engine:verify-patches
+$ bun protocol/scripts/gen.ts --check && cd ui/browser-chrome && bun run check:glyphs
+protocol: generated files up to date
+$ bun ../../scripts/ui/gen-icon-glyphs.ts --check
+icon glyph allowlist up to date (20 icons)
+$ cd ui/browser-chrome && bun run typecheck
+$ tsc --noEmit -p .
+$ cd ui/browser-chrome && bun run test
+$ vitest run
+
+ RUN  v5.1.0 /agent/workspace/JustSlide/ui/browser-chrome
+
+stderr | src/__tests__/sidebar.test.tsx > Sidebar > renders sections in the product order
+{
+  msg: 'An error has occurred checking the feature gate. Only the first occurrence of this error is logged.',
+  gateName: 'platform-semantic-spacing',
+  error: Error: Client must be initialized before using this method
+      at Client.assertReady (/agent/workspace/JustSlide/node_modules/@atlaskit/feature-gate-js-client/dist/cjs/client/Client.js:1767:15)
+      at Client.checkGate (/agent/workspace/JustSlide/node_modules/@atlaskit/feature-gate-js-client/dist/cjs/client/Client.js:590:14)
+      at FeatureGates.checkGate (/agent/workspace/JustSlide/node_modules/@atlaskit/feature-gate-js-client/dist/cjs/client/FeatureGates.js:144:31)
+      at resolveBooleanFlag (/agent/workspace/JustSlide/node_modules/@atlaskit/platform-feature-flags/dist/cjs/resolveBooleanFlag.js:26:36)
+      at fg (/agent/workspace/JustSlide/node_modules/@atlaskit/platform-feature-flags/dist/cjs/fg.js:9:53)
+      at /agent/workspace/JustSlide/node_modules/@atlaskit/button/dist/cjs/new-button/variants/shared/button-base.js:208:408
+      at Object.react_stack_bottom_frame (/agent/workspace/JustSlide/node_modules/react-dom/cjs/react-dom-client.development.js:28571:20)
+      at renderWithHooks (/agent/workspace/JustSlide/node_modules/react-dom/cjs/react-dom-client.development.js:8030:22)
+      at updateForwardRef (/agent/workspace/JustSlide/node_modules/react-dom/cjs/react-dom-client.development.js:10123:19)
+      at beginWork (/agent/workspace/JustSlide/node_modules/react-dom/cjs/react-dom-client.development.js:12536:18)
+}
+
+stderr | src/__tests__/sidebar.test.tsx > Sidebar > renders sections in the product order
+An update to BadgeNew inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/__tests__/sidebar.test.tsx (12 tests) 1761ms
+   ✓ Sidebar (12)
+     ✓ renders sections in the product order 328ms
+ ✓ src/__tests__/mojom-contract.test.ts (2 tests) 8ms
+ ✓ src/__tests__/trusted-types.test.ts (2 tests) 7ms
+ ✓ src/__tests__/input.test.ts (2 tests) 7ms
+
+ Test Files  4 passed (4)
+      Tests  18 passed (18)
+   Start at  09:13:05
+   Duration  6.63s (environment 37%, tests 29%, transform 15%, import 10%, setup 7%, worker 1%)
+
+Environment  jsdom was created 4 times · 2.26s total, 37% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+$ cd ui/browser-chrome && bun run build
+$ bun ../../scripts/ui/gen-icon-glyphs.ts && parcel build --target webui --no-cache && bun ../../scripts/ui/finalize-webui.ts
+wrote 20 icon glyphs
+Building...
+Bundling...
+Packaging & Optimizing...
+✨ Built in 6.28s
+
+dist/webui/sidebar.html                                                 316 B    1.14s
+dist/webui/sidebar.299ff323.css                                       5.86 kB    609ms
+dist/webui/sidebar.2736ef56.js                                       820.6 kB    1.58s
+dist/webui/delivery.0a91de99.js                                      25.87 kB    682ms
+dist/webui/atlassian-light.b4194f9a.js                               21.44 kB    680ms
+dist/webui/atlassian-light-future.0686ff54.js                           574 B    675ms
+dist/webui/atlassian-light-finesse.b86507b5.js                        1.06 kB    676ms
+dist/webui/atlassian-light-increased-contrast-finesse.6f6c182b.js     1.31 kB    681ms
+dist/webui/atlassian-light-increased-contrast.52c5c228.js            21.64 kB    691ms
+dist/webui/UNSAFE-dynamic.2762c76b.js                                28.94 kB    681ms
+dist/webui/UNSAFE-dynamic-dark.1e0dc3aa.js                           29.01 kB    682ms
+dist/webui/UNSAFE-test-light.251225c9.js                             21.49 kB    697ms
+dist/webui/UNSAFE-test-dark.9924934e.js                              21.54 kB    682ms
+dist/webui/atlassian-dark.d60edcc6.js                                 21.5 kB    688ms
+dist/webui/atlassian-dark-future.3b2bc7c7.js                            573 B    689ms
+dist/webui/atlassian-dark-finesse.39616087.js                         1.06 kB    689ms
+dist/webui/atlassian-dark-increased-contrast-finesse.d44d18ae.js       1.3 kB    689ms
+dist/webui/atlassian-dark-increased-contrast.b4edde53.js             21.63 kB    695ms
+dist/webui/atlassian-spacing.7b27b061.js                              1.66 kB    695ms
+dist/webui/UNSAFE-spacing.58587c82.js                                10.24 kB    696ms
+dist/webui/atlassian-typography.f2848c62.js                           3.52 kB    696ms
+dist/webui/UNSAFE-typography.1edfb4ca.js                              6.94 kB    696ms
+dist/webui/atlassian-typography-finesse.729ad29c.js                   1.56 kB    698ms
+dist/webui/atlassian-shape.7f4520fc.js                                  696 B    697ms
+dist/webui/atlassian-motion.d7a98493.js                               14.4 kB    698ms
+dist/webui/custom-theme.61c13865.js                                  74.19 kB    730ms
+WebUI bundle ok: 27 files, 1225644 bytes -> /agent/workspace/JustSlide/ui/browser-chrome/dist/webui
+$ cd mcp && cargo test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/justslide_mcp-1614fb52ec2aea1c)
+
+running 7 tests
+test endpoint::tests::rejects_open_automation_dir ... ok
+test endpoint::tests::rejects_short_or_weird_tokens ... ok
+test endpoint::tests::rejects_world_readable_token_file ... ok
+test registry::tests::embedded_registry_parses_and_inlines_refs ... ok
+test validate::tests::bounds_are_enforced ... ok
+test validate::tests::accepts_valid_background_tab ... ok
+test validate::tests::rejects_activation_and_non_http_urls_and_extra_fields ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/main.rs (target/debug/deps/justslide_mcp-8f2ebfe57fee8837)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/mcp_stdio.rs (target/debug/deps/mcp_stdio-3b52959b69c15a82)
+
+running 3 tests
+2026-11-11T14:13:18.464690Z  INFO serve_inner: rmcp::service: Service initialized as server peer_info=Some(InitializeRequestParams { meta: None, protocol_version: ProtocolVersion("2025-11-25"), capabilities: ClientCapabilities { experimental: None, extensions: None, roots: None, sampling: None, elicitation: None }, client_info: Implementation { name: "justslide-protocol-test", title: None, version: "0", description: None, icons: None, website_url: None } })
+2026-11-11T14:13:18.464753Z  INFO serve_inner: rmcp::service: Service initialized as server peer_info=Some(InitializeRequestParams { meta: None, protocol_version: ProtocolVersion("2025-11-25"), capabilities: ClientCapabilities { experimental: None, extensions: None, roots: None, sampling: None, elicitation: None }, client_info: Implementation { name: "justslide-protocol-test", title: None, version: "0", description: None, icons: None, website_url: None } })
+2026-11-11T14:13:18.465001Z  INFO serve_inner: rmcp::service: received notification notification=InitializedNotification(NotificationNoParam { method: InitializedNotificationMethod, extensions: Extensions })
+2026-11-11T14:13:18.465079Z  INFO serve_inner: rmcp::service: received notification notification=InitializedNotification(NotificationNoParam { method: InitializedNotificationMethod, extensions: Extensions })
+2026-11-11T14:13:18.465388Z  INFO serve_inner: rmcp::handler::server: client initialized
+2026-11-11T14:13:18.465992Z  INFO serve_inner: rmcp::handler::server: client initialized
+2026-11-11T14:13:18.467839Z  INFO serve_inner: justslide_mcp::server: connected to JustSlide instance=inst_testdouble01 grant=grant_test01 commands=10
+test no_browser_running_fails_honestly ... ok
+2026-11-11T14:13:18.471925Z  INFO serve_inner: rmcp::service: Service initialized as server peer_info=Some(InitializeRequestParams { meta: None, protocol_version: ProtocolVersion("2025-11-25"), capabilities: ClientCapabilities { experimental: None, extensions: None, roots: None, sampling: None, elicitation: None }, client_info: Implementation { name: "justslide-protocol-test", title: None, version: "0", description: None, icons: None, website_url: None } })
+2026-11-11T14:13:18.472209Z  INFO serve_inner: rmcp::service: received notification notification=InitializedNotification(NotificationNoParam { method: InitializedNotificationMethod, extensions: Extensions })
+2026-11-11T14:13:18.472377Z  INFO serve_inner: rmcp::handler::server: client initialized
+2026-11-11T14:13:18.474277Z  WARN serve_inner: justslide_mcp::server: JustSlide not reachable; advertising capabilities tool only: JustSlide refused the connection: pairing not recognised or revoked
+test wrong_token_is_refused_and_only_capabilities_tool_is_listed ... ok
+test end_to_end_against_test_double ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+   Doc-tests justslide_mcp
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+$ python3 scripts/engine/verify_patches_remote.py
+fetched 12 pristine files @ 653674df2937
+ok   apply 0001-justslide-branding-and-profile-dir.patch
+ok   apply 0002-justslide-build-registration.patch
+ok   apply 0003-justslide-sidebar-host-hook.patch
+ok   re-application detected as no-op (reverse-check) for whole series

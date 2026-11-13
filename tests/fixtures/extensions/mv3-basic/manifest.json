@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "JustSlide MV3 compatibility fixture",
+  "version": "1.0.0",
+  "description": "Local test fixture: service worker, content script, storage, runtime messaging, tabs events, action popup, options page.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["http://127.0.0.1/*", "http://localhost/*"],
+  "background": { "service_worker": "service_worker.js", "type": "module" },
+  "content_scripts": [{ "matches": ["http://127.0.0.1/*", "http://localhost/*"], "js": ["content.js"], "run_at": "document_idle" }],
+  "action": { "default_title": "JustSlide fixture", "default_popup": "popup.html" },
+  "options_page": "options.html"
+}
