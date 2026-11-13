@@ -59,7 +59,7 @@ void WorkspaceService::Load() {
         Workspace w;
         w.id = *d->FindString("id");
         w.name = *d->FindString("name");
-        w.icon = static_cast<WorkspaceIcon>(std::clamp(d->FindInt("icon").value_or(5), 0, 5));
+        w.icon = static_cast<WorkspaceIcon>(std::clamp(d->FindInt("icon").value_or(5), 0, 6));
         w.agent_owned = d->FindBool("agent_owned").value_or(false);
         w.profile_kind = kind_;
         workspaces_.push_back(std::move(w));
@@ -74,8 +74,10 @@ void WorkspaceService::Load() {
                        kind_ == ProfileKind::kAgentIsolated};
     workspaces_.push_back(personal);
     if (kind_ == ProfileKind::kPersonal) {
-      workspaces_.push_back({TabIdentity::NewId("ws_"), "ChatGPT", WorkspaceIcon::kChatGpt, kind_, false});
+      // Dock order from Figma node 20:17 (Workspace switcher).
+      workspaces_.push_back({TabIdentity::NewId("ws_"), "Codex", WorkspaceIcon::kCodex, kind_, false});
       workspaces_.push_back({TabIdentity::NewId("ws_"), "Claude Code", WorkspaceIcon::kClaudeCode, kind_, false});
+      workspaces_.push_back({TabIdentity::NewId("ws_"), "ChatGPT", WorkspaceIcon::kChatGpt, kind_, false});
     }
     Save();
   }

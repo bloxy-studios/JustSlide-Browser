@@ -21,7 +21,7 @@ describe('mojom contract', () => {
     expect(order('SecurityLevel')).toEqual(['Unknown', 'Secure', 'Insecure', 'Internal', 'Dangerous']);
     expect(order('OpenedBy')).toEqual(['User', 'Agent', 'Extension', 'Restore', 'Popup']);
     expect(order('ColorMode')).toEqual(['System', 'Light', 'Dark']);
-    expect(order('WorkspaceIcon')).toEqual(['Personal', 'ChatGpt', 'ClaudeCode', 'Agent', 'Work', 'Generic']);
+    expect(order('WorkspaceIcon')).toEqual(['Personal', 'ChatGpt', 'ClaudeCode', 'Agent', 'Work', 'Generic', 'Codex']);
     expect(order('ProfileKind')).toEqual(['Personal', 'AgentIsolated']);
     expect(order('AgentState')).toEqual(['Active', 'Paused', 'Revoked']);
   });

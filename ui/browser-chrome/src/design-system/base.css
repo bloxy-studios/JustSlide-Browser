@@ -1,0 +1,13 @@
+/* Base layer for the trusted sidebar document. Tokens come from
+   tokens.generated.css (Figma-derived); nothing here introduces colours. */
+@import './tokens.generated.css';
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font: var(--js-type-tab); color: var(--js-color-text); background: var(--js-color-sidebar);
+  -webkit-font-smoothing: antialiased; overflow: hidden; user-select: none;
+}
+button, input { font: inherit; color: inherit; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

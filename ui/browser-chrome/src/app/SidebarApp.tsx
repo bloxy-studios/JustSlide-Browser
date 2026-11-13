@@ -1,16 +1,7 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { useEffect } from 'react';
-import { cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
 import { useSnapshot } from '../bridge/context';
 import { Sidebar } from '../components/Sidebar';
-import { applyColorMode } from './theme';
-
-const styles = cssMap({
-  root: { height: '100%', backgroundColor: token('elevation.surface.sunken') },
-  loading: { padding: token('space.200'), color: token('color.text.subtle'), font: token('font.body.small') },
-});
+import { applyTheme } from './theme';
 
 /**
  * Root of the trusted sidebar WebUI. In the native browser this document
@@ -18,13 +9,15 @@ const styles = cssMap({
  */
 export function SidebarApp() {
   const snap = useSnapshot();
-  useEffect(() => { if (snap) applyColorMode(snap.colorMode); }, [snap?.colorMode]);
-  if (!snap) return <div css={styles.loading} role="status">Connecting to browser…</div>;
-  // A user backdrop color tints only the frame behind controls; controls keep
-  // semantic surface tokens so text and focus/selection states stay readable.
-  return (
-    <div css={styles.root} style={snap.backdropColor ? { backgroundColor: snap.backdropColor } : undefined}>
-      <Sidebar snap={snap} />
-    </div>
-  );
+  useEffect(() => {
+    if (!snap) return;
+    applyTheme(snap.colorMode, snap.backdropColor);
+    if (snap.colorMode !== 'system' || typeof matchMedia !== 'function') return;
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    const h = () => applyTheme(snap.colorMode, snap.backdropColor);
+    mq.addEventListener('change', h);
+    return () => mq.removeEventListener('change', h);
+  }, [snap?.colorMode, snap?.backdropColor]);
+  if (!snap) return <div role="status" style={{ padding: 12, font: 'var(--js-type-address)' }}>Connecting to browser…</div>;
+  return <Sidebar snap={snap} />;
 }

@@ -1,73 +1,53 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import Tooltip from '@atlaskit/tooltip';
-import { Pressable } from '@atlaskit/primitives/compiled';
 import { useBridge } from '../bridge/context';
 import type { FavoriteInfo } from '../bridge/types';
+import { Icon } from '../design-system/Icon';
+import { isMenuKey, useMenu } from '../design-system/Menu';
+import { useTooltip } from '../design-system/tooltip';
+import { displayHost } from '../lib/brands';
 import { Favicon } from './Favicon';
-import { hostOf } from '../lib/input';
+import s from './sidebar.module.css';
 
-const styles = cssMap({
-  grid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: token('space.075'), listStyle: 'none', margin: 0, padding: 0, alignItems: 'stretch' },
-  // css-reset adds `li + li { margin-top }`; grid cells must not inherit it.
-  cell: { display: 'flex', minWidth: 0, marginBlockStart: token('space.0') },
-  tile: {
-    width: '100%', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    borderRadius: token('radius.large'), backgroundColor: token('color.background.neutral.subtle'),
-    border: `${token('border.width')} solid ${token('color.border')}`,
-    '&:hover': { backgroundColor: token('color.background.neutral.subtle.hovered') },
-    '&:active': { backgroundColor: token('color.background.neutral.subtle.pressed') },
-  },
-});
+function FavoriteTile({ f, index, count }: { f: FavoriteInfo; index: number; count: number }) {
+  const b = useBridge();
+  const menu = useMenu();
+  const name = f.title || displayHost(f.url);
+  const label = `Open ${name} website`;
+  const tip = useTooltip(label);
+  return (
+    <li className={s.favCell}>
+      <button
+        type="button" className={s.favorite} aria-label={label} {...tip}
+        onClick={() => b.openFavorite(f.id)}
+        onContextMenu={(e) => menu.open(e, e.currentTarget)}
+        onKeyDown={(e) => { if (isMenuKey(e)) menu.open(e, e.currentTarget); }}
+      >
+        <Favicon url={f.url} size={18} brandFirst />
+      </button>
+      {menu.render(`${name} favorite`, [
+        { label: 'Open', onSelect: () => b.openFavorite(f.id) },
+        { label: 'Move left', disabled: index === 0, onSelect: () => b.moveFavorite(f.id, -1) },
+        { label: 'Move right', disabled: index === count - 1, onSelect: () => b.moveFavorite(f.id, 1) },
+        { label: 'Remove from favorites', danger: true, onSelect: () => b.removeFavorite(f.id) },
+      ])}
+    </li>
+  );
+}
 
-/**
- * Website favorites (profile-wide). Top ChatGPT/Claude tiles open WEBSITES;
- * they are distinct from the workspace dock. Context menu offers keyboard
- * alternatives to drag reordering.
- */
+/** Figma 7:87 "Website favorites": 5 × 43×34 tiles. Favorites open WEBSITES; the dock switches workspaces. */
 export function FavoritesGrid({ favorites }: { favorites: FavoriteInfo[] }) {
   const b = useBridge();
-  if (!favorites.length) return null;
+  const addTip = useTooltip('Add website favorite');
   return (
-    <ul css={styles.grid} aria-label="Favorites">
-      {favorites.map((f, i) => (
-        <li key={f.id} css={styles.cell}>
-          <DropdownMenu
-            shouldRenderToParent
-            trigger={({ triggerRef, ...p }) => (
-              <Tooltip content={`Open ${f.title || hostOf(f.url)} website`}>
-                {(tp) => (
-                  <Pressable
-                    {...tp}
-                    ref={(el: HTMLButtonElement | null) => {
-                      if (typeof triggerRef === 'function') triggerRef(el);
-                      else if (triggerRef) (triggerRef as { current: HTMLElement | null }).current = el;
-                    }}
-                    xcss={styles.tile}
-                    aria-label={`Open ${f.title || hostOf(f.url)} website`}
-                    aria-haspopup="false"
-                    onClick={() => b.openFavorite(f.id)}
-                    onContextMenu={(e: React.MouseEvent) => { e.preventDefault(); (p.onClick as (e: React.MouseEvent) => void)?.(e); }}
-                    onKeyDown={(e: React.KeyboardEvent) => { if ((e.key === 'F10' && e.shiftKey) || e.key === 'ContextMenu') { e.preventDefault(); (p.onClick as (e: unknown) => void)?.(e); } }}
-                  >
-                    <Favicon url={f.url} size={20} />
-                  </Pressable>
-                )}
-              </Tooltip>
-            )}
-          >
-            <DropdownItemGroup>
-              <DropdownItem onClick={() => b.openFavorite(f.id)}>Open</DropdownItem>
-              <DropdownItem isDisabled={i === 0} onClick={() => b.moveFavorite(f.id, -1)}>Move left</DropdownItem>
-              <DropdownItem isDisabled={i === favorites.length - 1} onClick={() => b.moveFavorite(f.id, 1)}>Move right</DropdownItem>
-              <DropdownItem onClick={() => b.removeFavorite(f.id)}>Remove from favorites</DropdownItem>
-            </DropdownItemGroup>
-          </DropdownMenu>
-        </li>
-      ))}
+    <ul className={s.favorites} aria-label="Favorites">
+      {favorites.map((f, i) => <FavoriteTile key={f.id} f={f} index={i} count={favorites.length} />)}
+      <li className={s.favCell}>
+        <button type="button" className={`${s.favorite} ${s.favoriteAdd}`} aria-label="Add current page to favorites" {...addTip}
+          onClick={() => b.addFavoriteForActiveTab()}>
+          {/* 20:19: 1px dashed stroke, dashes [2, 4], radius 8 */}
+          <svg className={s.dashed} aria-hidden="true"><rect x="0.5" y="0.5" width="42" height="33" rx="7.5" /></svg>
+          <Icon name="add-favorite" size={18} />
+        </button>
+      </li>
     </ul>
   );
 }

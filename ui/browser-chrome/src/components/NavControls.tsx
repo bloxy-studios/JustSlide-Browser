@@ -1,28 +1,22 @@
-import { IconButton } from '@atlaskit/button/new';
-import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
-import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
-import RefreshIcon from '@atlaskit/icon/core/refresh';
-import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
-import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
-import { Inline } from '@atlaskit/primitives/compiled';
 import { useBridge } from '../bridge/context';
 import type { ShellSnapshot } from '../bridge/types';
+import { IconButton } from '../design-system/IconButton';
+import s from './sidebar.module.css';
 
+/** Figma 6:17 "Navigation Controls": right-aligned so macOS window buttons keep the left of the row. */
 export function NavControls({ snap }: { snap: ShellSnapshot }) {
   const b = useBridge();
+  const loading = snap.tabs.find(t => t.id === snap.activeTabId)?.loading ?? false;
   return (
-    <Inline space="space.050" alignBlock="center" spread="space-between">
-      <IconButton
-        appearance="subtle" spacing="compact"
-        icon={snap.sidebarCollapsed ? SidebarExpandIcon : SidebarCollapseIcon}
-        label={snap.sidebarCollapsed ? 'Show sidebar' : 'Hide sidebar'}
-        onClick={() => b.toggleSidebar()}
-      />
-      <Inline space="space.025">
-        <IconButton appearance="subtle" spacing="compact" icon={ArrowLeftIcon} label="Back" isDisabled={!snap.canGoBack} onClick={() => b.goBack()} />
-        <IconButton appearance="subtle" spacing="compact" icon={ArrowRightIcon} label="Forward" isDisabled={!snap.canGoForward} onClick={() => b.goForward()} />
-        <IconButton appearance="subtle" spacing="compact" icon={RefreshIcon} label="Reload" onClick={() => b.reload()} />
-      </Inline>
-    </Inline>
+    <div className={s.nav} role="toolbar" aria-label="Navigation">
+      <IconButton icon="sidebar-toggle" label="Hide sidebar" tooltip={false} onClick={() => b.toggleSidebar()} />
+      <div className={s.history}>
+        <IconButton icon="back" label="Back" tooltip={false} disabled={!snap.canGoBack} onClick={() => b.goBack()} />
+        <IconButton icon="forward" label="Forward" tooltip={false} disabled={!snap.canGoForward} onClick={() => b.goForward()} />
+        {loading
+          ? <IconButton icon="close" iconSize={12} label="Stop loading" tooltip={false} onClick={() => b.stopLoading()} />
+          : <IconButton icon="reload" label="Reload" tooltip={false} onClick={() => b.reload()} />}
+      </div>
+    </div>
   );
 }

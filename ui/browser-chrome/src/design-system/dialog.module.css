@@ -1,0 +1,21 @@
+.dialog {
+  width: 224px; box-sizing: border-box; padding: 12px; margin: 72px auto auto;
+  border: 1px solid var(--js-color-border-strong); border-radius: var(--js-radius-card);
+  background: var(--js-color-agent-card); color: var(--js-color-text);
+}
+.dialog::backdrop { background: rgba(11, 26, 35, 0.24); }
+.title { margin: 0 0 8px; font: var(--js-type-agent-title); }
+.body { font: var(--js-type-address); color: var(--js-color-text); display: flex; flex-direction: column; gap: 8px; }
+.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.button {
+  appearance: none; font: var(--js-type-section); height: 28px; padding: 0 10px; border-radius: var(--js-radius-small);
+  border: 1px solid var(--js-color-border-strong); background: transparent; color: var(--js-color-text);
+}
+.button[data-primary] { background: var(--js-color-text); color: var(--js-color-agent-card); }
+.button:disabled { opacity: 0.4; }
+.button:focus-visible, .input:focus-visible { outline: 1px dashed var(--js-color-focus-ring); outline-offset: 1px; }
+.input {
+  font: var(--js-type-address); height: 32px; box-sizing: border-box; padding: 0 8px; width: 100%;
+  border-radius: var(--js-radius-control); border: 1px solid var(--js-color-separator);
+  background: var(--js-color-address); color: var(--js-color-text);
+}

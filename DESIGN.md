@@ -1,60 +1,73 @@
-# DESIGN.md — Slide layout × ADS contract
+# DESIGN.md — JustSlide × Figma contract
 
-Source of layout/IA: Figma `Slide` (nodes 1:6 main, 30:52 states, 35:13 background agent).
-**Figma was not reachable from the authoring environment (no Figma MCP, API 401), so
-visual fidelity to those nodes is unverified.** The contract below follows the written
-requirements; update it after a Figma inspection.
+**Source of truth:** Figma file `Slide` (`nw47hqMLTtmBMksJ4BnJKb`, version `2421338396059629851`,
+last modified 2026-11-13T13:25:48Z), read through the **Composio MCP Figma toolkit** on 2026-11-13
+(see `docs/figma-integration.md`). The file keeps the name *Slide*; that does not rename this
+repository or touch the separate Slide implementation.
 
-## 1. Composition
-* Window = compact **sidebar (~240 dp)** + large rounded **page viewport**. The viewport is a
-  native Chromium WebContents; the sidebar is a separate trusted WebUI WebContents. No page DOM
-  in the shell; no shell DOM over pages.
-* Backdrop: customizable color behind both (Figma mint is an *example*, not brand). Controls keep
-  ADS surface tokens for contrast; backdrop never colors selection or security semantics.
-* Collapsed: 48 dp rail with Show sidebar / Back / Forward / Reload / New tab (navigation never
-  hidden without an alternative).
+| Node | Frame | Used for |
+|---|---|---|
+| `1:6` | Desktop - 1 (1440×1024, mint mode) | Main composition, expanded Pinned, tooltips |
+| `30:52` | Slide / Interaction states (400×790) | Tab component states, hover labels, behaviour notes |
+| `35:13` | Slide / Compact - agent working example (1100×720) | Collapsed Pinned, agent card, activity dot |
+| `55:120` / `55:411` | Theme Preview Light / Dark (1100×720) | Light and dark variable modes |
+| `50:26` | Frame 1 (empty) | — |
 
-## 2. Sidebar order (invariant, enforced by `sidebar.test.tsx`)
-1. Sidebar toggle · Back · Forward · Reload
-2. Address/search field (full URL, security icon, Esc reverts, Enter → browser classifier)
-3. Website-favorites grid (ChatGPT/Claude tiles open **websites**)
-4. Collapsible **Pinned** section with count
-5. New tab + independently scrolling tab list
-6. Conditional background-agent status (only while a grant exists)
-7. Persistent workspace dock with selected name (ChatGPT / Claude Code icons switch **workspaces**)
+Committed derivatives: `design/figma/snapshot.json` (layout/style facts per node),
+`design/tokens.json` → `ui/browser-chrome/src/design-system/tokens.generated.css`,
+`ui/browser-chrome/assets/icons/` (SVG exported from the design's own icon layers).
 
-Accessible names keep 3 vs 7 distinct: "Open ChatGPT website" vs "Switch to ChatGPT workspace".
-A workspace icon is not evidence of an agent connection.
+## 1. Window composition (35:13 / 55:*)
+`[12 frame padding][Sidebar column 240][12 gap][Web Page Window, r16, 1px border][12 padding]`
+* The **sidebar** is the trusted WebUI (`chrome://justslide-sidebar.top-chrome`), 264 px wide
+  including the padding and the gap. The **Web Page Window** is genuine Chromium WebContents in
+  a native view with radius 16 and a 1 px `page-border` stroke. No page DOM in the shell and no
+  shell DOM over pages.
+* The window backdrop (`frame`) and the sidebar share a colour. Mint (`#acfff7`, variable mode
+  50:0) is the default appearance; Light (50:1), Dark (55:1) and custom backdrops are supported.
+  A custom backdrop tints only frame/sidebar; control surfaces keep their tokens.
+* Frame 1:6 uses 6 px frame padding; the newer 1100×720 frames use 12 px. **JustSlide uses 12.**
 
-## 3. ADS mapping
-| Element | ADS |
-|---|---|
-| Nav / tab actions / dock | `IconButton` (`subtle`, `compact`), built-in tooltips |
-| Address | `Textfield` `isCompact` + security glyph + `Tooltip` |
-| Favorites / tab rows / pinned header | `Pressable` + `cssMap` tokens |
-| Menus | `DropdownMenu` (keyboard alternatives to drag: Move up/down/left/right) |
-| Agent status | elevated `Box` + `Lozenge` + `Button`; decisions in `ModalDialog` |
-| Text | `Text`, `Heading` |
-| Theming | `setGlobalTheme` light/dark/auto |
+## 2. Sidebar order (Figma 1:9; enforced by `sidebar.test.tsx`)
+1. **Navigation Controls** (6:17), 40 high: toggle, then Back · Forward · Reload (Stop while loading).
+   Right-aligned (`primary=MAX`) so the macOS window buttons keep the left ~76 px.
+   *Conflict:* Theme Preview frames 55:* put the toggle at the far left (space-between), which would
+   collide with the traffic lights. JustSlide follows 1:6/35:13.
+2. **Address Bar** (7:46), 240×32 r8: host at rest ("figma.com"), full URL while editing.
+3. **Website favorites** (7:87): five 43×34 r8 tiles per row, gap 4, plus a dashed "add" tile.
+4. **Pinned Section** (25:4): 28 px trigger (pin · "Pinned" · count · chevron), collapsible.
+5. **Section separator** (35:160), 224 px, only when pinned tabs exist.
+6. **New Tab** (12:140) + **tab list** (12:289) that scrolls independently.
+7. **Background agent activity** (35:313), only while an agent grant exists.
+8. **Workspace footer** (12:290): "WORKSPACES" + current name; Downloads · switcher · New workspace.
 
-## 4. States
-Hover/pressed via `color.background.neutral.subtle.*`; selected via `color.background.selected.*` +
-`aria-current`/`aria-pressed`; disabled via ADS props; loading = `Spinner`; error/crash = status
-icon + accessible name; agent-opened = AI glyph + name suffix. Reduced motion: global override in
-`sidebar.css`. Gallery: `ui/browser-chrome/src/gallery.tsx`; screenshots in `docs/evidence/visual/`.
+Behaviour notes from 30:52, verbatim: *Favorites = websites · Pinned = persistent workspace tabs ·
+Tabs = current browsing session · Workspace dock = switch tab collections. The tab list scrolls
+independently. The workspace dock stays visible.* Accessible names keep favorites and workspaces
+distinct ("Open ChatGPT website" vs "Switch to ChatGPT workspace"). A workspace icon is not
+evidence that a service is connected or an agent is running.
 
-## 5. Typography
-Figma's font is mapped to ADS typography tokens (`font.body*`, `font.heading*`). Target faces are
-Atlassian Sans / Mono; they are **not available** to this project (gated), so the token stack falls
-back to system UI fonts (measured: Liberation Sans on Linux CfT; expected SF on macOS). Exact
-visual parity is blocked on font rights.
+## 3. Components (product-owned, `ui/browser-chrome/src/design-system` + `components`)
+| Figma | JustSlide | Notes |
+|---|---|---|
+| `Slide / Tab` set 30:100 (Default, Hover, Selected, Keyboard focus) | `TabRow` | 32 px, favicon 16, close target 24 r6 shown on hover/selected |
+| `Slide / Tooltip` 30:122 | `TooltipLayer` / `useTooltip` | 224×32 r8, dark fill; below favorites, above the dock |
+| Navigation targets 23:3…23:6 | `IconButton` | 32×32, icon 16 |
+| Favorite tile 7:47… / Add 20:19 | `FavoritesGrid` | brand marks for curated sites, favicons otherwise |
+| Pinned trigger 7:88 | `PinnedSection` | state persisted in sidebar storage |
+| Agent card 35:313 | `AgentActivity` | details dialog: pending requests, pause, revoke |
+| Workspace switcher 20:17 + dot 35:322 | `WorkspaceFooter` | 7 px activity dot with 1.5 px ring |
+| — (not in Figma) | `Menu`, `Dialog`, collapsed rail | derived styling, documented in `docs/design-system.md` |
 
-## 6. Native exceptions
-macOS traffic lights, menus, file pickers, permission prompts, download/auth dialogs and the
-pairing dialog stay native (security-critical). Bubbles that cross the content boundary are
-Chromium Views widgets anchored to the sidebar host.
+## 4. Native exceptions
+macOS traffic lights, the application menu, file pickers, permission prompts, download and auth
+dialogs, and the pairing dialog stay native. Anything that must cross the content boundary uses
+Chromium Views bubbles anchored to the sidebar host; a CSS z-index cannot leave the sidebar WebContents.
 
-## 7. Assets
-The existing blue peeking mascot is **not in this repository**; `Mascot` renders nothing until the
-approved asset is added (`branding/README.md`). No generated replacement art. No third-party brand
-marks are bundled; favorites use real site favicons via `chrome://favicon2`.
+## 5. Assets
+* General glyphs: **Nucleo**, as placed in the Figma file (layer names such as
+  `sidebar-right-outline-48`, `refresh-outline-24`). Brand marks: **theSVG** slugs as placed in
+  Figma (`openai-chatgpt`, `claude`, `gmail-2026`, `codex-openai`, `claude-code`). Provenance and
+  licensing per icon: `ui/browser-chrome/assets/icons/registry.json`, `docs/icons-and-assets.md`.
+* The blue peeking **mascot does not appear in any inspected Figma frame** and is not in this
+  repository, so nothing renders it. No generated replacement art.

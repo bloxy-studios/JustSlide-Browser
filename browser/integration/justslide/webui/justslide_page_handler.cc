@@ -145,6 +145,8 @@ void JustSlidePageHandler::GoBack() { if (auto* wc = model_->GetActiveWebContent
 void JustSlidePageHandler::GoForward() { if (auto* wc = model_->GetActiveWebContents(); wc && wc->GetController().CanGoForward()) wc->GetController().GoForward(); }
 void JustSlidePageHandler::Reload() { if (auto* wc = model_->GetActiveWebContents()) wc->GetController().Reload(content::ReloadType::NORMAL, true); }
 
+void JustSlidePageHandler::StopLoading() { if (auto* wc = model_->GetActiveWebContents()) wc->Stop(); }
+
 void JustSlidePageHandler::ToggleSidebar() {
   PrefService* p = window_->GetProfile()->GetPrefs();
   p->SetBoolean(kPrefSidebarCollapsed, !p->GetBoolean(kPrefSidebarCollapsed));
@@ -223,6 +225,7 @@ void JustSlidePageHandler::SetBackdropColor(const std::string& hex) {
   ScheduleSnapshot();
 }
 void JustSlidePageHandler::ShowPairingDialog() {}
+void JustSlidePageHandler::ShowDownloads() { chrome::ExecuteCommand(window_, IDC_SHOW_DOWNLOADS); }
 
 void JustSlidePageHandler::OnTabStripModelChanged(TabStripModel*, const TabStripModelChange& change,
                                                   const TabStripSelectionChange&) {

@@ -16,7 +16,7 @@ import "url/mojom/url.mojom";
 enum SecurityLevel { kUnknown, kSecure, kInsecure, kInternal, kDangerous };
 enum OpenedBy { kUser, kAgent, kExtension, kRestore, kPopup };
 enum ColorMode { kSystem, kLight, kDark };
-enum WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric };
+enum WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric, kCodex };
 enum ProfileKind { kPersonal, kAgentIsolated };
 enum AgentState { kActive, kPaused, kRevoked };
 
@@ -103,6 +103,7 @@ interface PageHandler {
   GoBack();
   GoForward();
   Reload();
+  StopLoading();
   ToggleSidebar();
 
   SelectTab(string tab_id);
@@ -132,6 +133,8 @@ interface PageHandler {
 
   // Opens the native pairing dialog (token shown once, stored in Keychain).
   ShowPairingDialog();
+  // Opens chrome://downloads (Chromium download manager UI) in the window.
+  ShowDownloads();
 };
 
 interface Page {

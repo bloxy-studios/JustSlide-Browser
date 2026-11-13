@@ -1,70 +1,53 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-import { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/core/cross';
-import Spinner from '@atlaskit/spinner';
-import StatusErrorIcon from '@atlaskit/icon/core/status-error';
-import AiAgentIcon from '@atlaskit/icon/core/ai-agent';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { useBridge } from '../bridge/context';
 import type { TabInfo } from '../bridge/types';
+import { IconButton } from '../design-system/IconButton';
+import { isMenuKey, useMenu } from '../design-system/Menu';
 import { Favicon } from './Favicon';
+import s from './sidebar.module.css';
 
-const styles = cssMap({
-  row: {
-    display: 'flex', alignItems: 'center', gap: token('space.050'), minHeight: '32px', marginBlockStart: token('space.0'),
-    borderRadius: token('radius.medium'), paddingInlineEnd: token('space.025'),
-    '&:hover': { backgroundColor: token('color.background.neutral.subtle.hovered') },
-  },
-  rowActive: { backgroundColor: token('color.background.selected'), '&:hover': { backgroundColor: token('color.background.selected.hovered') } },
-  main: {
-    flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: token('space.075'),
-    paddingBlock: token('space.050'), paddingInlineStart: token('space.075'), backgroundColor: 'transparent', borderRadius: token('radius.medium'),
-  },
-  actions: { display: 'flex', alignItems: 'center', flexShrink: 0 },
-});
-
+/**
+ * Figma component set 30:100 "Slide / Tab": compact 32 px row. Selected
+ * persists; hover is lighter; keyboard focus uses a distinct dashed outline;
+ * the close control appears on hovered or selected tabs. State comes from
+ * Chromium (title, URL, loading, crash) via the snapshot, never from React.
+ */
 export function TabRow({ tab, index, count }: { tab: TabInfo; index: number; count: number }) {
   const b = useBridge();
+  const menu = useMenu();
   const label = tab.title || tab.url;
-  const status = tab.crashed ? 'crashed' : tab.hasError ? 'failed to load' : tab.loading ? 'loading' : '';
+  const status = [
+    tab.crashed ? 'crashed' : tab.hasError ? 'failed to load' : tab.loading ? 'loading' : '',
+    tab.audible ? 'playing audio' : '', tab.openedBy === 'agent' ? 'opened by agent' : '', tab.pinned ? 'pinned' : '',
+  ].filter(Boolean).join(', ');
+  const openMenu = (e: React.MouseEvent | React.KeyboardEvent, el: HTMLElement) => menu.open(e, el);
   return (
-    <li css={[styles.row, tab.active && styles.rowActive]} data-tab-id={tab.id}>
-      <Pressable
-        xcss={styles.main}
-        aria-current={tab.active ? 'page' : undefined}
-        aria-label={`${label}${status ? `, ${status}` : ''}${tab.audible ? ', playing audio' : ''}${tab.openedBy === 'agent' ? ', opened by agent' : ''}`}
+    <li className={s.tab} data-selected={tab.active || undefined} data-tab-id={tab.id} data-state={tab.crashed || tab.hasError ? 'error' : undefined}
+      onContextMenu={(e) => openMenu(e, e.currentTarget.querySelector('button') as HTMLElement)}>
+      <button
+        type="button" className={s.tabMain} aria-current={tab.active ? 'page' : undefined}
+        aria-label={status ? `${label}, ${status}` : label}
         onClick={() => b.selectTab(tab.id)}
-        onKeyDown={(e: React.KeyboardEvent) => {
-          if (e.altKey && e.key === 'ArrowUp') { e.preventDefault(); b.moveTab(tab.id, -1); }
-          if (e.altKey && e.key === 'ArrowDown') { e.preventDefault(); b.moveTab(tab.id, 1); }
+        onKeyDown={(e) => {
+          if (isMenuKey(e)) openMenu(e, e.currentTarget);
+          else if (e.altKey && e.key === 'ArrowUp') { e.preventDefault(); b.moveTab(tab.id, -1); }
+          else if (e.altKey && e.key === 'ArrowDown') { e.preventDefault(); b.moveTab(tab.id, 1); }
+          else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); b.closeTab(tab.id); }
         }}
       >
-        {tab.loading ? <Spinner size="small" label="Loading" /> : <Favicon url={tab.url} />}
-        <Text maxLines={1} size="medium" color={tab.active ? 'color.text.selected' : 'color.text'}>{label}</Text>
-        {(tab.crashed || tab.hasError) && <StatusErrorIcon label="" color={token('color.icon.danger')} size="small" />}
-        {tab.openedBy === 'agent' && <AiAgentIcon label="" color={token('color.icon.discovery')} size="small" />}
-      </Pressable>
-      <span css={styles.actions}>
-        <DropdownMenu
-          shouldRenderToParent
-          trigger={({ triggerRef, ...p }) => (
-            <IconButton {...p} ref={triggerRef as React.Ref<HTMLButtonElement>} appearance="subtle" spacing="compact" icon={ShowMoreHorizontalIcon} label={`More actions for ${label}`} />
-          )}
-        >
-          <DropdownItemGroup>
-            <DropdownItem onClick={() => b.setTabPinned(tab.id, !tab.pinned)}>{tab.pinned ? 'Unpin tab' : 'Pin tab'}</DropdownItem>
-            <DropdownItem isDisabled={index === 0} onClick={() => b.moveTab(tab.id, -1)}>Move up</DropdownItem>
-            <DropdownItem isDisabled={index === count - 1} onClick={() => b.moveTab(tab.id, 1)}>Move down</DropdownItem>
-            <DropdownItem onClick={() => b.closeTab(tab.id)}>Close tab</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>
-        <IconButton appearance="subtle" spacing="compact" icon={CrossIcon} label={`Close ${label}`} onClick={() => b.closeTab(tab.id)} />
-      </span>
+        <span className={s.favicon}>
+          {tab.loading ? <span className={s.spinner} aria-hidden /> : <Favicon url={tab.url} size={16} />}
+          {(tab.crashed || tab.hasError) && <span className={s.errorDot} aria-hidden />}
+        </span>
+        <span className={s.tabTitle}>{label}</span>
+      </button>
+      <IconButton className={s.close} size="small" icon="close" iconSize={12} label={`Close ${label}`} tooltip={false} onClick={() => b.closeTab(tab.id)} />
+      {menu.render(`${label} tab`, [
+        { label: tab.pinned ? 'Unpin tab' : 'Pin tab', onSelect: () => b.setTabPinned(tab.id, !tab.pinned) },
+        { label: 'Move up', disabled: index === 0, onSelect: () => b.moveTab(tab.id, -1) },
+        { label: 'Move down', disabled: index === count - 1, onSelect: () => b.moveTab(tab.id, 1) },
+        { label: 'Reopen closed tab', onSelect: () => b.reopenClosedTab() },
+        { label: 'Close tab', danger: true, onSelect: () => b.closeTab(tab.id) },
+      ])}
     </li>
   );
 }

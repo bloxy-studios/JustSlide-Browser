@@ -15,7 +15,7 @@ interface GeneratedModule {
 const SECURITY: SecurityLevel[] = ['unknown', 'secure', 'insecure', 'internal', 'dangerous'];
 const OPENED_BY: OpenedBy[] = ['user', 'agent', 'extension', 'restore', 'popup'];
 const COLOR: ColorMode[] = ['system', 'light', 'dark'];
-const ICON: WorkspaceIcon[] = ['personal', 'chatgpt', 'claude-code', 'agent', 'work', 'generic'];
+const ICON: WorkspaceIcon[] = ['personal', 'chatgpt', 'claude-code', 'agent', 'work', 'generic', 'codex'];
 const PROFILE: ProfileKind[] = ['personal', 'agent-isolated'];
 const AGENT: AgentState[] = ['active', 'paused', 'revoked'];
 
@@ -69,6 +69,7 @@ export async function connectMojoBridge(moduleUrl = './justslide_shell.mojom-web
     goBack: call('goBack'),
     goForward: call('goForward'),
     reload: call('reload'),
+    stopLoading: call('stopLoading'),
     toggleSidebar: call('toggleSidebar'),
     selectTab: call('selectTab'),
     createTab: call('createTab'),
@@ -89,5 +90,6 @@ export async function connectMojoBridge(moduleUrl = './justslide_shell.mojom-web
     setColorMode: (m: ColorMode) => handler.setColorMode(COLOR.indexOf(m)),
     setBackdropColor: call('setBackdropColor'),
     showPairingDialog: call('showPairingDialog'),
+    showDownloads: call('showDownloads'),
   };
 }

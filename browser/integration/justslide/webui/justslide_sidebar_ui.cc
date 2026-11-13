@@ -40,14 +40,13 @@ JustSlideSidebarUI::JustSlideSidebarUI(content::WebUI* web_ui)
                               IDR_JUSTSLIDE_SIDEBAR_SIDEBAR_HTML);
   // CSP: keep Chromium's WebUI defaults (script-src chrome://resources
   // 'self'; require-trusted-types-for 'script'; object-src/child-src 'none';
-  // frame-ancestors 'none') and only:
-  //  * allow the single Trusted Types policy name `default`, which
-  //    ui/browser-chrome/src/trusted-types.ts installs to admit the exact ADS
-  //    icon glyph strings and nothing else;
+  // frame-ancestors 'none') and tighten them:
+  //  * no Trusted Types policies at all: the sidebar renders icons as SVG
+  //    elements (React.createElement), never through innerHTML, so every
+  //    string-to-HTML sink stays blocked;
   //  * forbid all fetch/XHR/WebSocket/beacon egress from the shell.
   source->OverrideContentSecurityPolicy(
-      network::mojom::CSPDirectiveName::TrustedTypes,
-      "trusted-types default;");
+      network::mojom::CSPDirectiveName::TrustedTypes, "trusted-types;");
   source->OverrideContentSecurityPolicy(
       network::mojom::CSPDirectiveName::ConnectSrc, "connect-src 'none';");
   source->OverrideContentSecurityPolicy(

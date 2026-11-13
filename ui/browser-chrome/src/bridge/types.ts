@@ -7,7 +7,7 @@
 export type SecurityLevel = 'secure' | 'insecure' | 'internal' | 'dangerous' | 'unknown';
 export type OpenedBy = 'user' | 'agent' | 'extension' | 'restore' | 'popup';
 export type ColorMode = 'system' | 'light' | 'dark';
-export type WorkspaceIcon = 'personal' | 'chatgpt' | 'claude-code' | 'agent' | 'work' | 'generic';
+export type WorkspaceIcon = 'personal' | 'chatgpt' | 'claude-code' | 'agent' | 'work' | 'generic' | 'codex';
 export type ProfileKind = 'personal' | 'agent-isolated';
 export type AgentState = 'active' | 'paused' | 'revoked';
 
@@ -81,6 +81,7 @@ export interface ShellIntents {
   goBack(): void;
   goForward(): void;
   reload(): void;
+  stopLoading(): void;
   toggleSidebar(): void;
   selectTab(tabId: string): void;
   createTab(): void;
@@ -101,6 +102,7 @@ export interface ShellIntents {
   setColorMode(mode: ColorMode): void;
   setBackdropColor(cssHex: string): void;
   showPairingDialog(): void;
+  showDownloads(): void;
 }
 
 export interface ShellBridge extends ShellIntents {
@@ -112,9 +114,9 @@ export interface ShellBridge extends ShellIntents {
 }
 
 export const INTENT_NAMES: ReadonlyArray<keyof ShellIntents> = [
-  'navigateFromInput', 'goBack', 'goForward', 'reload', 'toggleSidebar', 'selectTab', 'createTab',
+  'navigateFromInput', 'goBack', 'goForward', 'reload', 'stopLoading', 'toggleSidebar', 'selectTab', 'createTab',
   'closeTab', 'reopenClosedTab', 'setTabPinned', 'moveTab', 'selectWorkspace', 'createWorkspace',
   'renameWorkspace', 'addFavoriteForActiveTab', 'removeFavorite', 'moveFavorite', 'openFavorite',
   'resolvePendingRequest', 'setAgentPaused', 'revokeAgent', 'setColorMode', 'setBackdropColor',
-  'showPairingDialog',
+  'showPairingDialog', 'showDownloads',
 ];

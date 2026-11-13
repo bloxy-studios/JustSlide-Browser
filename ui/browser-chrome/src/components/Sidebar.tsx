@@ -1,73 +1,50 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-import { Stack } from '@atlaskit/primitives/compiled';
-import { IconButton } from '@atlaskit/button/new';
-import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
-import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
-import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
-import RefreshIcon from '@atlaskit/icon/core/refresh';
-import AddIcon from '@atlaskit/icon/core/add';
 import { useBridge } from '../bridge/context';
 import type { ShellSnapshot } from '../bridge/types';
-import { NavControls } from './NavControls';
-import { AddressField } from './AddressField';
+import { IconButton } from '../design-system/IconButton';
+import { TooltipLayer } from '../design-system/tooltip';
+import { AddressBar } from './AddressBar';
+import { AgentActivity } from './AgentActivity';
 import { FavoritesGrid } from './FavoritesGrid';
-import { PinnedSection, TabList } from './TabSections';
-import { AgentStatus } from './AgentStatus';
-import { WorkspaceDock } from './WorkspaceDock';
-import { Mascot } from './Mascot';
+import { NavControls } from './NavControls';
+import { PinnedSection, TabArea } from './TabSections';
+import { WorkspaceFooter } from './WorkspaceFooter';
+import s from './sidebar.module.css';
 
-const styles = cssMap({
-  root: {
-    height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: token('space.100'),
-    paddingBlock: token('space.100'), paddingInline: token('space.100'), minWidth: 0,
-    color: token('color.text'), font: token('font.body'),
-  },
-  rail: { height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: token('space.050'), paddingBlock: token('space.100') },
-  grow: { flexGrow: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: token('space.100') },
-});
+/** Native host width of the sidebar WebUI view: 12 px frame padding + 240 px column + 12 px gap (Figma 35:13). */
+export const SIDEBAR_VIEW_WIDTH_PX = 264;
+/** Collapsed rail width. Figma does not define a collapsed sidebar yet (docs/design-system.md). */
+export const RAIL_WIDTH_PX = 56;
 
-export const RAIL_WIDTH_PX = 48;
-
-/**
- * Collapsed mode keeps an accessible rail (the native host shrinks the WebUI
- * view to RAIL_WIDTH_PX) so navigation is never hidden without an alternative.
- */
 function CollapsedRail({ snap }: { snap: ShellSnapshot }) {
   const b = useBridge();
   return (
-    <nav css={styles.rail} aria-label="Browser controls" data-testid="sidebar-rail">
-      <IconButton appearance="subtle" icon={SidebarExpandIcon} label="Show sidebar" onClick={() => b.toggleSidebar()} />
-      <IconButton appearance="subtle" icon={ArrowLeftIcon} label="Back" isDisabled={!snap.canGoBack} onClick={() => b.goBack()} />
-      <IconButton appearance="subtle" icon={ArrowRightIcon} label="Forward" isDisabled={!snap.canGoForward} onClick={() => b.goForward()} />
-      <IconButton appearance="subtle" icon={RefreshIcon} label="Reload" onClick={() => b.reload()} />
-      <IconButton appearance="subtle" icon={AddIcon} label="New tab" onClick={() => b.createTab()} />
+    <nav className={s.rail} aria-label="Browser controls" data-testid="sidebar-rail">
+      <IconButton icon="sidebar-toggle" label="Show sidebar" tooltip={false} onClick={() => b.toggleSidebar()} />
+      <IconButton icon="back" label="Back" tooltip={false} disabled={!snap.canGoBack} onClick={() => b.goBack()} />
+      <IconButton icon="forward" label="Forward" tooltip={false} disabled={!snap.canGoForward} onClick={() => b.goForward()} />
+      <IconButton icon="reload" label="Reload" tooltip={false} onClick={() => b.reload()} />
+      <IconButton icon="new-tab" iconSize={12} label="New tab" tooltip={false} onClick={() => b.createTab()} />
     </nav>
   );
 }
 
-/** Sidebar order is a product invariant (DESIGN.md §2). */
+/** Sidebar order follows Figma 1:9 "Sidebar" (DESIGN.md §2). */
 export function Sidebar({ snap }: { snap: ShellSnapshot }) {
   if (snap.sidebarCollapsed) return <CollapsedRail snap={snap} />;
   const tabs = snap.tabs.filter(t => t.workspaceId === snap.selectedWorkspaceId);
   const pinned = tabs.filter(t => t.pinned);
-  const unpinned = tabs.filter(t => !t.pinned);
   return (
-    <div css={styles.root} data-testid="sidebar">
-      <Stack space="space.100">
+    <TooltipLayer>
+      <div className={s.root} data-testid="sidebar" data-menu-host>
         <NavControls snap={snap} />
-        <AddressField snap={snap} />
+        <AddressBar snap={snap} />
         <FavoritesGrid favorites={snap.favorites} />
-      </Stack>
-      <div css={styles.grow}>
         <PinnedSection tabs={pinned} />
-        <TabList tabs={unpinned} />
+        {pinned.length > 0 && <hr className={s.separator} />}
+        <TabArea tabs={tabs.filter(t => !t.pinned)} />
+        <AgentActivity agents={snap.agents} workspaces={snap.workspaces} tabs={snap.tabs} />
+        <WorkspaceFooter workspaces={snap.workspaces} selectedId={snap.selectedWorkspaceId} agents={snap.agents} />
       </div>
-      <AgentStatus agents={snap.agents} workspaces={snap.workspaces} />
-      <Mascot />
-      <WorkspaceDock workspaces={snap.workspaces} selectedId={snap.selectedWorkspaceId} />
-    </div>
+    </TooltipLayer>
   );
 }

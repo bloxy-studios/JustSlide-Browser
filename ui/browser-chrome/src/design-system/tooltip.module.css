@@ -1,0 +1,9 @@
+.layer { position: relative; height: 100%; }
+.tip {
+  position: absolute; left: calc(var(--js-size-frame-padding) + 8px); width: var(--js-size-tooltip-width); height: var(--js-size-tooltip-height);
+  box-sizing: border-box; padding: 7px 10px; border-radius: var(--js-radius-control);
+  background: var(--js-color-tooltip); color: var(--js-color-tooltip-text);
+  display: flex; align-items: center; pointer-events: none; z-index: 20;
+}
+.tip[data-placement='above'] { transform: translateY(-100%); }
+.label { font: var(--js-type-tooltip); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

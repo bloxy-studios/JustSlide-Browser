@@ -1,0 +1,6 @@
+.img { flex-shrink: 0; border-radius: var(--js-radius-favicon); }
+.letter {
+  flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--js-radius-favicon); background: var(--js-color-separator); color: var(--js-color-address);
+  font: 590 9px/1 var(--js-font);
+}

@@ -28,7 +28,9 @@ const byLicense: Record<string, number> = {};
 for (const p of pkgs) byLicense[String(p.license)] = (byLicense[String(p.license)] ?? 0) + 1;
 const report = {
   generatedBy: 'scripts/ui/license-audit.ts', generatedAt: new Date().toISOString(),
-  note: 'Package-level OSS licenses only. The separate Atlassian Design System License (https://atlassian.design/license/) scopes ADS use to Add-Ons for Atlassian products; see docs/licensing-and-assets.md. Not legal advice.',
+  note: 'Package-level OSS licenses plus the icon registry (ui/browser-chrome/assets/icons/registry.json). Icon licensing: docs/icons-and-assets.md. Not legal advice.',
+  icons: Object.entries(JSON.parse(readFileSync(join(root, 'ui/browser-chrome/assets/icons/registry.json'), 'utf8')).icons as Record<string, any>)
+    .map(([name, e]) => ({ name, kind: e.kind, license: e.license, placeholder: !!e.placeholder, figmaNode: e.figmaNode ?? null })),
   totals: { packages: pkgs.length, byLicense, withoutLicenseFile: pkgs.filter(p => !p.missing && !p.licenseFiles.length).map(p => p.name), packagesShippingFonts: pkgs.filter(p => p.fontFiles?.length).map(p => ({ name: p.name, fonts: p.fontFiles })) },
   packages: pkgs,
 };

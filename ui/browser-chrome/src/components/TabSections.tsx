@@ -1,57 +1,47 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import { useState } from 'react';
-import { cssMap, jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-import Button from '@atlaskit/button/new';
-import Badge from '@atlaskit/badge';
-import AddIcon from '@atlaskit/icon/core/add';
-import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import { useBridge } from '../bridge/context';
 import type { TabInfo } from '../bridge/types';
+import { Icon } from '../design-system/Icon';
 import { TabRow } from './TabRow';
+import s from './sidebar.module.css';
 
-const styles = cssMap({
-  list: { listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: token('space.025') },
-  header: {
-    display: 'flex', alignItems: 'center', gap: token('space.050'), width: '100%', backgroundColor: 'transparent',
-    paddingBlock: token('space.050'), paddingInline: token('space.050'), borderRadius: token('radius.small'),
-    '&:hover': { backgroundColor: token('color.background.neutral.subtle.hovered') },
-  },
-  scroll: { flexGrow: 1, minHeight: 0, overflowY: 'auto', overscrollBehavior: 'contain' },
-});
+const PINNED_KEY = 'justslide.pinnedOpen';
 
+/** Figma 25:4 "Pinned Section": trigger collapses/expands persistent workspace tabs. */
 export function PinnedSection({ tabs }: { tabs: TabInfo[] }) {
-  const [open, setOpen] = useState(true);
+  // Collapsed/expanded is a presentation preference kept in the sidebar's own storage.
+  const [open, setOpenState] = useState(() => { try { return localStorage.getItem(PINNED_KEY) !== '0'; } catch { return true; } });
+  const setOpen = (v: boolean) => { setOpenState(v); try { localStorage.setItem(PINNED_KEY, v ? '1' : '0'); } catch { /* storage unavailable */ } };
   if (!tabs.length) return null;
   return (
-    <Stack space="space.025">
-      <Pressable xcss={styles.header} aria-expanded={open} aria-controls="pinned-tabs" onClick={() => setOpen(!open)}>
-        {open ? <ChevronDownIcon label="" size="small" /> : <ChevronRightIcon label="" size="small" />}
-        <Text size="small" weight="semibold" color="color.text.subtle">Pinned</Text>
-        <Badge>{tabs.length}</Badge>
-      </Pressable>
+    <section className={s.pinned} aria-label="Pinned tabs">
+      <button type="button" className={s.pinnedTrigger} aria-expanded={open} aria-controls="pinned-tabs" onClick={() => setOpen(!open)}>
+        <Icon name="pin" size={12} />
+        <span className={s.sectionTitle}>Pinned</span>
+        <span className={s.count} aria-label={`${tabs.length} pinned`}>{tabs.length}</span>
+        <Icon name={open ? 'chevron-down' : 'chevron-right'} size={14} />
+      </button>
       {open && (
-        <ul id="pinned-tabs" css={styles.list} aria-label="Pinned tabs">
+        <ul id="pinned-tabs" className={s.tabList}>
           {tabs.map((t, i) => <TabRow key={t.id} tab={t} index={i} count={tabs.length} />)}
         </ul>
       )}
-    </Stack>
+    </section>
   );
 }
 
-export function TabList({ tabs }: { tabs: TabInfo[] }) {
+/** Figma 20:82 "Browser Sidebar": New Tab + independently scrolling tab list (12:289). */
+export function TabArea({ tabs }: { tabs: TabInfo[] }) {
   const b = useBridge();
   return (
-    <Stack space="space.050" xcss={styles.scroll}>
-      <Inline>
-        <Button appearance="subtle" spacing="compact" iconBefore={AddIcon} onClick={() => b.createTab()}>New tab</Button>
-      </Inline>
-      <ul css={styles.list} aria-label="Tabs">
+    <div className={s.tabArea}>
+      <button type="button" className={s.newTab} onClick={() => b.createTab()}>
+        <Icon name="new-tab" size={12} />
+        <span>New Tab</span>
+      </button>
+      <ul className={`${s.tabList} ${s.scroll}`} aria-label="Tabs" data-testid="tab-list">
         {tabs.map((t, i) => <TabRow key={t.id} tab={t} index={i} count={tabs.length} />)}
       </ul>
-    </Stack>
+    </div>
   );
 }

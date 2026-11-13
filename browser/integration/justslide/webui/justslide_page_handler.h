@@ -39,6 +39,7 @@ class JustSlidePageHandler : public mojom::PageHandler,
   void GoBack() override;
   void GoForward() override;
   void Reload() override;
+  void StopLoading() override;
   void ToggleSidebar() override;
   void SelectTab(const std::string& tab_id) override;
   void CreateTab() override;
@@ -59,6 +60,7 @@ class JustSlidePageHandler : public mojom::PageHandler,
   void SetColorMode(mojom::ColorMode mode) override;
   void SetBackdropColor(const std::string& css_hex) override;
   void ShowPairingDialog() override;
+  void ShowDownloads() override;
 
   // TabStripModelObserver:
   void OnTabStripModelChanged(TabStripModel* model, const TabStripModelChange& change,

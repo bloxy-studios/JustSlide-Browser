@@ -17,7 +17,8 @@ namespace content { class BrowserContext; }
 
 namespace justslide {
 
-enum class WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric };
+// Order matches mojom::WorkspaceIcon (persisted as int; append only).
+enum class WorkspaceIcon { kPersonal, kChatGpt, kClaudeCode, kAgent, kWork, kGeneric, kCodex };
 enum class ProfileKind { kPersonal, kAgentIsolated };
 
 struct Workspace {

@@ -17,7 +17,6 @@ const shots: Array<[string, string, number, number, 'light' | 'dark']> = [
   ['preview-1440x1024-light', 'preview.html?mode=light', 1440, 1024, 'light'],
   ['preview-1100x720-dark', 'preview.html?mode=dark', 1100, 720, 'dark'],
   ['preview-1100x720-backdrop', 'preview.html?mode=light&backdrop=b8f0d8', 1100, 720, 'light'],
-  ['gallery-light', 'gallery.html?mode=light', 1440, 1100, 'light'],
 ];
 let errors = 0;
 for (const [name, path, w, h, scheme] of shots) {

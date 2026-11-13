@@ -20,7 +20,7 @@ if (!exe || !existsSync(exe)) { console.error('Set CHROME to a Chrome for Testin
 
 // Mirrors content/public/browser/url_data_source.cc defaults @157.0.8103.51
 // plus JustSlide's override in justslide_sidebar_ui.cc.
-const CSP = "child-src 'none'; object-src 'none'; script-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default; connect-src 'none';";
+const CSP = "child-src 'none'; object-src 'none'; script-src 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types; connect-src 'none';";
 const types: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json' };
 const server = Bun.serve({
   port: 0, hostname: '127.0.0.1',

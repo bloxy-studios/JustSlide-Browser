@@ -1,0 +1,20 @@
+name: ci
+# Fast checks only. Native Chromium builds need a self-hosted macOS runner
+# (see docs/development-and-release.md) and are NOT run on hosted runners.
+on: [push, pull_request]
+permissions: { contents: read }
+jobs:
+  fast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.4.4 }
+      - uses: dtolnay/rust-toolchain@stable
+      - run: bun install --frozen-lockfile
+      - run: bun run protocol:check
+      - run: bun run typecheck
+      - run: bun run test:ui
+      - run: bun run build:ui
+      - run: bun run mcp:test
+      - run: bun run engine:verify-patches

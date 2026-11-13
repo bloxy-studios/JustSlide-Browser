@@ -1,6 +1,6 @@
 // PREVIEW bridge: simulated, in-memory browser state for `bun run dev:ui` and
 // component tests. It is NOT JustSlide, does not render web pages and must
-// never be bundled into the WebUI resources (enforced by scripts/audit-bundle.ts).
+// never be bundled into the WebUI resources (enforced by scripts/ui/finalize-webui.ts).
 import { classifyInputForPreview } from '../lib/input';
 import type { ColorMode, ShellBridge, ShellSnapshot, TabInfo } from './types';
 
@@ -10,8 +10,8 @@ const nid = (p: string) => `${p}_preview${(counter++).toString(36).padStart(4, '
 export function previewSeed(): ShellSnapshot {
   const tabs: TabInfo[] = [
     { id: 'tab_preview01', workspaceId: 'ws_personal01', url: 'https://www.figma.com/', title: 'Figma', pinned: true, loading: false, active: false, openedBy: 'user', crashed: false, audible: false, hasError: false },
-    { id: 'tab_preview02', workspaceId: 'ws_personal01', url: 'https://github.com/bloxy-studios/JustSlide', title: 'bloxy-studios/JustSlide: a Chromium-based everyday browser with permission-controlled programmability', pinned: false, loading: false, active: true, openedBy: 'user', crashed: false, audible: false, hasError: false },
-    { id: 'tab_preview03', workspaceId: 'ws_personal01', url: 'https://atlassian.design/components', title: 'Components – Atlassian Design System', pinned: false, loading: true, active: false, openedBy: 'user', crashed: false, audible: true, hasError: false },
+    { id: 'tab_preview02', workspaceId: 'ws_personal01', url: 'https://github.com/bloxy-studios/JustSlide-Browser', title: 'bloxy-studios/JustSlide-Browser: a Chromium-based everyday browser with permission-controlled programmability', pinned: false, loading: false, active: true, openedBy: 'user', crashed: false, audible: false, hasError: false },
+    { id: 'tab_preview03', workspaceId: 'ws_personal01', url: 'https://nucleoapp.com/', title: 'Nucleo – icon manager', pinned: false, loading: true, active: false, openedBy: 'user', crashed: false, audible: true, hasError: false },
     { id: 'tab_preview04', workspaceId: 'ws_agent0001', url: 'https://example.com/research', title: 'Example research page', pinned: false, loading: false, active: false, openedBy: 'agent', crashed: false, audible: false, hasError: false },
   ];
   return {
@@ -19,15 +19,16 @@ export function previewSeed(): ShellSnapshot {
     selectedWorkspaceId: 'ws_personal01',
     activeTabId: 'tab_preview02',
     sidebarCollapsed: false,
-    displayUrl: 'https://github.com/bloxy-studios/JustSlide',
+    displayUrl: 'https://github.com/bloxy-studios/JustSlide-Browser',
     securityLevel: 'secure',
     origin: 'github.com',
     canGoBack: true,
     canGoForward: false,
     workspaces: [
       { id: 'ws_personal01', name: 'Personal', icon: 'personal', profileKind: 'personal', agentOwned: false },
-      { id: 'ws_chatgpt001', name: 'ChatGPT', icon: 'chatgpt', profileKind: 'personal', agentOwned: false },
+      { id: 'ws_codex00001', name: 'Codex', icon: 'codex', profileKind: 'personal', agentOwned: false },
       { id: 'ws_claude0001', name: 'Claude Code', icon: 'claude-code', profileKind: 'personal', agentOwned: false },
+      { id: 'ws_chatgpt001', name: 'ChatGPT', icon: 'chatgpt', profileKind: 'personal', agentOwned: false },
       { id: 'ws_agent0001', name: 'Research agent', icon: 'agent', profileKind: 'agent-isolated', agentOwned: true },
     ],
     tabs,
@@ -84,6 +85,8 @@ export class PreviewBridge implements ShellBridge {
     if (c.kind === 'rejected') { this.log.push(['navigateFromInput:rejected', [text]]); return; }
     this.update('navigateFromInput', [text], s => { s.tabs = s.tabs.map(t => t.id === s.activeTabId ? { ...t, url: c.url, title: c.url, loading: true } : t); return this.syncActive(s); });
   }
+  stopLoading() { this.update('stopLoading', [], s => { s.tabs = s.tabs.map(t => t.id === s.activeTabId ? { ...t, loading: false } : t); return s; }); }
+  showDownloads() { this.log.push(['showDownloads', []]); }
   goBack() { this.update('goBack', [], s => s); }
   goForward() { this.update('goForward', [], s => s); }
   reload() { this.update('reload', [], s => { s.tabs = s.tabs.map(t => t.id === s.activeTabId ? { ...t, loading: true } : t); return s; }); }
