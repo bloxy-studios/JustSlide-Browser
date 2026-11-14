@@ -1,0 +1,216 @@
+# Builds JustSlide (Chromium 157 + JustSlide patches) on GitHub-hosted macOS
+# runners (free for public repositories).
+#
+# A Chromium build takes longer than the 6-hour job limit, so each run:
+#   1. restores the previous run's build tree (artifact "engine-<arch>", the whole
+#      .engine dir with mtimes preserved, so the build resumes and doesn't restart),
+#   2. runs scripts/engine/pipeline.py until its time budget is spent,
+#   3. uploads the tree again and re-dispatches this workflow, until every step is done.
+# Progress and log tails go to the `ci-status` branch (ci/<arch>/status.json, *.log).
+#
+# Start: Actions tab ▸ "Build JustSlide (macOS)" ▸ Run workflow, or push a commit
+# whose message contains [mac-build].
+name: Build JustSlide (macOS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: "Target CPU (arm64 runs on Apple Silicon runners, x64 on Intel runners)"
+        type: choice
+        options: [arm64, x64]
+        default: arm64
+      hop:
+        description: "Chain position (set automatically)"
+        default: "1"
+      fresh:
+        description: "Ignore saved build trees and start from scratch"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # ci-status branch
+  actions: write    # re-dispatch, read/delete build-tree artifacts
+
+concurrency:
+  group: mac-build-${{ inputs.arch || 'arm64' }}
+  cancel-in-progress: false
+
+env:
+  ARCH: ${{ inputs.arch || 'arm64' }}
+  HOP: ${{ inputs.hop || '1' }}
+  MAX_HOPS: "24"
+  JOB_MINUTES: "350"
+  JUSTSLIDE_ENGINE_ROOT: ${{ github.workspace }}/.engine
+  JUSTSLIDE_MIN_FREE_GB: "40"
+  JUSTSLIDE_JOBS: "3"
+  DEPOT_TOOLS_METRICS: "0"
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mac-build]')
+    runs-on: ${{ (inputs.arch || 'arm64') == 'x64' && 'macos-26-intel' || 'macos-26' }}
+    timeout-minutes: 355
+    steps:
+      - name: Record start time
+        run: echo "JOB_START=$(date +%s)" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          df -h /
+          sudo mdutil -a -i off >/dev/null 2>&1 || true
+          sel="$(xcode-select -p | sed 's#/Contents/Developer##')"
+          echo "keeping $sel"
+          for x in /Applications/Xcode*.app; do
+            [ "$(cd "$x" && pwd -P)" = "$(cd "$sel" && pwd -P)" ] || sudo rm -rf "$x" &
+          done
+          xcrun simctl runtime delete all >/dev/null 2>&1 || true
+          sudo rm -rf ~/Library/Developer/CoreSimulator /Library/Developer/CoreSimulator/Profiles/Runtimes \
+            ~/Library/Android /usr/local/lib/android /usr/local/share/dotnet ~/.dotnet ~/.ghcup \
+            /usr/local/share/powershell /usr/local/share/chromium /usr/local/Caskroom \
+            "$RUNNER_TOOL_CACHE"/* 2>/dev/null &
+          wait
+          df -h /
+          echo "FREE_GB_START=$(df -g / | awk 'NR==2{print $4}')" >> "$GITHUB_ENV"
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+
+      - name: Tools
+        run: |
+          brew list zstd >/dev/null 2>&1 || brew install zstd
+          xcodebuild -version
+          sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
+
+      - name: Find saved build tree
+        id: prev
+        run: |
+          if [ "${{ inputs.fresh }}" = "true" ]; then echo "none"; exit 0; fi
+          gh api "repos/${{ github.repository }}/actions/artifacts?name=engine-${ARCH}&per_page=10" \
+            --jq '[.artifacts[] | select(.expired == false)] | sort_by(.created_at) | last // empty
+                  | "artifact_id=\(.id)\nrun_id=\(.workflow_run.id)"' >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
+
+      - name: Download saved build tree
+        if: steps.prev.outputs.run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: engine-${{ env.ARCH }}
+          run-id: ${{ steps.prev.outputs.run_id }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/restore
+
+      - name: Restore build tree
+        if: steps.prev.outputs.run_id != ''
+        run: |
+          ls -la "$RUNNER_TEMP/restore"
+          cat "$RUNNER_TEMP"/restore/engine.tar.zst.* | zstd -dc -T0 | tar -C "$GITHUB_WORKSPACE" -xpf -
+          rm -rf "$RUNNER_TEMP/restore"
+          python3 scripts/engine/pipeline.py --status
+          df -h /
+
+      - name: Build (time-boxed)
+        id: build
+        continue-on-error: true
+        run: |
+          elapsed=$(( ($(date +%s) - JOB_START) / 60 ))
+          # Leave ~45 min to archive and upload the tree.
+          budget=$(( JOB_MINUTES - elapsed - 45 ))
+          echo "elapsed ${elapsed} min, build budget ${budget} min"
+          [ "$budget" -gt 20 ] || { echo "not enough time left"; exit 0; }
+          mkdir -p "$RUNNER_TEMP/ci"
+          set -o pipefail
+          python3 scripts/engine/pipeline.py --budget-min "$budget" 2>&1 | tee "$RUNNER_TEMP/ci/pipeline.log"
+
+      - name: Evaluate
+        id: eval
+        if: always()
+        run: |
+          python3 scripts/engine/pipeline.py --status > "$RUNNER_TEMP/ci/status.json" || true
+          python3 scripts/engine/pipeline.py --errors justslide > "$RUNNER_TEMP/ci/errors-justslide.txt" 2>&1 || true
+          python3 scripts/engine/pipeline.py --errors baseline > "$RUNNER_TEMP/ci/errors-baseline.txt" 2>&1 || true
+          state=$(python3 - "$RUNNER_TEMP/ci/status.json" <<'PY'
+          import json, sys
+          try: s = json.load(open(sys.argv[1]))["steps"]
+          except Exception: print("unknown"); raise SystemExit
+          v = list(s.values())
+          print("done" if all(x.startswith("done") for x in v) else "failed" if any(x.startswith("failed") for x in v) else "running")
+          PY
+          )
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+          echo "pipeline state: $state"
+          cat "$RUNNER_TEMP/ci/status.json"
+          df -h /
+
+      - name: Archive build tree
+        if: always() && steps.eval.outputs.state != 'unknown' && steps.eval.outputs.state != 'done'
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          tar -C "$GITHUB_WORKSPACE" -cpf - .engine | zstd -T0 -3 | split -b 4000m - "$RUNNER_TEMP/out/engine.tar.zst."
+          ls -la "$RUNNER_TEMP/out"
+          du -sh "$RUNNER_TEMP/out"
+
+      - name: Upload build tree
+        if: always() && steps.eval.outputs.state != 'unknown' && steps.eval.outputs.state != 'done'
+        uses: actions/upload-artifact@v4
+        with:
+          name: engine-${{ env.ARCH }}
+          path: ${{ runner.temp }}/out/
+          compression-level: 0
+          retention-days: 3
+          overwrite: true
+
+      - name: Delete older build tree
+        if: success() && steps.prev.outputs.artifact_id != '' && steps.eval.outputs.state != 'done'
+        run: gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/${{ steps.prev.outputs.artifact_id }}" || true
+
+      - name: Package app
+        if: steps.eval.outputs.state == 'done'
+        run: |
+          out="$JUSTSLIDE_ENGINE_ROOT/chromium/src/out/JustSlide"
+          # Component build: the .app loads dylibs that sit next to it in the out dir.
+          tar -C "$out" -czf "$RUNNER_TEMP/justslide-${ARCH}.tgz" $(cd "$out" && ls -d *.app *.dylib 2>/dev/null)
+          cp -R "$JUSTSLIDE_ENGINE_ROOT/evidence" "$RUNNER_TEMP/ci/evidence" || true
+          ls -la "$RUNNER_TEMP"
+
+      - name: Upload app
+        if: steps.eval.outputs.state == 'done'
+        uses: actions/upload-artifact@v4
+        with:
+          name: justslide-${{ env.ARCH }}-app
+          path: ${{ runner.temp }}/justslide-${{ env.ARCH }}.tgz
+          compression-level: 0
+          retention-days: 14
+
+      - name: Publish status (ci-status branch)
+        if: always()
+        run: |
+          d="$RUNNER_TEMP/status-repo"; rm -rf "$d"; mkdir -p "$d"; cd "$d"
+          git init -q && git config user.name "justslide-ci" && git config user.email "ci@justslide.app"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          if git fetch -q --depth 1 origin ci-status; then git checkout -q -b ci-status FETCH_HEAD; else git checkout -q --orphan ci-status; fi
+          mkdir -p "ci/$ARCH"
+          cp "$RUNNER_TEMP"/ci/*.json "$RUNNER_TEMP"/ci/*.txt "ci/$ARCH/" 2>/dev/null || true
+          tail -n 400 "$RUNNER_TEMP/ci/pipeline.log" > "ci/$ARCH/pipeline-tail.log" 2>/dev/null || true
+          for f in "$JUSTSLIDE_ENGINE_ROOT"/logs/build_*.log; do [ -f "$f" ] && tail -n 200 "$f" > "ci/$ARCH/$(basename "$f" .log)-tail.log"; done
+          cp -R "$RUNNER_TEMP/ci/evidence" "ci/$ARCH/" 2>/dev/null || true
+          cat > "ci/$ARCH/run.json" <<EOF
+          {"run_id": "${{ github.run_id }}", "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+           "hop": "$HOP", "state": "${{ steps.eval.outputs.state }}", "commit": "${{ github.sha }}",
+           "runner": "${{ runner.os }}-${{ runner.arch }}", "free_gb_start": "$FREE_GB_START", "finished": "$(date -u +%FT%TZ)"}
+          EOF
+          git add -A && git commit -qm "ci: $ARCH hop $HOP ${{ steps.eval.outputs.state }} (run ${{ github.run_id }})" || true
+          git push -q origin ci-status || true
+
+      - name: Continue in a new run
+        if: always() && steps.eval.outputs.state == 'running' && fromJSON(env.HOP) < fromJSON(env.MAX_HOPS)
+        run: |
+          next=$(( HOP + 1 ))
+          gh workflow run build-mac.yml --ref "${{ github.ref_name }}" -f arch="$ARCH" -f hop="$next"
+          echo "dispatched hop $next"
