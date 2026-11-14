@@ -36,6 +36,7 @@
     "engine:errors": "python3 scripts/engine/pipeline.py --errors",
     "design:tokens": "bun scripts/design/gen-tokens.ts",
     "design:snapshot": "python3 scripts/design/figma_snapshot.py",
-    "build:icons": "bun scripts/ui/gen-icons.ts"
+    "build:icons": "bun scripts/ui/gen-icons.ts",
+    "ci:install-workflows": "bash scripts/ci/install-workflows.sh"
   }
 }
