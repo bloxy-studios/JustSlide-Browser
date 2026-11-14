@@ -1,0 +1,229 @@
+[justslide 07:01:15] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 303 min; free 290.6 GB
+[justslide 07:01:15] == step doctor
+{
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.15.2",
+    "macos": "26.7.2",
+    "macos_build": "25G332",
+    "model": "VirtualMac2,1",
+    "cpu_brand": "Apple M1 (Virtual)",
+    "ncpu": 3,
+    "ram_gb": 7.0,
+    "rosetta": false
+  },
+  "free_gb_engine": 290.6,
+  "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
+  "xcode_select": "/Applications/Xcode_26.6.app/Contents/Developer",
+  "xcodebuild": "Xcode 26.6 Build version 17F113",
+  "macos_sdk": "26.5",
+  "apfs": true,
+  "git": "/opt/homebrew/bin/git",
+  "python3": "/opt/homebrew/bin/python3",
+  "curl": "/usr/bin/curl",
+  "bun": "/Users/runner/.bun/bin/bun",
+  "build_jobs": 3,
+  "problems": [],
+  "notes": [
+    "RAM 7.0 GB < 16 GB: build uses -j3; expect a slow build"
+  ]
+}
+[justslide 07:01:17]    doctor: done
+[justslide 07:01:17] == step depot_tools
+[justslide 07:01:17] $ git clone --depth 1 https://chromium.googlesource.com/chromium/tools/depot_tools.git /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser, log=depot_tools.log)
+  | 
+  | ===== 2026-11-14T07:01:17Z $ git clone --depth 1 https://chromium.googlesource.com/chromium/tools/depot_tools.git /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools
+  | Cloning into '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools'...
+  | ===== 2026-11-14T07:01:18Z exit 0
+[justslide 07:01:18] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gclient --version  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser, log=depot_tools.log)
+  |   [32mstatus      [39m shows modification status for every dependencies
+  |   [32msync        [39m checkout/update all modules
+  |   [32mvalidate    [39m validates the .gclient and DEPS syntax
+  |   [32mverify      [39m verifies the DEPS file deps are only from allowed_hosts
+  | 
+  | Options:
+  |   --version             show program's version number and exit
+  |   -h, --help            show this help message and exit
+  |   -j JOBS, --jobs=JOBS  Specify how many SCM commands can run in parallel;
+  |                         defaults to 8 on this machine (or $GCLIENT_JOBS when
+  |                         set)
+  |   -v, --verbose         Produces additional output for diagnostics. Can be
+  |                         used up to three times for more logging info.
+  |   --gclientfile=CONFIG_FILENAME
+  |                         Specify an alternate .gclient file
+  |   --spec=SPEC           create a gclient file containing the provided string.
+  |                         Due to Cygwin/Python brokenness, it can't contain any
+  |                         newlines.
+  |   --no-nag-max          Ignored for backwards compatibility.
+  |   --trace               Enable tracing to Chrome Trace Event format for
+  |                         Perfetto UI.
+  |   --trace-file=TRACE_FILE
+  |                         Specify output file path for trace JSON (implies
+  |                         --trace).
+  | ===== 2026-11-14T07:01:32Z exit 0
+[justslide 07:01:32]    depot_tools: done
+[justslide 07:01:32] == step src_checkout
+[justslide 07:01:32] $ git init -q  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=src_checkout.log)
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git init -q
+  | ===== 2026-11-14T07:01:32Z exit 0
+[justslide 07:01:32] $ git remote add origin https://chromium.googlesource.com/chromium/src.git  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=src_checkout.log)
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git init -q
+  | ===== 2026-11-14T07:01:32Z exit 0
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git remote add origin https://chromium.googlesource.com/chromium/src.git
+  | ===== 2026-11-14T07:01:32Z exit 0
+[justslide 07:01:32] $ git fetch --depth=1 --no-tags origin +refs/tags/157.0.8103.51:refs/tags/157.0.8103.51  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=src_checkout.log)
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git init -q
+  | ===== 2026-11-14T07:01:32Z exit 0
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git remote add origin https://chromium.googlesource.com/chromium/src.git
+  | ===== 2026-11-14T07:01:32Z exit 0
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git fetch --depth=1 --no-tags origin +refs/tags/157.0.8103.51:refs/tags/157.0.8103.51
+  | From https://chromium.googlesource.com/chromium/src
+  |  * [new tag]               157.0.8103.51 -> 157.0.8103.51
+  | ===== 2026-11-14T07:06:02Z exit 0
+[justslide 07:06:02] $ git checkout -q --detach refs/tags/157.0.8103.51  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=src_checkout.log)
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git init -q
+  | ===== 2026-11-14T07:01:32Z exit 0
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git remote add origin https://chromium.googlesource.com/chromium/src.git
+  | ===== 2026-11-14T07:01:32Z exit 0
+  | 
+  | ===== 2026-11-14T07:01:32Z $ git fetch --depth=1 --no-tags origin +refs/tags/157.0.8103.51:refs/tags/157.0.8103.51
+  | From https://chromium.googlesource.com/chromium/src
+  |  * [new tag]               157.0.8103.51 -> 157.0.8103.51
+  | ===== 2026-11-14T07:06:02Z exit 0
+  | 
+  | ===== 2026-11-14T07:06:02Z $ git checkout -q --detach refs/tags/157.0.8103.51
+  | ===== 2026-11-14T07:07:12Z exit 0
+[justslide 07:07:12]    src_checkout: done
+[justslide 07:07:12] == step gclient_sync
+[justslide 07:07:12] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gclient sync --nohooks --no-history --shallow -D --jobs 8 --revision src@653674df293788cf4932c40d914e9e15b41a2d31  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium, log=gclient_sync.log)
+  | 
+  | ===== 2026-11-14T07:07:12Z $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gclient sync --nohooks --no-history --shallow -D --jobs 8 --revision src@653674df293788cf4932c40d914e9e15b41a2d31
+  | ===== 2026-11-14T07:11:45Z exit 0
+[justslide 07:11:45]    gclient_sync: done
+[justslide 07:11:45] == step runhooks
+[justslide 07:11:45] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gclient runhooks --jobs 8  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium, log=runhooks.log)
+  | 
+  | ===== 2026-11-14T07:11:45Z $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gclient runhooks --jobs 8
+  | ________ running 'vpython3 -vpython-spec src/vpython.toml -vpython-tool install' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | Hook 'vpython3 -vpython-spec src/vpython.toml -vpython-tool install' took 10.80 secs
+  | ________ running 'python3 src/build/landmines.py' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/third_party/depot_tools/update_depot_tools_toggle.py --disable' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/tools/remove_stale_files.py src/third_party/test_fonts/test_fonts.tar.gz src/third_party/node/node_modules.tar.gz src/third_party/tfhub_models src/tools/clang/crashreports' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/tools/remove_stale_pyc_files.py src/android_webview/tools src/build/android src/gpu/gles2_conform_support src/infra src/ppapi src/printing src/third_party/blink/renderer/build/scripts src/third_party/blink/tools src/third_party/catapult src/third_party/mako src/tools' i
+  | ________ running 'python3 src/build/mac_toolchain.py' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | Skipping Mac toolchain installation for mac
+  | ________ running 'python3 src/build/util/lastchange.py -o src/build/util/LASTCHANGE' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/build/util/lastchange.py --minibranch-out src/build/util/MINIBRANCH' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/build/util/lastchange.py -m GPU_LISTS_VERSION --revision-id-only --header src/gpu/config/gpu_lists_version.h' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/build/util/lastchange.py -m SKIA_COMMIT_HASH -s src/third_party/skia --header src/skia/ext/skia_commit_hash.h' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/build/util/lastchange.py -m DAWN_COMMIT_HASH -s src/third_party/dawn --revision src/gpu/webgpu/DAWN_VERSION --header src/gpu/webgpu/dawn_commit_hash.h' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/third_party/depot_tools/download_from_google_storage.py --no_resume --bucket chromium-browser-clang -s src/tools/clang/dsymutil/bin/dsymutil.arm64.sha1 -o src/tools/clang/dsymutil/bin/dsymutil' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | 0> Downloading src/tools/clang/dsymutil/bin/dsymutil@d72733d9365a8c75966b524a739bccb23151a021...
+  | Downloading 1 files took 7.862281 second(s)
+  | ________ running 'python3 src/testing/generate_location_tags.py --out src/testing/location_tags.json' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/buildtools/reclient_cfgs/configure_reclient_cfgs.py --rbe_instance projects/rbe-chrome-untrusted/instances/default_instance --reproxy_cfg_template reproxy.cfg.template --rewrapper_cfg_project  --skip_remoteexec_cfg_fetch --quiet' in '/Users/runner/work/JustSlide-Browser
+  | ________ running 'python3 src/build/config/siso/configure_siso.py --rbe_instance projects/rbe-chrome-untrusted/instances/default_instance --reapi_instance  --reapi_address  --reapi_backend_config_path  --credential-helper ' in '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium'
+  | ________ running 'python3 src/build/util/tast_control.py -o src/chromeos/tast_control.gni -t src/chromeos/tast_control.gni.template -i src/chromeos/tast_control_disabled_tests.txt --input-public src/chromeos/tast_control_disabled_tests_public_builders.txt -f src/chromeos/tast_control_flaky_tests.txt
+  | ===== 2026-11-14T07:12:26Z exit 0
+[justslide 07:12:26]    runhooks: done
+[justslide 07:12:26] == step gn_baseline
+[justslide 07:12:26] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gn gen /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=gn_baseline.log)
+  | 
+  | ===== 2026-11-14T07:12:26Z $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/gn gen /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide
+  | Done. Made 36674 targets from 5047 files in 12082ms
+  | ===== 2026-11-14T07:12:38Z exit 0
+[justslide 07:12:42]    gn_baseline: done
+[justslide 07:12:42] == step build_baseline
+[justslide 07:12:44] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
+[justslide 07:17:44]   progress: [2510/88341] 4m59.24s S CXX obj/third_party/perfetto/protos/perfetto/config/android/cpp/prot
+[justslide 07:22:44]   progress: [4778/87902] 9m59.36s S CXX obj/skia/skia/GrMeshBuffers.o
+[justslide 07:27:44]   progress: [7291/87133] 14m58.91s S CXX obj/cc/paint/paint/skottie_transform_property_value.o
+[justslide 07:32:44]   progress: [8240/86934] 19m59.64s S CXX obj/third_party/swiftshader/third_party/llvm-10.0/swiftshader_l
+[justslide 07:37:44]   progress: [9220/86480] 24m59.64s S CXX obj/third_party/dawn/src/tint/utils/text/text/styled_text_print
+[justslide 07:42:44]   progress: [10202/86260] 29m59.87s S OBJCXX obj/third_party/angle/src/libANGLE/renderer/metal/angle_meta
+[justslide 07:47:45]   progress: [11314/85428] 34m59.80s S CC 'obj/third_party/xnnpack/f16-spmm_arch=armv8.2-a+fp16/f16-spmm-3
+[justslide 07:52:45]   progress: [12065/85136] 39m59.78s S ASM 'obj/third_party/xnnpack/f32-igemm_arch=armv8.2-a+fp16+dotprod/
+[justslide 07:57:45]   progress: [13953/84267] 45m00.21s S CXX obj/third_party/webrtc/rtc_base/experiments/min_video_bitrate_e
+[justslide 08:02:45]   progress: [15934/82367] 50m00.42s S ACTION //third_party/devtools-frontend/src/front_end/panels/sources
+[justslide 08:07:45]   progress: [17351/80909] 55m00.45s S CXX obj/cc/mojom/mojom_layer_trees/layer_type.mojom.o
+[justslide 08:12:45]   progress: [19061/79883] 1h0m00.64s S CXX obj/third_party/blink/public/mojom/mojom_core/user_activation_
+[justslide 08:17:45]   progress: [20025/79076] 1h5m00.68s S CXX obj/components/policy/core/browser/internal/user_remote_comman
+[justslide 08:22:45]   progress: [20938/78453] 1h10m00.82s S CXX obj/v8/torque_generated_initializers/conversion-tq-csa.o
+[justslide 08:27:46]   progress: [21520/78428] 1h14m58.62s S CXX obj/v8/v8_base_without_compiler/builtins-json.o
+[justslide 08:32:46]   progress: [21646/78428] 1h20m00.51s S CXX obj/v8/v8_base_without_compiler/regexp-result-vector.o
+[justslide 08:37:46]   progress: [21762/78428] 1h25m01.25s S CXX obj/v8/v8_base_without_compiler/compilation-statistics.o
+[justslide 08:42:46]   progress: [21901/78428] 1h30m00.91s S CXX obj/v8/torque_generated_definitions/literal-objects-tq.o
+[justslide 08:47:46]   progress: [22057/78425] 1h35m00.26s S CXX obj/v8/v8_base_without_compiler/js-segmenter.o
+[justslide 08:52:46]   progress: [22151/78425] 1h40m00.74s S CXX obj/v8/v8_compiler/wasm-typer.o
+[justslide 08:57:46]   progress: [22266/78425] 1h45m01.08s S CXX obj/v8/v8_base_without_compiler/handler-outside.o
+[justslide 09:02:47]   progress: [22451/78262] 1h49m57.57s S CXX obj/third_party/cld_3/src/src/cld_3/utf8statetable.o
+[justslide 09:07:47]   progress: [22660/78167] 1h55m02.20s F CXX obj/v8/v8_bigint/div-barrett.o
+[justslide 09:12:47]   progress: [22964/77802] 2h0m00.94s S CXX obj/services/webnn/public/mojom/mojom_shared_cpp_sources/webnn
+[justslide 09:17:47]   progress: [23227/77633] 2h5m02.21s S CXX obj/services/service_manager/public/mojom/mojom_blink/service_
+[justslide 09:22:47]   progress: [24052/76792] 2h10m00.25s S CXX obj/third_party/litert/litert_runtime/gpu_environment.o
+[justslide 09:27:47]   progress: [24526/76578] 2h15m02.63s S CXX obj/services/network/public/mojom/mojom_blink/transferable_so
+[justslide 09:32:47]   progress: [25462/76520] 2h20m02.84s S CXX obj/third_party/blink/renderer/platform/platform/length_funct
+[justslide 09:37:47]   progress: [26071/76101] 2h25m02.40s S CXX obj/components/search_engines/search_engines/reconciling_temp
+[justslide 09:42:48]   progress: [26797/76052] 2h30m03.12s S CXX obj/third_party/blink/renderer/bindings/core/v8/v8/v8_css_sty
+[justslide 09:47:48]   progress: [27432/75944] 2h35m03.25s S CXX obj/third_party/blink/renderer/core/animation/animation/css_p
+[justslide 09:52:48]   progress: [27516/75943] 2h38m48.09s S CXX obj/third_party/blink/renderer/core/core_hot/event_dispatcher
+[justslide 09:57:48]   progress: [27639/75932] 2h45m03.97s S CXX obj/third_party/blink/renderer/bindings/core/v8/v8/v8_union_t
+[justslide 10:02:49]   progress: [27913/75909] 2h50m03.96s S CXX obj/third_party/blink/renderer/core/core/css_markup.o
+[justslide 10:07:49]   progress: [28169/75909] 2h55m03.03s S CXX obj/third_party/blink/renderer/core/core/css_property.o
+[justslide 10:12:49]   progress: [28286/75909] 2h59m31.83s S CXX obj/third_party/blink/renderer/core/core/view_transition_util
+[justslide 10:17:49]   progress: [28465/75909] 3h5m02.08s S CXX obj/third_party/blink/renderer/core/core/insert_node_before_co
+[justslide 10:22:49]   progress: [28630/75909] 3h10m04.79s S CXX obj/third_party/blink/renderer/core/core/idle_spell_check_con
+[justslide 10:27:49]   progress: [28834/75909] 3h15m01.36s S CXX obj/third_party/blink/renderer/core/core/frame_view_auto_size
+[justslide 10:32:50]   progress: [28922/75909] 3h20m02.83s S CXX obj/third_party/blink/renderer/core/core/web_local_frame_clie
+[justslide 10:37:50]   progress: [29070/75909] 3h25m05.42s S CXX obj/third_party/blink/renderer/core/core/html_label_element.o
+[justslide 10:42:50]   progress: [29125/75909] 3h29m26.56s S CXX obj/third_party/blink/renderer/core/core/html_frame_owner_ele
+[justslide 10:47:51]   progress: [29171/75909] 3h34m42.07s S CXX obj/third_party/blink/renderer/core/core/html_table_part_elem
+[justslide 10:52:51]   progress: [29246/75909] 3h39m58.01s S CXX obj/third_party/blink/renderer/core/core/mouse_event_manager.
+[justslide 10:57:51]   progress: [29303/75909] 3h44m58.47s S CXX obj/third_party/blink/renderer/core/core/legacy_dom_snapshot_
+[justslide 11:02:52]   progress: [29344/75909] 3h50m06.93s S CXX obj/third_party/blink/renderer/core/core/depth_ordered_layout
+[justslide 11:07:52]   progress: [29401/75909] 3h54m57.34s S CXX obj/third_party/blink/renderer/core/core/inline_break_token.o
+[justslide 11:12:52]   progress: [29436/75909] 3h59m45.15s S CXX obj/third_party/blink/renderer/core/core/layout_counter.o
+[justslide 11:17:53]   progress: [29466/75909] 4h5m03.94s S CXX obj/third_party/blink/renderer/core/core/layout_word_break.o
+[justslide 11:22:53]   progress: [29503/75909] 4h10m01.17s S CXX obj/third_party/blink/renderer/core/core/relative_utils.o
+[justslide 11:27:53]   progress: [29554/75909] 4h15m03.85s S CXX obj/third_party/blink/renderer/core/core/table_layout_algorit
+[justslide 11:32:53]   progress: [29648/75909] 4h20m04.75s S CXX obj/third_party/blink/renderer/core/core/mojo_interface_inter
+[justslide 11:37:54]   progress: [29710/75909] 4h25m06.08s S CXX obj/third_party/blink/renderer/core/core/embedded_content_pai
+[justslide 11:42:54]   progress: [29775/75909] 4h30m07.47s S CXX obj/third_party/blink/renderer/core/core/paint_timing_detecto
+[justslide 11:47:54]   progress: [29923/75909] 4h35m09.04s S CXX obj/third_party/blink/renderer/core/core/svg_a_element.o
+[justslide 11:52:54]   progress: [30098/75909] 4h40m08.68s S CXX obj/third_party/blink/renderer/core/core/trusted_html.o
+[justslide 11:57:54]   progress: [30445/75483] 4h45m08.76s S CXX obj/components/private_ai/private_ai/private_ai_service.o
+[justslide 12:02:55]   progress: [30790/75323] 4h50m08.59s S CXX obj/third_party/blink/renderer/modules/notifications/notifica
+[justslide 12:04:20]   budget spent; stopping child cleanly (it resumes on the next run)
+---- status ----
+{
+  "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
+  "pin": "157.0.8103.51 653674df2937",
+  "free_gb": 249.6,
+  "steps": {
+    "doctor": "done (2026-11-14T07:01:17Z)",
+    "depot_tools": "done (2026-11-14T07:01:32Z)",
+    "src_checkout": "done (2026-11-14T07:07:12Z)",
+    "gclient_sync": "done (2026-11-14T07:11:45Z)",
+    "runhooks": "done (2026-11-14T07:12:26Z)",
+    "gn_baseline": "done (2026-11-14T07:12:42Z)",
+    "build_baseline": "in_progress (2026-11-14T12:04:21Z)",
+    "verify_baseline": "pending",
+    "ui_install": "pending",
+    "patch": "pending",
+    "stage_ui": "pending",
+    "gn_justslide": "pending",
+    "build_justslide": "pending",
+    "verify_justslide": "pending"
+  },
+  "ninja_progress_baseline": "[30915/75316]"
+}
+[justslide 12:04:21] RESULT: incomplete - budget spent, no failure. Run the same command again to continue.
