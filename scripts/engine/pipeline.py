@@ -408,7 +408,27 @@ def step_gn_baseline(b: Budget, st: dict) -> dict:
     return gn_gen(b, "baseline")
 
 
+def ensure_metal_toolchain(b: Budget) -> dict:
+    """Xcode 26 ships without the Metal shader compiler; ANGLE's Metal backend
+    (Chromium's macOS GPU path) needs it. Install it on demand (no sudo needed)."""
+    if platform.system() != "Darwin":
+        return {"metal": "n/a"}
+    def ok() -> bool:
+        r = subprocess.run(["xcrun", "metal", "--version"], capture_output=True, text=True)
+        return r.returncode == 0 and "missing Metal Toolchain" not in (r.stdout + r.stderr)
+    if ok():
+        return {"metal": "present"}
+    say("Metal Toolchain missing: xcodebuild -downloadComponent MetalToolchain")
+    run(["xcodebuild", "-downloadComponent", "MetalToolchain"], log=LOG_DIR / "metal_toolchain.log", budget=b,
+        tail_to_stdout=15)
+    if not ok():
+        raise StepFailed("Metal Toolchain still unavailable after download; run "
+                         "`xcodebuild -downloadComponent MetalToolchain` on the Mac (Xcode > Settings > Components)")
+    return {"metal": "installed"}
+
+
 def build(b: Budget, tag: str, targets=("chrome",)) -> dict:
+    ensure_metal_toolchain(b)
     log = LOG_DIR / f"build_{tag}.log"
     jobs = build_jobs()
     t0 = time.time()

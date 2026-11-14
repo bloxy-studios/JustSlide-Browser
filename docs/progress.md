@@ -58,6 +58,12 @@ MacBookPro16,2, Intel Core i5-7300U, **4 logical cores, 8 GB RAM**, macOS 26.5.1
 Chromium build to take **a day or more** of 52-minute runs on this machine. Run 1: doctor, depot_tools,
 shallow `src` at the tag (37 min fetch) done; `gclient sync` started.
 
+### Build run 3 (2026-11-13 12:52–13:20 local)
+`gclient sync`, hooks and `gn gen` done (37,024 targets; 86.6 GB free after cleanup). The baseline
+compile started (778 / ~87,000 steps in 7.5 min at -j3) and then failed: Xcode 26 doesn't include the
+**Metal Toolchain** that ANGLE's Metal shaders need. The pipeline now runs
+`xcodebuild -downloadComponent MetalToolchain` before building if `xcrun metal` is missing.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|
