@@ -64,6 +64,16 @@ compile started (778 / ~87,000 steps in 7.5 min at -j3) and then failed: Xcode 2
 **Metal Toolchain** that ANGLE's Metal shaders need. The pipeline now runs
 `xcodebuild -downloadComponent MetalToolchain` before building if `xcrun metal` is missing.
 
+### GitHub Actions macOS build (2026-11-14)
+`.github/workflows/build-mac.yml` builds on free GitHub-hosted runners (public repo): Apple
+Silicon `macos-26` (default) or Intel `macos-26-intel`. Each run restores the previous build tree
+(artifact `engine-<arch>`, .engine with mtimes preserved), runs the pipeline for up to ~5 h, uploads
+the tree and re-dispatches itself until done (max 24 hops). Status and log tails go to the `ci-status`
+branch (`ci/<arch>/`). Start: Actions ▸ Run workflow, or a commit message containing `[mac-build]`.
+Fast checks: `.github/workflows/ci.yml`. **Install:** the agent's GitHub connection can't write
+`.github/workflows/` yet (403), so copies live in `docs/ci/build-mac.yml` and `docs/ci/ci.yml`; copy them
+into `.github/workflows/` on github.com.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|

@@ -58,7 +58,7 @@ LOG_DIR = ENGINE_ROOT / "logs"
 EVID = ENGINE_ROOT / "evidence"
 OUT_NAME = os.environ.get("JUSTSLIDE_OUT", "JustSlide" + ("-arm64" if os.environ.get("JUSTSLIDE_TARGET_CPU") == "arm64" else ""))
 OUT = CR_SRC / "out" / OUT_NAME
-MIN_FREE_GB_BEFORE_SYNC = 45
+MIN_FREE_GB_BEFORE_SYNC = int(os.environ.get("JUSTSLIDE_MIN_FREE_GB", "45"))
 
 STEPS = [
     "doctor", "depot_tools", "src_checkout", "gclient_sync", "runhooks",
