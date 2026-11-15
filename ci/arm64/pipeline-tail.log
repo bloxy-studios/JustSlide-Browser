@@ -1,64 +1,67 @@
-[justslide 14:56:50] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 287 min; free 249.6 GB
-[justslide 14:56:50] == step build_baseline
-[justslide 14:56:57] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
-[justslide 15:01:57]   progress: [894/30696] 4m58.25s S CXX obj/components/autofill/core/browser/browser/valuables_table.o
-[justslide 15:06:57]   progress: [1051/30683] 9m51.74s S CXX obj/content/browser/browser/service_worker_fetch_dispatcher.o
-[justslide 15:11:58]   progress: [1133/30535] 14m58.29s S OBJCXX obj/content/browser/browser/native_input_event_builder_mac.o
-[justslide 15:16:58]   progress: [1259/30534] 19m59.46s S CXX obj/content/public/browser/browser_sources/favicon_status.o
-[justslide 15:21:58]   progress: [1492/30534] 24m59.36s S CXX obj/content/browser/browser/database_helpers.o
-[justslide 15:26:59]   progress: [1561/30534] 29m51.47s S CXX obj/content/browser/browser/browser_thread_impl.o
-[justslide 15:31:59]   progress: [1674/30534] 34m50.01s S CXX obj/content/browser/browser/browser_handler.o
-[justslide 15:36:59]   progress: [1736/30528] 39m20.60s S CXX obj/content/browser/browser/storage_handler.o
-[justslide 15:42:00]   progress: [1781/30528] 44m57.17s S CXX obj/content/browser/browser/embedder_isolation_info.o
-[justslide 15:47:00]   progress: [1868/30528] 49m58.29s S CXX obj/content/browser/browser/navigation_url_loader.o
-[justslide 15:52:00]   progress: [1985/30523] 54m59.73s S CXX obj/content/app/app/mojo_ipc_support.o
-[justslide 15:57:00]   progress: [2104/30522] 59m56.52s S CXX obj/content/browser/browser/prefetcher.o
-[justslide 16:02:01]   progress: [2150/30522] 1h4m53.37s S CXX obj/content/browser/browser/browsing_context_state.o
-[justslide 16:07:01]   progress: [2213/30522] 1h10m02.41s S CXX obj/content/browser/browser/navigation_entry_impl.o
-[justslide 16:12:02]   progress: [2240/30522] 1h13m24.05s S CXX obj/content/browser/browser/render_frame_proxy_host.o
-[justslide 16:17:02]   progress: [2426/30356] 1h19m59.90s S CXX obj/components/password_manager/core/browser/password_store/p
-[justslide 16:22:02]   progress: [2774/30181] 1h25m03.49s S CXX obj/components/enterprise/connectors/core/core/content_analys
-[justslide 16:27:02]   progress: [3264/29945] 1h30m02.15s S CXX obj/components/performance_manager/performance_manager/inheri
-[justslide 16:32:03]   progress: [3685/29820] 1h35m03.78s S CXX obj/components/page_content_annotations/core/features/page_co
-[justslide 16:37:03]   progress: [4083/29693] 1h40m03.79s S CXX obj/components/site_engagement/content/content/site_engagemen
-[justslide 16:42:03]   progress: [4551/29646] 1h45m04.58s S CXX obj/third_party/pdfium/core/fpdfdoc/fpdfdoc/cpvt_word.o
-[justslide 16:47:03]   progress: [5680/29316] 1h50m04.55s S CXX obj/extensions/browser/api/system_cpu/system_cpu/cpu_info_pro
-[justslide 16:52:03]   progress: [6569/28857] 1h55m04.36s S CXX obj/components/printing/browser/browser/print_manager.o
-[justslide 16:57:04]   progress: [7091/28486] 2h0m05.16s S CXX obj/components/omnibox/browser/fusebox_action_mojo_bindings/fu
-[justslide 17:02:04]   progress: [7687/28017] 2h5m04.82s S ACTION //chrome/browser/resources/suggest_internals:resources_grit
-[justslide 17:07:04]   progress: [8297/27410] 2h10m03.48s S ACTION //chrome/browser/resources/key_value_pair_viewer_shared:li
-[justslide 17:12:04]   progress: [8678/27039] 2h15m04.82s S CXX obj/components/browser_apis/tab_strip/mojom/position_mojom_tr
-[justslide 17:17:04]   progress: [9155/26508] 2h20m05.22s S CXX obj/components/security_interstitials/content/renderer/render
-[justslide 17:22:05]   progress: [9661/25847] 2h25m04.64s S CXX obj/chrome/browser/ui/dialogs/dialogs/outdated_upgrade_bubble
-[justslide 17:27:05]   progress: [10153/25585] 2h30m04.25s S CXX obj/third_party/sentencepiece/sentencepiece/init.o
-[justslide 17:32:05]   progress: [10368/25568] 2h35m04.62s S CXX obj/chrome/browser/safe_browsing/safe_browsing/safe_browsing_
-[justslide 17:37:05]   progress: [10851/25190] 2h40m05.90s S ACTION //chrome/browser/resources/autofill_ml_internals:resources
-[justslide 17:42:05]   progress: [11343/24633] 2h45m05.61s S CXX obj/chrome/browser/ui/views/media_preview/mic_preview/mic_pre
-[justslide 17:47:05]   progress: [11592/24457] 2h50m06.78s S CXX obj/chrome/browser/ui/webui/drive_picker_host/drive_picker_ho
-[justslide 17:52:06]   progress: [11941/24333] 2h55m06.69s S CXX obj/chrome/browser/extensions/extensions/extension_error_cont
-[justslide 17:57:06]   progress: [12193/24226] 3h0m06.20s S CXX obj/chrome/browser/extensions/api/preference/preference/prefer
-[justslide 18:02:06]   progress: [12657/23889] 3h5m07.37s S CXX obj/chrome/browser/ui/webui/autofill_ml_internals/autofill_ml_
-[justslide 18:07:06]   progress: [13097/23534] 3h10m06.55s S CXX obj/chrome/browser/resources/downloads/resources/downloads_re
-[justslide 18:12:06]   progress: [13571/23207] 3h15m07.38s S CXX obj/chrome/browser/bookmarks/impl/bookmark_parent_folder_chil
-[justslide 18:17:07]   progress: [13839/23025] 3h20m07.40s S CXX obj/chrome/browser/notifications/impl/glic_actor_task_notific
-[justslide 18:22:07]   progress: [14053/22900] 3h25m06.70s S CXX obj/chrome/browser/media/impl/audio_service_util.o
-[justslide 18:27:07]   progress: [14255/22848] 3h30m06.19s S CXX obj/chrome/browser/ui/views/bookmarks/impl/bookmark_bar_view.
-[justslide 18:32:07]   progress: [14513/22693] 3h35m08.04s S CXX obj/chrome/browser/contextual_tasks/impl/smart_tab_sharing_me
-[justslide 18:37:07]   progress: [14719/22620] 3h40m07.27s S CXX obj/chrome/browser/ui/views/desktop_capture/impl/desktop_medi
-[justslide 18:42:08]   progress: [14983/22132] 3h45m08.40s S CXX obj/chrome/browser/browsing_data/impl/signin_data_counter.o
-[justslide 18:47:08]   progress: [15350/22031] 3h50m08.62s S CXX obj/chrome/browser/ui/startup/impl/launch_mode_recorder.o
-[justslide 18:52:08]   progress: [15586/21969] 3h55m07.64s S CXX obj/chrome/browser/ui/tabs/saved_tab_groups/impl/saved_tab_gr
-[justslide 18:57:08]   progress: [15779/21929] 4h0m09.66s S CXX obj/chrome/browser/ui/webui/webui_toolbar/impl/webui_toolbar_d
-[justslide 19:02:08]   progress: [15933/21872] 4h5m07.26s S CXX obj/chrome/browser/ui/views/app_menu/impl/tab_group_dynamic_me
-[justslide 19:07:09]   progress: [16069/21847] 4h10m08.80s S CXX obj/chrome/browser/ui/views/omnibox/impl/webui_readonly_omnib
-[justslide 19:12:09]   progress: [16213/21828] 4h15m09.94s S CXX obj/chrome/browser/ui/web_applications/impl/web_app_dialog_ut
-[justslide 19:17:09]   progress: [16385/21748] 4h20m07.63s S CXX obj/chrome/browser/glic/impl/glic_widget.o
-[justslide 19:22:09]   progress: [16541/21721] 4h25m05.05s S CXX obj/chrome/browser/ui/webui/history/history/history_identity_
-[justslide 19:27:09]   progress: [16634/21716] 4h30m09.33s S CXX obj/chrome/browser/glic/impl/glic_guest_actionable_mark_obser
-[justslide 19:32:10]   progress: [16791/21691] 4h35m11.15s S CXX obj/chrome/browser/enterprise/impl/network_request_content_an
-[justslide 19:37:10]   progress: [16962/21672] 4h40m06.65s S CXX obj/chrome/browser/core/browser_process_impl.o
-[justslide 19:42:10]   progress: [17215/20767] 4h45m11.63s S ACTION //chrome:packed_resources_locales_hr__repack(//build/toolc
-[justslide 19:43:50]   budget spent; stopping child cleanly (it resumes on the next run)
+[justslide 20:05:58] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 294 min; free 248.3 GB
+[justslide 20:05:58] == step build_baseline
+[justslide 20:06:03] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
+[justslide 20:11:03]   progress: [201/2760] 4m58.48s F CXX obj/chrome/browser/ui/views/search_ai_mode/impl/signin_promo_con
+[justslide 20:16:04]   progress: [472/2716] 9m58.40s F CXX obj/chrome/browser/ui/webui/multistep_filter_internals/multistep
+[justslide 20:21:04]   progress: [639/2693] 14m58.87s F CXX obj/chrome/browser/login_detection/login_detection/login_detect
+[justslide 20:26:04]   progress: [859/2616] 19m58.73s F CXX obj/chrome/browser/ui/webui/flags/flags/flags_ui.o
+[justslide 20:31:04]   progress: [1203/2432] 24m59.55s F CXX obj/components/data_sharing/migration/internal/internal/migrati
+  | [1826/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_PT.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_PT.lproj/InfoPlist.strings
+  | [1827/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/bg.lproj/InfoPlist.strings Chromium.app/Contents/Resources/bg.lproj/InfoPlist.strings
+  | [1828/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ar.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ar.lproj/InfoPlist.strings
+  | [1828/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ar.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ar.lproj/InfoPlist.strings
+  | [1828/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_BR.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_BR.lproj/InfoPlist.strings
+  | [1829/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/zh_TW.lproj/InfoPlist.strings Chromium.app/Contents/Resources/zh_TW.lproj/InfoPlist.strings
+  | [1829/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_BR.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_BR.lproj/InfoPlist.strings
+  | [1796/1846] 27m32.90s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/uk.lproj/InfoPlist.strings Chromium.app/Contents/Resources/uk.lproj/InfoPlist.strings
+  | [1831/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pl.lproj/InfoPlist.strings
+  | [1831/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/uk.lproj/InfoPlist.strings Chromium.app/Contents/Resources/uk.lproj/InfoPlist.strings
+  | [1832/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ml.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ml.lproj/InfoPlist.strings
+  | [1832/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nl.lproj/InfoPlist.strings
+  | [1832/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pl.lproj/InfoPlist.strings
+  | [1833/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ml.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ml.lproj/InfoPlist.strings
+  | [1834/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ko.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ko.lproj/InfoPlist.strings
+  | [1835/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/am.lproj/InfoPlist.strings Chromium.app/Contents/Resources/am.lproj/InfoPlist.strings
+  | [1835/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nb.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nb.lproj/InfoPlist.strings
+  | [1836/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/cs.lproj/InfoPlist.strings Chromium.app/Contents/Resources/cs.lproj/InfoPlist.strings
+  | [1837/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/mr.lproj/InfoPlist.strings Chromium.app/Contents/Resources/mr.lproj/InfoPlist.strings
+  | [1837/1846] 27m32.95s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/mr.lproj/InfoPlist.strings Chromium.app/Contents/Resources/mr.lproj/InfoPlist.strings
+  | [1837/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nb.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nb.lproj/InfoPlist.strings
+  | [1837/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nl.lproj/InfoPlist.strings
+  | [1839/1846] 27m32.95s F COPY_BUNDLE_DATA org.chromium.Chromium.manifest Chromium.app/Contents/Resources/org.chromium.Chromium.manifest
+  | [1837/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ms.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ms.lproj/InfoPlist.strings
+  | [1841/1846] 27m32.95s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ms.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ms.lproj/InfoPlist.strings
+  | [1842/1846] 27m33.16s F COPY_BUNDLE_DATA 'Chromium Framework.framework' 'Chromium.app/Contents/Frameworks/Chromium Framework.framework'
+  | build finished
+  | 
+  | 	
+  | noexec:355 local:1488 remote:0 cache:0 skip:94488
+  |   cache-write:0(err:0) fallback:0 retry:0
+  | fs: ops: 30914(err:4366) / r:5330(err:0) 335.65MiB / w:95(err:0) 953.63KiB
+  | 
+  | 
+  |  resource/capa used(err)  wait-avg |   s m |  serv-avg |   s m |
+  |    localexec/3   1468(0) 15m06.76s |▂▂▂▂▂▄█|     3.28s | ▂▃█▂  |
+  | shutdown cloud logging/monitoring done 688.875µs
+  | 
+  | 27m35.00s Build Succeeded: 1843 steps - 1.11/s
+  | ===== 2026-11-15T20:33:40Z exit 0
+[justslide 20:33:40]    build_baseline: done
+[justslide 20:33:40] == step verify_baseline
+{
+  "app": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide/Chromium Helper (Alerts).app",
+  "bundle_id": "org.chromium.Chromium.framework.AlertNotificationService",
+  "bundle_name": "Chromium Helper (Alerts)",
+  "executable": "Chromium Helper (Alerts)",
+  "version_output": "ium Framework' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/Chromium Framework' (no such file), '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/Chromium Framework' (no such file).",
+  "binary_sha256": "c1053f19e5abb66d322bafc5495bd0391fc1ffb304cda4d6b74d72512d2826c2",
+  "dump_dom_ok": false,
+  "dump_dom_bytes": 0,
+  "screenshot": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/evidence/baseline-headless.png",
+  "screenshot_bytes": 0,
+  "checked_at": "2026-11-15T20:33:47Z"
+}
+[justslide 20:33:47]    verify_baseline: FAILED: baseline verification failed (see /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/evidence/baseline.json)
 ---- status ----
 {
   "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
@@ -71,8 +74,8 @@
     "gclient_sync": "done (2026-11-14T07:11:45Z)",
     "runhooks": "done (2026-11-14T07:12:26Z)",
     "gn_baseline": "done (2026-11-14T07:12:42Z)",
-    "build_baseline": "in_progress (2026-11-15T19:43:54Z)",
-    "verify_baseline": "pending",
+    "build_baseline": "done (2026-11-15T20:33:40Z)",
+    "verify_baseline": "failed (2026-11-15T20:33:47Z)",
     "ui_install": "pending",
     "patch": "pending",
     "stage_ui": "pending",
@@ -80,6 +83,6 @@
     "build_justslide": "pending",
     "verify_justslide": "pending"
   },
-  "ninja_progress_baseline": "[17354/20209]"
+  "ninja_progress_baseline": "[1842/1846]"
 }
-[justslide 19:43:55] RESULT: incomplete - budget spent, no failure. Run the same command again to continue.
+[justslide 20:33:47] RESULT: FAILED
