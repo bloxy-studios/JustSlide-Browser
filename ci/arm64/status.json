@@ -1,7 +1,7 @@
 {
   "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
   "pin": "157.0.8103.51 653674df2937",
-  "free_gb": 248.3,
+  "free_gb": 248.0,
   "steps": {
     "doctor": "done (2026-11-14T07:01:17Z)",
     "depot_tools": "done (2026-11-14T07:01:32Z)",
@@ -9,7 +9,7 @@
     "gclient_sync": "done (2026-11-14T07:11:45Z)",
     "runhooks": "done (2026-11-14T07:12:26Z)",
     "gn_baseline": "done (2026-11-14T07:12:42Z)",
-    "build_baseline": "in_progress (2026-11-15T14:26:04Z)",
+    "build_baseline": "in_progress (2026-11-15T19:43:54Z)",
     "verify_baseline": "pending",
     "ui_install": "pending",
     "patch": "pending",
@@ -18,5 +18,5 @@
     "build_justslide": "pending",
     "verify_justslide": "pending"
   },
-  "ninja_progress_baseline": "[8734/43195]"
+  "ninja_progress_baseline": "[17354/20209]"
 }

@@ -1,68 +1,69 @@
-[justslide 09:43:02] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 283 min; free 250.4 GB
-[justslide 09:43:02] == step build_baseline
-[justslide 09:43:08] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
-[justslide 09:48:08]   progress: [913/45566] 4m58.60s S CXX obj/third_party/blink/renderer/core/animation/animation/css_rota
-[justslide 09:53:09]   progress: [1198/45535] 9m55.35s S CXX obj/third_party/blink/renderer/core/core/editor_command.o
-[justslide 09:58:09]   progress: [1265/45535] 14m58.91s S CXX obj/third_party/blink/renderer/core/core/frame_caret.o
-[justslide 10:03:09]   progress: [1354/45535] 19m58.54s S CXX obj/third_party/blink/renderer/core/core/selection_controller.o
-[justslide 10:08:10]   progress: [1440/45518] 24m59.85s S CXX obj/third_party/blink/renderer/core/core/visual_viewport_scroll
-[justslide 10:13:10]   progress: [1535/45497] 29m47.78s S CXX obj/third_party/blink/renderer/core/core/frame_lifecycle.o
-[justslide 10:18:10]   progress: [1553/45493] 32m17.71s S CXX obj/third_party/blink/renderer/core/core/location.o
-[justslide 10:23:11]   progress: [1555/45493] 39m26.17s S CXX obj/third_party/blink/renderer/core/core/navigation_rate_limite
-[justslide 10:28:12]   progress: [1608/45481] 44m44.93s S CXX obj/third_party/blink/renderer/core/core/web_frame.o
-[justslide 10:33:12]   progress: [1656/45469] 49m45.44s S CXX obj/third_party/blink/renderer/core/core/canvas_async_blob_crea
-[justslide 10:38:12]   progress: [1720/44949] 54m58.28s S CXX obj/third_party/blink/renderer/core/core/layout_frame.o
-[justslide 10:43:13]   progress: [1757/44923] 59m54.87s S CXX obj/third_party/blink/renderer/core/core/pointer_events_hit_rul
-[justslide 10:48:13]   progress: [1793/44904] 1h4m55.71s S CXX obj/third_party/blink/renderer/core/core/table_row_layout_algo
-[justslide 10:53:13]   progress: [1851/44867] 1h9m57.43s S CXX obj/third_party/blink/renderer/core/core/navigate_event_dispat
-[justslide 10:58:14]   progress: [1883/44847] 1h14m46.22s S CXX obj/third_party/blink/renderer/core/core/clip_rect.o
-[justslide 11:03:14]   progress: [1924/44826] 1h19m55.29s S CXX obj/third_party/blink/renderer/core/core/container_timing.o
-[justslide 11:08:14]   progress: [2037/44757] 1h25m04.44s S CXX obj/third_party/blink/renderer/core/core/svg_enumeration_map.
-[justslide 11:13:14]   progress: [2161/44757] 1h30m04.67s S CXX obj/third_party/blink/renderer/core/core/performance_observer
-[justslide 11:18:15]   progress: [2256/44757] 1h35m00.72s S CXX obj/third_party/blink/renderer/core/core/preference_manager.o
-[justslide 11:23:16]   progress: [2267/44757] 1h35m45.76s S CXX obj/third_party/blink/renderer/core/core_hot/event_path.o
-[justslide 11:28:17]   progress: [2267/44757] 1h35m45.76s S CXX obj/third_party/blink/renderer/core/core_hot/event_path.o
-[justslide 11:33:18]   progress: [2276/44757] 1h49m55.95s S CXX obj/third_party/blink/renderer/core/core_hot/html_collection.
-[justslide 11:38:18]   progress: [2346/44757] 1h55m01.46s S CXX obj/third_party/blink/renderer/core/core/script_controller.o
-[justslide 11:43:18]   progress: [2457/44736] 2h0m04.78s S CXX obj/third_party/blink/renderer/core/core/css_border_image.o
-[justslide 11:48:19]   progress: [2609/44702] 2h5m06.87s S CXX obj/third_party/blink/renderer/core/core/css_scale.o
-[justslide 11:53:19]   progress: [2698/44676] 2h10m07.94s S CXX obj/third_party/blink/renderer/core/core/snapped_query_scroll
-[justslide 11:58:19]   progress: [2906/44431] 2h15m08.82s S CXX obj/components/optimization_guide/core/ondevice/response_pars
-[justslide 12:03:19]   progress: [3102/44418] 2h20m03.06s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_rtc_
-[justslide 12:08:20]   progress: [3177/44414] 2h25m07.50s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_usb_
-[justslide 12:13:20]   progress: [3261/44413] 2h30m09.46s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_xr_s
-[justslide 12:18:20]   progress: [3347/44413] 2h35m08.72s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_canv
-[justslide 12:23:20]   progress: [3429/44411] 2h40m01.38s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_gpu_
-[justslide 12:28:21]   progress: [3509/44411] 2h45m10.29s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_noti
-[justslide 12:33:21]   progress: [3741/44395] 2h50m10.88s S AR obj/components/reporting/encryption/libencryption_module_inter
-[justslide 12:38:21]   progress: [3962/44392] 2h55m11.34s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_ndef
-[justslide 12:43:22]   progress: [4168/44375] 2h59m58.29s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_work
-[justslide 12:48:22]   progress: [4381/44365] 3h5m10.22s S CXX obj/third_party/blink/renderer/modules/clipboard/clipboard/cli
-[justslide 12:53:22]   progress: [4536/44352] 3h10m12.17s S CXX obj/third_party/blink/renderer/modules/peerconnection/peercon
-[justslide 12:58:22]   progress: [4757/44342] 3h15m10.73s S CXX obj/third_party/blink/renderer/modules/shapedetection/shapede
-[justslide 13:03:23]   progress: [4915/44332] 3h20m12.51s S CXX obj/third_party/blink/renderer/modules/manifest/manifest/mani
-[justslide 13:08:23]   progress: [5044/44315] 3h25m12.26s S CXX obj/third_party/blink/renderer/modules/media_controls/media_c
-[justslide 13:13:23]   progress: [5134/44309] 3h29m46.46s S CXX obj/third_party/blink/renderer/modules/accessibility/accessib
-[justslide 13:18:23]   progress: [5193/44298] 3h35m09.99s S CXX obj/third_party/blink/renderer/modules/encryptedmedia/encrypt
-[justslide 13:23:24]   progress: [5351/44289] 3h40m12.37s S CXX obj/third_party/blink/renderer/modules/xr/xr/xr_webgl_depth_i
-[justslide 13:28:24]   progress: [5513/44271] 3h45m10.83s S CXX obj/third_party/blink/renderer/modules/service_worker/service
-[justslide 13:33:24]   progress: [5638/44259] 3h50m13.04s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_ml_c
-[justslide 13:38:24]   progress: [5990/44259] 3h55m14.13s S CXX obj/third_party/blink/renderer/bindings/modules/v8/v8/v8_medi
-[justslide 13:43:25]   progress: [6293/44064] 4h0m13.94s S AR obj/components/segmentation_platform/public/proto/libproto.a
-[justslide 13:48:25]   progress: [6654/43723] 4h5m14.57s S CXX obj/components/safe_browsing/core/common/common/safe_browsing_
-[justslide 13:53:25]   progress: [7125/43633] 4h10m14.14s S CXX obj/components/security_interstitials/core/core/ssl_error_ui.
-[justslide 13:58:25]   progress: [7421/43396] 4h15m14.78s S CXX obj/content/public/common/renderer_type/media_playback_render
-[justslide 14:03:25]   progress: [7801/43301] 4h20m14.44s S CXX obj/device/bluetooth/fake_bluetooth/fake_local_gatt_service.o
-[justslide 14:08:26]   progress: [8325/43216] 4h25m15.96s S CXX obj/content/browser/indexed_db/indexed_db/backing_store_trans
-[justslide 14:13:26]   progress: [8597/43195] 4h30m14.33s S CXX obj/content/browser/browser/service_worker_quota_client.o
-[justslide 14:18:26]   progress: [8656/43195] 4h35m14.65s S CXX obj/content/browser/browser/federated_sd_jwt_handler.o
-[justslide 14:23:27]   progress: [8694/43195] 4h40m16.53s S CXX obj/content/browser/browser/signed_exchange_handler.o
-[justslide 14:26:02]   budget spent; stopping child cleanly (it resumes on the next run)
+[justslide 14:56:50] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 287 min; free 249.6 GB
+[justslide 14:56:50] == step build_baseline
+[justslide 14:56:57] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
+[justslide 15:01:57]   progress: [894/30696] 4m58.25s S CXX obj/components/autofill/core/browser/browser/valuables_table.o
+[justslide 15:06:57]   progress: [1051/30683] 9m51.74s S CXX obj/content/browser/browser/service_worker_fetch_dispatcher.o
+[justslide 15:11:58]   progress: [1133/30535] 14m58.29s S OBJCXX obj/content/browser/browser/native_input_event_builder_mac.o
+[justslide 15:16:58]   progress: [1259/30534] 19m59.46s S CXX obj/content/public/browser/browser_sources/favicon_status.o
+[justslide 15:21:58]   progress: [1492/30534] 24m59.36s S CXX obj/content/browser/browser/database_helpers.o
+[justslide 15:26:59]   progress: [1561/30534] 29m51.47s S CXX obj/content/browser/browser/browser_thread_impl.o
+[justslide 15:31:59]   progress: [1674/30534] 34m50.01s S CXX obj/content/browser/browser/browser_handler.o
+[justslide 15:36:59]   progress: [1736/30528] 39m20.60s S CXX obj/content/browser/browser/storage_handler.o
+[justslide 15:42:00]   progress: [1781/30528] 44m57.17s S CXX obj/content/browser/browser/embedder_isolation_info.o
+[justslide 15:47:00]   progress: [1868/30528] 49m58.29s S CXX obj/content/browser/browser/navigation_url_loader.o
+[justslide 15:52:00]   progress: [1985/30523] 54m59.73s S CXX obj/content/app/app/mojo_ipc_support.o
+[justslide 15:57:00]   progress: [2104/30522] 59m56.52s S CXX obj/content/browser/browser/prefetcher.o
+[justslide 16:02:01]   progress: [2150/30522] 1h4m53.37s S CXX obj/content/browser/browser/browsing_context_state.o
+[justslide 16:07:01]   progress: [2213/30522] 1h10m02.41s S CXX obj/content/browser/browser/navigation_entry_impl.o
+[justslide 16:12:02]   progress: [2240/30522] 1h13m24.05s S CXX obj/content/browser/browser/render_frame_proxy_host.o
+[justslide 16:17:02]   progress: [2426/30356] 1h19m59.90s S CXX obj/components/password_manager/core/browser/password_store/p
+[justslide 16:22:02]   progress: [2774/30181] 1h25m03.49s S CXX obj/components/enterprise/connectors/core/core/content_analys
+[justslide 16:27:02]   progress: [3264/29945] 1h30m02.15s S CXX obj/components/performance_manager/performance_manager/inheri
+[justslide 16:32:03]   progress: [3685/29820] 1h35m03.78s S CXX obj/components/page_content_annotations/core/features/page_co
+[justslide 16:37:03]   progress: [4083/29693] 1h40m03.79s S CXX obj/components/site_engagement/content/content/site_engagemen
+[justslide 16:42:03]   progress: [4551/29646] 1h45m04.58s S CXX obj/third_party/pdfium/core/fpdfdoc/fpdfdoc/cpvt_word.o
+[justslide 16:47:03]   progress: [5680/29316] 1h50m04.55s S CXX obj/extensions/browser/api/system_cpu/system_cpu/cpu_info_pro
+[justslide 16:52:03]   progress: [6569/28857] 1h55m04.36s S CXX obj/components/printing/browser/browser/print_manager.o
+[justslide 16:57:04]   progress: [7091/28486] 2h0m05.16s S CXX obj/components/omnibox/browser/fusebox_action_mojo_bindings/fu
+[justslide 17:02:04]   progress: [7687/28017] 2h5m04.82s S ACTION //chrome/browser/resources/suggest_internals:resources_grit
+[justslide 17:07:04]   progress: [8297/27410] 2h10m03.48s S ACTION //chrome/browser/resources/key_value_pair_viewer_shared:li
+[justslide 17:12:04]   progress: [8678/27039] 2h15m04.82s S CXX obj/components/browser_apis/tab_strip/mojom/position_mojom_tr
+[justslide 17:17:04]   progress: [9155/26508] 2h20m05.22s S CXX obj/components/security_interstitials/content/renderer/render
+[justslide 17:22:05]   progress: [9661/25847] 2h25m04.64s S CXX obj/chrome/browser/ui/dialogs/dialogs/outdated_upgrade_bubble
+[justslide 17:27:05]   progress: [10153/25585] 2h30m04.25s S CXX obj/third_party/sentencepiece/sentencepiece/init.o
+[justslide 17:32:05]   progress: [10368/25568] 2h35m04.62s S CXX obj/chrome/browser/safe_browsing/safe_browsing/safe_browsing_
+[justslide 17:37:05]   progress: [10851/25190] 2h40m05.90s S ACTION //chrome/browser/resources/autofill_ml_internals:resources
+[justslide 17:42:05]   progress: [11343/24633] 2h45m05.61s S CXX obj/chrome/browser/ui/views/media_preview/mic_preview/mic_pre
+[justslide 17:47:05]   progress: [11592/24457] 2h50m06.78s S CXX obj/chrome/browser/ui/webui/drive_picker_host/drive_picker_ho
+[justslide 17:52:06]   progress: [11941/24333] 2h55m06.69s S CXX obj/chrome/browser/extensions/extensions/extension_error_cont
+[justslide 17:57:06]   progress: [12193/24226] 3h0m06.20s S CXX obj/chrome/browser/extensions/api/preference/preference/prefer
+[justslide 18:02:06]   progress: [12657/23889] 3h5m07.37s S CXX obj/chrome/browser/ui/webui/autofill_ml_internals/autofill_ml_
+[justslide 18:07:06]   progress: [13097/23534] 3h10m06.55s S CXX obj/chrome/browser/resources/downloads/resources/downloads_re
+[justslide 18:12:06]   progress: [13571/23207] 3h15m07.38s S CXX obj/chrome/browser/bookmarks/impl/bookmark_parent_folder_chil
+[justslide 18:17:07]   progress: [13839/23025] 3h20m07.40s S CXX obj/chrome/browser/notifications/impl/glic_actor_task_notific
+[justslide 18:22:07]   progress: [14053/22900] 3h25m06.70s S CXX obj/chrome/browser/media/impl/audio_service_util.o
+[justslide 18:27:07]   progress: [14255/22848] 3h30m06.19s S CXX obj/chrome/browser/ui/views/bookmarks/impl/bookmark_bar_view.
+[justslide 18:32:07]   progress: [14513/22693] 3h35m08.04s S CXX obj/chrome/browser/contextual_tasks/impl/smart_tab_sharing_me
+[justslide 18:37:07]   progress: [14719/22620] 3h40m07.27s S CXX obj/chrome/browser/ui/views/desktop_capture/impl/desktop_medi
+[justslide 18:42:08]   progress: [14983/22132] 3h45m08.40s S CXX obj/chrome/browser/browsing_data/impl/signin_data_counter.o
+[justslide 18:47:08]   progress: [15350/22031] 3h50m08.62s S CXX obj/chrome/browser/ui/startup/impl/launch_mode_recorder.o
+[justslide 18:52:08]   progress: [15586/21969] 3h55m07.64s S CXX obj/chrome/browser/ui/tabs/saved_tab_groups/impl/saved_tab_gr
+[justslide 18:57:08]   progress: [15779/21929] 4h0m09.66s S CXX obj/chrome/browser/ui/webui/webui_toolbar/impl/webui_toolbar_d
+[justslide 19:02:08]   progress: [15933/21872] 4h5m07.26s S CXX obj/chrome/browser/ui/views/app_menu/impl/tab_group_dynamic_me
+[justslide 19:07:09]   progress: [16069/21847] 4h10m08.80s S CXX obj/chrome/browser/ui/views/omnibox/impl/webui_readonly_omnib
+[justslide 19:12:09]   progress: [16213/21828] 4h15m09.94s S CXX obj/chrome/browser/ui/web_applications/impl/web_app_dialog_ut
+[justslide 19:17:09]   progress: [16385/21748] 4h20m07.63s S CXX obj/chrome/browser/glic/impl/glic_widget.o
+[justslide 19:22:09]   progress: [16541/21721] 4h25m05.05s S CXX obj/chrome/browser/ui/webui/history/history/history_identity_
+[justslide 19:27:09]   progress: [16634/21716] 4h30m09.33s S CXX obj/chrome/browser/glic/impl/glic_guest_actionable_mark_obser
+[justslide 19:32:10]   progress: [16791/21691] 4h35m11.15s S CXX obj/chrome/browser/enterprise/impl/network_request_content_an
+[justslide 19:37:10]   progress: [16962/21672] 4h40m06.65s S CXX obj/chrome/browser/core/browser_process_impl.o
+[justslide 19:42:10]   progress: [17215/20767] 4h45m11.63s S ACTION //chrome:packed_resources_locales_hr__repack(//build/toolc
+[justslide 19:43:50]   budget spent; stopping child cleanly (it resumes on the next run)
 ---- status ----
 {
   "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
   "pin": "157.0.8103.51 653674df2937",
-  "free_gb": 248.3,
+  "free_gb": 248.0,
   "steps": {
     "doctor": "done (2026-11-14T07:01:17Z)",
     "depot_tools": "done (2026-11-14T07:01:32Z)",
@@ -70,7 +71,7 @@
     "gclient_sync": "done (2026-11-14T07:11:45Z)",
     "runhooks": "done (2026-11-14T07:12:26Z)",
     "gn_baseline": "done (2026-11-14T07:12:42Z)",
-    "build_baseline": "in_progress (2026-11-15T14:26:04Z)",
+    "build_baseline": "in_progress (2026-11-15T19:43:54Z)",
     "verify_baseline": "pending",
     "ui_install": "pending",
     "patch": "pending",
@@ -79,6 +80,6 @@
     "build_justslide": "pending",
     "verify_justslide": "pending"
   },
-  "ninja_progress_baseline": "[8734/43195]"
+  "ninja_progress_baseline": "[17354/20209]"
 }
-[justslide 14:26:05] RESULT: incomplete - budget spent, no failure. Run the same command again to continue.
+[justslide 19:43:55] RESULT: incomplete - budget spent, no failure. Run the same command again to continue.
