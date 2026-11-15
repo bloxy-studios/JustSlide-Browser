@@ -74,6 +74,13 @@ Fast checks: `.github/workflows/ci.yml`. **Install:** the agent's GitHub connect
 `.github/workflows/` yet (403), so copies live in `docs/ci/build-mac.yml` and `docs/ci/ci.yml`; copy them
 into `.github/workflows/` on github.com.
 
+### GitHub build: no progress across hops 1–4 (found 2026-11-14 22:10 local)
+Each hop re-compiled from scratch (hop 1 ended at 30,915/75,316 steps; hop 3 started at 1,826/82,992).
+Cause: the default tar format stores whole-second mtimes, and siso/ninja compare nanosecond mtimes, so
+every restored output looked stale. Fix: `tar --format pax` (verified locally: ns mtimes preserved) plus
+a restore check that logs how many objects kept sub-second mtimes. The first hop with the fix still
+restores an old (truncated) archive and rebuilds once; hops after it resume.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|

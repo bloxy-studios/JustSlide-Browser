@@ -113,6 +113,13 @@ jobs:
           cat "$RUNNER_TEMP"/restore/engine.tar.zst.* | zstd -dc -T0 | tar -C "$GITHUB_WORKSPACE" -xpf -
           rm -rf "$RUNNER_TEMP/restore"
           python3 scripts/engine/pipeline.py --status
+          # Sub-second mtimes survive only with pax archives; a 0 here means this hop rebuilds everything.
+          python3 - <<'PY'
+          import glob, os
+          fs = glob.glob(os.environ["GITHUB_WORKSPACE"] + "/.engine/chromium/src/out/JustSlide/obj/base/base/*.o")[:200]
+          frac = sum(1 for f in fs if os.stat(f).st_mtime_ns % 1_000_000_000)
+          print(f"restored objects with sub-second mtimes: {frac}/{len(fs)}")
+          PY
           df -h /
 
       - name: Build (time-boxed)
@@ -152,7 +159,9 @@ jobs:
         if: always() && steps.eval.outputs.state != 'unknown' && steps.eval.outputs.state != 'done'
         run: |
           mkdir -p "$RUNNER_TEMP/out"
-          tar -C "$GITHUB_WORKSPACE" -cpf - .engine | zstd -T0 -3 | split -b 4000m - "$RUNNER_TEMP/out/engine.tar.zst."
+          # pax format keeps nanosecond mtimes. The default format truncates to whole
+          # seconds, and siso/ninja then consider every output stale (full rebuild each hop).
+          tar --format pax -C "$GITHUB_WORKSPACE" -cpf - .engine | zstd -T0 -3 | split -b 4000m - "$RUNNER_TEMP/out/engine.tar.zst."
           ls -la "$RUNNER_TEMP/out"
           du -sh "$RUNNER_TEMP/out"
 
