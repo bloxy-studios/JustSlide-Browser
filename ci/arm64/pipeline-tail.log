@@ -1,72 +1,24 @@
-[justslide 20:05:58] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 294 min; free 248.3 GB
-[justslide 20:05:58] == step build_baseline
-[justslide 20:06:03] $ /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/depot_tools/autoninja -C /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide -j3 chrome  (cwd=/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src, log=build_baseline.log)
-[justslide 20:11:03]   progress: [201/2760] 4m58.48s F CXX obj/chrome/browser/ui/views/search_ai_mode/impl/signin_promo_con
-[justslide 20:16:04]   progress: [472/2716] 9m58.40s F CXX obj/chrome/browser/ui/webui/multistep_filter_internals/multistep
-[justslide 20:21:04]   progress: [639/2693] 14m58.87s F CXX obj/chrome/browser/login_detection/login_detection/login_detect
-[justslide 20:26:04]   progress: [859/2616] 19m58.73s F CXX obj/chrome/browser/ui/webui/flags/flags/flags_ui.o
-[justslide 20:31:04]   progress: [1203/2432] 24m59.55s F CXX obj/components/data_sharing/migration/internal/internal/migrati
-  | [1826/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_PT.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_PT.lproj/InfoPlist.strings
-  | [1827/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/bg.lproj/InfoPlist.strings Chromium.app/Contents/Resources/bg.lproj/InfoPlist.strings
-  | [1828/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ar.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ar.lproj/InfoPlist.strings
-  | [1828/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ar.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ar.lproj/InfoPlist.strings
-  | [1828/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_BR.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_BR.lproj/InfoPlist.strings
-  | [1829/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/zh_TW.lproj/InfoPlist.strings Chromium.app/Contents/Resources/zh_TW.lproj/InfoPlist.strings
-  | [1829/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pt_BR.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pt_BR.lproj/InfoPlist.strings
-  | [1796/1846] 27m32.90s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/uk.lproj/InfoPlist.strings Chromium.app/Contents/Resources/uk.lproj/InfoPlist.strings
-  | [1831/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pl.lproj/InfoPlist.strings
-  | [1831/1846] 27m32.93s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/uk.lproj/InfoPlist.strings Chromium.app/Contents/Resources/uk.lproj/InfoPlist.strings
-  | [1832/1846] 27m32.93s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ml.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ml.lproj/InfoPlist.strings
-  | [1832/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nl.lproj/InfoPlist.strings
-  | [1832/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/pl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/pl.lproj/InfoPlist.strings
-  | [1833/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ml.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ml.lproj/InfoPlist.strings
-  | [1834/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ko.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ko.lproj/InfoPlist.strings
-  | [1835/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/am.lproj/InfoPlist.strings Chromium.app/Contents/Resources/am.lproj/InfoPlist.strings
-  | [1835/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nb.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nb.lproj/InfoPlist.strings
-  | [1836/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/cs.lproj/InfoPlist.strings Chromium.app/Contents/Resources/cs.lproj/InfoPlist.strings
-  | [1837/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/mr.lproj/InfoPlist.strings Chromium.app/Contents/Resources/mr.lproj/InfoPlist.strings
-  | [1837/1846] 27m32.95s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/mr.lproj/InfoPlist.strings Chromium.app/Contents/Resources/mr.lproj/InfoPlist.strings
-  | [1837/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nb.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nb.lproj/InfoPlist.strings
-  | [1837/1846] 27m32.94s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/nl.lproj/InfoPlist.strings Chromium.app/Contents/Resources/nl.lproj/InfoPlist.strings
-  | [1839/1846] 27m32.95s F COPY_BUNDLE_DATA org.chromium.Chromium.manifest Chromium.app/Contents/Resources/org.chromium.Chromium.manifest
-  | [1837/1846] 27m32.94s S COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ms.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ms.lproj/InfoPlist.strings
-  | [1841/1846] 27m32.95s F COPY_BUNDLE_DATA gen/chrome/app_infoplist_strings/ms.lproj/InfoPlist.strings Chromium.app/Contents/Resources/ms.lproj/InfoPlist.strings
-  | [1842/1846] 27m33.16s F COPY_BUNDLE_DATA 'Chromium Framework.framework' 'Chromium.app/Contents/Frameworks/Chromium Framework.framework'
-  | build finished
-  | 
-  | 	
-  | noexec:355 local:1488 remote:0 cache:0 skip:94488
-  |   cache-write:0(err:0) fallback:0 retry:0
-  | fs: ops: 30914(err:4366) / r:5330(err:0) 335.65MiB / w:95(err:0) 953.63KiB
-  | 
-  | 
-  |  resource/capa used(err)  wait-avg |   s m |  serv-avg |   s m |
-  |    localexec/3   1468(0) 15m06.76s |▂▂▂▂▂▄█|     3.28s | ▂▃█▂  |
-  | shutdown cloud logging/monitoring done 688.875µs
-  | 
-  | 27m35.00s Build Succeeded: 1843 steps - 1.11/s
-  | ===== 2026-11-15T20:33:40Z exit 0
-[justslide 20:33:40]    build_baseline: done
-[justslide 20:33:40] == step verify_baseline
+[justslide 04:10:15] engine root /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine; pin 157.0.8103.51; budget 281 min; free 247.8 GB
+[justslide 04:10:15] == step verify_baseline
 {
-  "app": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide/Chromium Helper (Alerts).app",
-  "bundle_id": "org.chromium.Chromium.framework.AlertNotificationService",
-  "bundle_name": "Chromium Helper (Alerts)",
-  "executable": "Chromium Helper (Alerts)",
-  "version_output": "ium Framework' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/Chromium Framework' (no such file), '/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/Chromium Framework' (no such file).",
-  "binary_sha256": "c1053f19e5abb66d322bafc5495bd0391fc1ffb304cda4d6b74d72512d2826c2",
+  "app": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/chromium/src/out/JustSlide/Chromium.app",
+  "bundle_id": "org.chromium.Chromium",
+  "bundle_name": "Chromium",
+  "executable": "Chromium",
+  "version_output": "Chromium 157.0.8103.51",
+  "binary_sha256": "d173a88a7a8184471d71c44541ab7898acb053116092f3851bfae20278d54b46",
   "dump_dom_ok": false,
-  "dump_dom_bytes": 0,
+  "dump_dom_bytes": 775,
   "screenshot": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/evidence/baseline-headless.png",
-  "screenshot_bytes": 0,
-  "checked_at": "2026-11-15T20:33:47Z"
+  "screenshot_bytes": 22689,
+  "checked_at": "2026-11-16T04:10:44Z"
 }
-[justslide 20:33:47]    verify_baseline: FAILED: baseline verification failed (see /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/evidence/baseline.json)
+[justslide 04:10:44]    verify_baseline: FAILED: baseline verification failed (see /Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine/evidence/baseline.json)
 ---- status ----
 {
   "engine_root": "/Users/runner/work/JustSlide-Browser/JustSlide-Browser/.engine",
   "pin": "157.0.8103.51 653674df2937",
-  "free_gb": 248.0,
+  "free_gb": 247.8,
   "steps": {
     "doctor": "done (2026-11-14T07:01:17Z)",
     "depot_tools": "done (2026-11-14T07:01:32Z)",
@@ -75,7 +27,7 @@
     "runhooks": "done (2026-11-14T07:12:26Z)",
     "gn_baseline": "done (2026-11-14T07:12:42Z)",
     "build_baseline": "done (2026-11-15T20:33:40Z)",
-    "verify_baseline": "failed (2026-11-15T20:33:47Z)",
+    "verify_baseline": "failed (2026-11-16T04:10:44Z)",
     "ui_install": "pending",
     "patch": "pending",
     "stage_ui": "pending",
@@ -85,4 +37,4 @@
   },
   "ninja_progress_baseline": "[1842/1846]"
 }
-[justslide 20:33:47] RESULT: FAILED
+[justslide 04:10:44] RESULT: FAILED
