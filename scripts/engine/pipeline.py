@@ -266,8 +266,10 @@ def patches_applied() -> bool:
 
 
 def find_app() -> Path | None:
-    apps = sorted(OUT.glob("*.app")) if OUT.exists() else []
-    return apps[0] if apps else None
+    """The browser bundle, not a helper: "Chromium Helper (Alerts).app" sorts
+    before "Chromium.app", so filter helpers and prefer the shortest name."""
+    apps = [a for a in OUT.glob("*.app") if "Helper" not in a.name] if OUT.exists() else []
+    return min(apps, key=lambda a: (len(a.name), a.name)) if apps else None
 
 
 def app_binary(app: Path) -> Path:

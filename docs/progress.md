@@ -81,6 +81,11 @@ every restored output looked stale. Fix: `tar --format pax` (verified locally: n
 a restore check that logs how many objects kept sub-second mtimes. The first hop with the fix still
 restores an old (truncated) archive and rebuilds once; hops after it resume.
 
+### Baseline Chromium built on GitHub (2026-11-15 15:33 local, hop 8)
+Unmodified Chromium 157.0.8103.51 compiled for arm64 (pax fix worked: hops resumed; the last hop
+finished the final 1,843 steps in 27 min). `verify_baseline` failed on a pipeline bug: it launched
+"Chromium Helper (Alerts).app" (sorts first) instead of Chromium.app. Fixed in `find_app`.
+
 ### Verified (with what)
 | Check | Result | Where |
 |---|---|---|

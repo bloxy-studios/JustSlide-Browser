@@ -184,7 +184,9 @@ jobs:
         run: |
           out="$JUSTSLIDE_ENGINE_ROOT/chromium/src/out/JustSlide"
           # Component build: the .app loads dylibs that sit next to it in the out dir.
-          tar -C "$out" -czf "$RUNNER_TEMP/justslide-${ARCH}.tgz" $(cd "$out" && ls -d *.app *.dylib 2>/dev/null)
+          app=$(cd "$out" && ls -d *.app | grep -v Helper | awk '{ print length, $0 }' | sort -n | head -1 | cut -d' ' -f2-)
+          echo "packaging $app"
+          tar -C "$out" -czf "$RUNNER_TEMP/justslide-${ARCH}.tgz" "$app" $(cd "$out" && ls *.dylib 2>/dev/null)
           cp -R "$JUSTSLIDE_ENGINE_ROOT/evidence" "$RUNNER_TEMP/ci/evidence" || true
           ls -la "$RUNNER_TEMP"
 
